@@ -5,6 +5,35 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sana Özel</title>
   <style>
+  /* Patlama Animasyonu */
+  @keyframes explosion {
+    0% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    25% {
+      transform: scale(1.5);
+      opacity: 0.8;
+    }
+    50% {
+      transform: scale(1.8);
+      opacity: 0.5;
+    }
+    75% {
+      transform: scale(2);
+      opacity: 0.2;
+    }
+    100% {
+      transform: scale(0);
+      opacity: 0;
+    }
+  }
+
+  .explosion-effect {
+    display: inline-block;
+    animation: explosion 1s ease-out;
+  }
+
     /* Genel Stil */
     body {
       margin: 0;
@@ -100,7 +129,7 @@
   </div>
 
   <div class="content">
-    <h1>Senin İçin Hazırladım 💕</h1>
+   <h1 class="explosion-effect">Senin İçin Hazırladım 💕</h1>
     <p>Birlikte geçirdiğimiz güzel anılar için...</p>
     <a href="galeri.html">Devam Et</a>
   </div>
