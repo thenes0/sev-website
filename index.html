@@ -5,7 +5,58 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sana Özel</title>
   <style>
+    
+  @keyframes sparkle {
+    0% {
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+    50% {
+      text-shadow: 0 0 30px rgba(255, 255, 255, 1), 0 0 50px rgba(255, 255, 255, 1);
+    }
+    100% {
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+  }
+
+  .sparkle-effect {
+    animation: sparkle 2s infinite;
+  }
+
+<h1 class="sparkle-effect">Senin İçin Hazırladım 💕</h1>
+
+    .particle {
+    position: absolute;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    background-color: rgba(255, 255, 255, 0.7);
+    animation: rise 3s ease-in-out infinite;
+  }
+
+  @keyframes rise {
+    0% {
+      transform: translateY(0) scale(1);
+    }
+    50% {
+      transform: translateY(-200px) scale(2);
+    }
+    100% {
+      transform: translateY(-400px) scale(3);
+    }
+  }
+</style>
+
+<script>
+  // Partikülleri yaratacak JavaScript kodu
+  document.addEventListener('DOMContentLoaded', function() {
+    for (let i = 0; i < 50; i++) {
+      let particle = document.createElement('div');
+      particle.classList.add('particle');
+      particle.style.left = `${Math.random() * window.innerWidth}px`;
+      particle.style.animationDelay = `${Math.random() * 3}s`;
+      document.body.appendChild(particle);
   /* Patlama Animasyonu */
+  
   @keyframes explosion {
     0% {
       transform: scale(1);
