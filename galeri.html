@@ -12,102 +12,108 @@
       background: linear-gradient(to bottom, #ff9a9e, #fad0c4);
       color: #333;
       display: flex;
+      flex-direction: column;
+      align-items: center;
+      overflow-x: hidden;
+    }
+
+    h1 {
+      margin-bottom: 30px;
+      color: #ffffff;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+      font-size: 3rem;
+      animation: slideIn 1.5s ease-out;
+    }
+
+    .photo-container {
+      width: 100%;
+      max-width: 1200px;
+      display: flex;
       flex-wrap: wrap;
       justify-content: center;
     }
 
-    h1 {
-      width: 100%;
-      text-align: center;
-      margin-bottom: 20px;
-      color: #ffffff;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-    }
-
     .photo {
-      width: 150px;
-      height: 150px;
-      margin: 10px;
+      width: 200px;
+      height: 200px;
+      margin: 20px;
       overflow: hidden;
-      border-radius: 50%;
+      border-radius: 15px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      position: relative;
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeIn 1s ease forwards;
     }
 
     .photo img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.4s ease;
-    }
-
-    .photo:hover {
-      transform: scale(1.2);
-      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
     }
 
     .photo:hover img {
-      transform: rotate(10deg) scale(1.1);
+      transform: scale(1.1);
     }
 
-    /* Animasyonlu Daire Çerçeve */
-    .photo::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      border: 3px solid transparent;
-      animation: spin 4s linear infinite;
+    /* Animasyonlar */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    .photo:hover::before {
-      border-color: #fff;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   </style>
 </head>
 <body>
   <h1>Güzel Anılarımız 📸</h1>
-
-  <!-- 30 Fotoğraf İçin Döngü -->
-  <div class="photo"><img src="foto1.jpg" alt="Fotoğraf 1"></div>
-  <div class="photo"><img src="foto2.jpg" alt="Fotoğraf 2"></div>
-  <div class="photo"><img src="foto3.jpg" alt="Fotoğraf 3"></div>
-  <div class="photo"><img src="foto4.jpg" alt="Fotoğraf 4"></div>
-  <div class="photo"><img src="foto5.jpg" alt="Fotoğraf 5"></div>
-  <div class="photo"><img src="foto6.jpg" alt="Fotoğraf 6"></div>
-  <div class="photo"><img src="foto7.jpg" alt="Fotoğraf 7"></div>
-  <div class="photo"><img src="foto8.jpg" alt="Fotoğraf 8"></div>
-  <div class="photo"><img src="foto9.jpg" alt="Fotoğraf 9"></div>
-  <div class="photo"><img src="foto10.jpg" alt="Fotoğraf 10"></div>
-  <div class="photo"><img src="foto11.jpg" alt="Fotoğraf 11"></div>
-  <div class="photo"><img src="foto12.jpg" alt="Fotoğraf 12"></div>
-  <div class="photo"><img src="foto13.jpg" alt="Fotoğraf 13"></div>
-  <div class="photo"><img src="foto14.jpg" alt="Fotoğraf 14"></div>
-  <div class="photo"><img src="foto15.jpg" alt="Fotoğraf 15"></div>
-  <div class="photo"><img src="foto16.jpg" alt="Fotoğraf 16"></div>
-  <div class="photo"><img src="foto17.jpg" alt="Fotoğraf 17"></div>
-  <div class="photo"><img src="foto18.jpg" alt="Fotoğraf 18"></div>
-  <div class="photo"><img src="foto19.jpg" alt="Fotoğraf 19"></div>
-  <div class="photo"><img src="foto20.jpg" alt="Fotoğraf 20"></div>
-  <div class="photo"><img src="foto21.jpg" alt="Fotoğraf 21"></div>
-  <div class="photo"><img src="foto22.jpg" alt="Fotoğraf 22"></div>
-  <div class="photo"><img src="foto23.jpg" alt="Fotoğraf 23"></div>
-  <div class="photo"><img src="foto24.jpg" alt="Fotoğraf 24"></div>
-  <div class="photo"><img src="foto25.jpg" alt="Fotoğraf 25"></div>
-  <div class="photo"><img src="foto26.jpg" alt="Fotoğraf 26"></div>
-  <div class="photo"><img src="foto27.jpg" alt="Fotoğraf 27"></div>
-  <div class="photo"><img src="foto28.jpg" alt="Fotoğraf 28"></div>
-  <div class="photo"><img src="foto29.jpg" alt="Fotoğraf 29"></div>
-  <div class="photo"><img src="foto30.jpg" alt="Fotoğraf 30"></div>
-
+  <div class="photo-container">
+    <!-- 30 Fotoğraf -->
+    <div class="photo" style="animation-delay: 0.1s;"><img src="foto1.jpg" alt="Fotoğraf 1"></div>
+    <div class="photo" style="animation-delay: 0.2s;"><img src="foto2.jpg" alt="Fotoğraf 2"></div>
+    <div class="photo" style="animation-delay: 0.3s;"><img src="foto3.jpg" alt="Fotoğraf 3"></div>
+    <div class="photo" style="animation-delay: 0.4s;"><img src="foto4.jpg" alt="Fotoğraf 4"></div>
+    <div class="photo" style="animation-delay: 0.5s;"><img src="foto5.jpg" alt="Fotoğraf 5"></div>
+    <div class="photo" style="animation-delay: 0.6s;"><img src="foto6.jpg" alt="Fotoğraf 6"></div>
+    <div class="photo" style="animation-delay: 0.7s;"><img src="foto7.jpg" alt="Fotoğraf 7"></div>
+    <div class="photo" style="animation-delay: 0.8s;"><img src="foto8.jpg" alt="Fotoğraf 8"></div>
+    <div class="photo" style="animation-delay: 0.9s;"><img src="foto9.jpg" alt="Fotoğraf 9"></div>
+    <div class="photo" style="animation-delay: 1s;"><img src="foto10.jpg" alt="Fotoğraf 10"></div>
+    <div class="photo" style="animation-delay: 1.1s;"><img src="foto11.jpg" alt="Fotoğraf 11"></div>
+    <div class="photo" style="animation-delay: 1.2s;"><img src="foto12.jpg" alt="Fotoğraf 12"></div>
+    <div class="photo" style="animation-delay: 1.3s;"><img src="foto13.jpg" alt="Fotoğraf 13"></div>
+    <div class="photo" style="animation-delay: 1.4s;"><img src="foto14.jpg" alt="Fotoğraf 14"></div>
+    <div class="photo" style="animation-delay: 1.5s;"><img src="foto15.jpg" alt="Fotoğraf 15"></div>
+    <div class="photo" style="animation-delay: 1.6s;"><img src="foto16.jpg" alt="Fotoğraf 16"></div>
+    <div class="photo" style="animation-delay: 1.7s;"><img src="foto17.jpg" alt="Fotoğraf 17"></div>
+    <div class="photo" style="animation-delay: 1.8s;"><img src="foto18.jpg" alt="Fotoğraf 18"></div>
+    <div class="photo" style="animation-delay: 1.9s;"><img src="foto19.jpg" alt="Fotoğraf 19"></div>
+    <div class="photo" style="animation-delay: 2s;"><img src="foto20.jpg" alt="Fotoğraf 20"></div>
+    <div class="photo" style="animation-delay: 2.1s;"><img src="foto21.jpg" alt="Fotoğraf 21"></div>
+    <div class="photo" style="animation-delay: 2.2s;"><img src="foto22.jpg" alt="Fotoğraf 22"></div>
+    <div class="photo" style="animation-delay: 2.3s;"><img src="foto23.jpg" alt="Fotoğraf 23"></div>
+    <div class="photo" style="animation-delay: 2.4s;"><img src="foto24.jpg" alt="Fotoğraf 24"></div>
+    <div class="photo" style="animation-delay: 2.5s;"><img src="foto25.jpg" alt="Fotoğraf 25"></div>
+    <div class="photo" style="animation-delay: 2.6s;"><img src="foto26.jpg" alt="Fotoğraf 26"></div>
+    <div class="photo" style="animation-delay: 2.7s;"><img src="foto27.jpg" alt="Fotoğraf 27"></div>
+    <div class="photo" style="animation-delay: 2.8s;"><img src="foto28.jpg" alt="Fotoğraf 28"></div>
+    <div class="photo" style="animation-delay: 2.9s;"><img src="foto29.jpg" alt="Fotoğraf 29"></div>
+    <div class="photo" style="animation-delay: 3s;"><img src="foto30.jpg" alt="Fotoğraf 30"></div>
+  </div>
 </body>
 </html>
