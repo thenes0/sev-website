@@ -29,6 +29,21 @@
     }
   }
 
+    @keyframes lightExplosion {
+    0% {
+      box-shadow: 0 0 0 rgba(255, 255, 255, 0.5);
+    }
+    50% {
+      box-shadow: 0 0 30px 15px rgba(255, 255, 255, 1);
+    }
+    100% {
+      box-shadow: 0 0 0 rgba(255, 255, 255, 0.5);
+    }
+  }
+
+  .light-effect {
+    animation: lightExplosion 1s ease-out infinite;
+  }
   .explosion-effect {
     display: inline-block;
     animation: explosion 1s ease-out;
