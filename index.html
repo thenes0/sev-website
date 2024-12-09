@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sana Özel</title>
+  <style>
+    /* Genel Stil */
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      overflow: hidden;
+    }
+
+    /* Arka Plan Slayt */
+    .slideshow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    .slideshow img {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      animation: fade 12s infinite;
+    }
+    .slideshow img:nth-child(1) {
+      animation-delay: 0s;
+    }
+    .slideshow img:nth-child(2) {
+      animation-delay: 4s;
+    }
+    .slideshow img:nth-child(3) {
+      animation-delay: 8s;
+    }
+
+    @keyframes fade {
+      0%, 100% { opacity: 0; }
+      33%, 66% { opacity: 1; }
+    }
+
+    /* Mesaj ve Link */
+    .content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: white;
+      text-shadow: 2px 2px 4px #000;
+      animation: slideIn 2s ease-out;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin: 0;
+    }
+
+    p {
+      font-size: 1.5rem;
+      margin: 10px 0 20px;
+    }
+
+    a {
+      display: inline-block;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      color: white;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid white;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+
+    a:hover {
+      background: white;
+      color: #f06292;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translate(-50%, -60%); }
+      to { opacity: 1; transform: translate(-50%, -50%); }
+    }
+  </style>
+</head>
+<body>
+  <div class="slideshow">
+    <img src="foto1.jpg" alt="Fotoğraf 1">
+    <img src="foto2.jpg" alt="Fotoğraf 2">
+    <img src="foto3.jpg" alt="Fotoğraf 3">
+  </div>
+
+  <div class="content">
+    <h1>Senin İçin Hazırladım 💕</h1>
+    <p>Birlikte geçirdiğimiz güzel anılar için...</p>
+    <a href="galeri.html">Devam Et</a>
+  </div>
+
+  <!-- İsteğe bağlı müzik -->
+  <audio autoplay loop>
+    <source src="romantik-sarki.mp3" type="audio/mpeg">
+  </audio>
+</body>
+</html>
