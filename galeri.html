@@ -9,7 +9,7 @@
       margin: 0;
       padding: 20px;
       font-family: 'Arial', sans-serif;
-      background: #fff;
+      background: linear-gradient(to bottom, #ff9a9e, #fad0c4);
       color: #333;
       display: flex;
       flex-wrap: wrap;
@@ -20,7 +20,8 @@
       width: 100%;
       text-align: center;
       margin-bottom: 20px;
-      color: #f06292;
+      color: #ffffff;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
     }
 
     .photo {
@@ -30,25 +31,83 @@
       overflow: hidden;
       border-radius: 50%;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease;
+      position: relative;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
     }
 
     .photo img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transition: transform 0.4s ease;
     }
 
     .photo:hover {
-      transform: scale(1.1);
+      transform: scale(1.2);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .photo:hover img {
+      transform: rotate(10deg) scale(1.1);
+    }
+
+    /* Animasyonlu Daire Çerçeve */
+    .photo::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 3px solid transparent;
+      animation: spin 4s linear infinite;
+    }
+
+    .photo:hover::before {
+      border-color: #fff;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
   </style>
 </head>
 <body>
   <h1>Güzel Anılarımız 📸</h1>
+
+  <!-- 30 Fotoğraf İçin Döngü -->
   <div class="photo"><img src="foto1.jpg" alt="Fotoğraf 1"></div>
   <div class="photo"><img src="foto2.jpg" alt="Fotoğraf 2"></div>
   <div class="photo"><img src="foto3.jpg" alt="Fotoğraf 3"></div>
-  <!-- Daha fazla fotoğraf eklemek için buraya yeni <div class="photo"> blokları ekleyin -->
+  <div class="photo"><img src="foto4.jpg" alt="Fotoğraf 4"></div>
+  <div class="photo"><img src="foto5.jpg" alt="Fotoğraf 5"></div>
+  <div class="photo"><img src="foto6.jpg" alt="Fotoğraf 6"></div>
+  <div class="photo"><img src="foto7.jpg" alt="Fotoğraf 7"></div>
+  <div class="photo"><img src="foto8.jpg" alt="Fotoğraf 8"></div>
+  <div class="photo"><img src="foto9.jpg" alt="Fotoğraf 9"></div>
+  <div class="photo"><img src="foto10.jpg" alt="Fotoğraf 10"></div>
+  <div class="photo"><img src="foto11.jpg" alt="Fotoğraf 11"></div>
+  <div class="photo"><img src="foto12.jpg" alt="Fotoğraf 12"></div>
+  <div class="photo"><img src="foto13.jpg" alt="Fotoğraf 13"></div>
+  <div class="photo"><img src="foto14.jpg" alt="Fotoğraf 14"></div>
+  <div class="photo"><img src="foto15.jpg" alt="Fotoğraf 15"></div>
+  <div class="photo"><img src="foto16.jpg" alt="Fotoğraf 16"></div>
+  <div class="photo"><img src="foto17.jpg" alt="Fotoğraf 17"></div>
+  <div class="photo"><img src="foto18.jpg" alt="Fotoğraf 18"></div>
+  <div class="photo"><img src="foto19.jpg" alt="Fotoğraf 19"></div>
+  <div class="photo"><img src="foto20.jpg" alt="Fotoğraf 20"></div>
+  <div class="photo"><img src="foto21.jpg" alt="Fotoğraf 21"></div>
+  <div class="photo"><img src="foto22.jpg" alt="Fotoğraf 22"></div>
+  <div class="photo"><img src="foto23.jpg" alt="Fotoğraf 23"></div>
+  <div class="photo"><img src="foto24.jpg" alt="Fotoğraf 24"></div>
+  <div class="photo"><img src="foto25.jpg" alt="Fotoğraf 25"></div>
+  <div class="photo"><img src="foto26.jpg" alt="Fotoğraf 26"></div>
+  <div class="photo"><img src="foto27.jpg" alt="Fotoğraf 27"></div>
+  <div class="photo"><img src="foto28.jpg" alt="Fotoğraf 28"></div>
+  <div class="photo"><img src="foto29.jpg" alt="Fotoğraf 29"></div>
+  <div class="photo"><img src="foto30.jpg" alt="Fotoğraf 30"></div>
+
 </body>
 </html>
