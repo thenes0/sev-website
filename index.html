@@ -28,11 +28,20 @@
       border-radius: 5px;
       text-decoration: none;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      animation: bounce 1s infinite;
     }
 
     .link-button:hover {
       background-color: #ff4d4d;
       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    @keyframes bounce {
+      0% { transform: translateY(0); }
+      25% { transform: translateY(-10px); }
+      50% { transform: translateY(0); }
+      75% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
     }
 
     /* Ses Kontrolleri */
@@ -48,8 +57,8 @@
 
   <!-- Şarkıyı Gösterme -->
   <div id="audio-controls">
-    <audio id="audio" controls>
-      <source src="romantik-sarki.mp3" type="audio/mpeg">
+    <audio id="audio" controls autoplay>
+      <source src="your-song.mp3" type="audio/mpeg">
       Your browser does not support the audio element.
     </audio>
   </div>
