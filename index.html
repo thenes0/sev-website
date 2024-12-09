@@ -5,106 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sana Özel</title>
   <style>
-    
-  @keyframes sparkle {
-    0% {
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-    }
-    50% {
-      text-shadow: 0 0 30px rgba(255, 255, 255, 1), 0 0 50px rgba(255, 255, 255, 1);
-    }
-    100% {
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-    }
-  }
-
-  .sparkle-effect {
-    animation: sparkle 2s infinite;
-  }
-
-<h1 class="sparkle-effect">Senin İçin Hazırladım 💕</h1>
-
-    .particle {
-    position: absolute;
-    border-radius: 50%;
-    width: 10px;
-    height: 10px;
-    background-color: rgba(255, 255, 255, 0.7);
-    animation: rise 3s ease-in-out infinite;
-  }
-
-  @keyframes rise {
-    0% {
-      transform: translateY(0) scale(1);
-    }
-    50% {
-      transform: translateY(-200px) scale(2);
-    }
-    100% {
-      transform: translateY(-400px) scale(3);
-    }
-  }
-</style>
-
-<script>
-  // Partikülleri yaratacak JavaScript kodu
-  document.addEventListener('DOMContentLoaded', function() {
-    for (let i = 0; i < 50; i++) {
-      let particle = document.createElement('div');
-      particle.classList.add('particle');
-      particle.style.left = `${Math.random() * window.innerWidth}px`;
-      particle.style.animationDelay = `${Math.random() * 3}s`;
-      document.body.appendChild(particle);
-  /* Patlama Animasyonu */
-  
-  @keyframes explosion {
-    0% {
-      transform: scale(1);
-      opacity: 1;
-    }
-    25% {
-      transform: scale(1.5);
-      opacity: 0.8;
-    }
-    50% {
-      transform: scale(1.8);
-      opacity: 0.5;
-    }
-    75% {
-      transform: scale(2);
-      opacity: 0.2;
-    }
-    100% {
-      transform: scale(0);
-      opacity: 0;
-    }
-  }
-
-    @keyframes lightExplosion {
-    0% {
-      box-shadow: 0 0 0 rgba(255, 255, 255, 0.5);
-    }
-    50% {
-      box-shadow: 0 0 30px 15px rgba(255, 255, 255, 1);
-    }
-    100% {
-      box-shadow: 0 0 0 rgba(255, 255, 255, 0.5);
-    }
-  }
-
-  .light-effect {
-    animation: lightExplosion 1s ease-out infinite;
-  }
-  .explosion-effect {
-    display: inline-block;
-    animation: explosion 1s ease-out;
-  }
-
     /* Genel Stil */
     body {
       margin: 0;
       font-family: 'Arial', sans-serif;
       overflow: hidden;
+      background-color: #222;
     }
 
     /* Arka Plan Slayt */
@@ -139,6 +45,91 @@
       33%, 66% { opacity: 1; }
     }
 
+    /* Patlama Animasyonu */
+    @keyframes explosion {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      25% {
+        transform: scale(1.5);
+        opacity: 0.8;
+      }
+      50% {
+        transform: scale(1.8);
+        opacity: 0.5;
+      }
+      75% {
+        transform: scale(2);
+        opacity: 0.2;
+      }
+      100% {
+        transform: scale(0);
+        opacity: 0;
+      }
+    }
+
+    .explosion-effect {
+      display: inline-block;
+      animation: explosion 1s ease-out;
+    }
+
+    /* Işık Patlaması Efekti */
+    @keyframes lightExplosion {
+      0% {
+        box-shadow: 0 0 0 rgba(255, 255, 255, 0.5);
+      }
+      50% {
+        box-shadow: 0 0 30px 15px rgba(255, 255, 255, 1);
+      }
+      100% {
+        box-shadow: 0 0 0 rgba(255, 255, 255, 0.5);
+      }
+    }
+
+    .light-effect {
+      animation: lightExplosion 1s ease-out infinite;
+    }
+
+    /* Partikül Yükselmesi */
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      width: 10px;
+      height: 10px;
+      background-color: rgba(255, 255, 255, 0.7);
+      animation: rise 3s ease-in-out infinite;
+    }
+
+    @keyframes rise {
+      0% {
+        transform: translateY(0) scale(1);
+      }
+      50% {
+        transform: translateY(-200px) scale(2);
+      }
+      100% {
+        transform: translateY(-400px) scale(3);
+      }
+    }
+
+    /* Işıltılı Yazı Efekti */
+    @keyframes sparkle {
+      0% {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+      }
+      50% {
+        text-shadow: 0 0 30px rgba(255, 255, 255, 1), 0 0 50px rgba(255, 255, 255, 1);
+      }
+      100% {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+      }
+    }
+
+    .sparkle-effect {
+      animation: sparkle 2s infinite;
+    }
+
     /* Mesaj ve Link */
     .content {
       position: absolute;
@@ -154,6 +145,7 @@
     h1 {
       font-size: 3rem;
       margin: 0;
+      font-weight: bold;
     }
 
     p {
@@ -178,35 +170,54 @@
       color: #f06292;
     }
 
+    /* Animasyonlu İçerik Giriş */
     @keyframes slideIn {
       from { opacity: 0; transform: translate(-50%, -60%); }
       to { opacity: 1; transform: translate(-50%, -50%); }
+    }
+
+    /* Şarkı ve Kontroller */
+    #audio-controls {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 1;
     }
   </style>
 </head>
 <body>
   <div class="slideshow">
     <img src="foto1.jpg" alt="Fotoğraf 1">
-    <img src="foto10.jpg" alt="Fotoğraf 10">
+    <img src="foto2.jpg" alt="Fotoğraf 2">
     <img src="foto3.jpg" alt="Fotoğraf 3">
-    <img src="foto17.jpg" alt="Fotoğraf 17">
-    <img src="foto5.jpg" alt="Fotoğraf 5">
-    <img src="foto6.jpg" alt="Fotoğraf 6">
   </div>
 
   <div class="content">
-   <h1 class="explosion-effect">Senin İçin Hazırladım 💕</h1>
+    <h1 class="sparkle-effect explosion-effect">Senin İçin Hazırladım 💕</h1>
     <p>Birlikte geçirdiğimiz güzel anılar için...</p>
     <a href="galeri.html">Devam Et</a>
   </div>
 
-  <!-- İsteğe bağlı müzik -->
-  <!-- Şarkıyı Gösterme -->
+  <!-- Partiküller -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      for (let i = 0; i < 50; i++) {
+        let particle = document.createElement('div');
+        particle.classList.add('particle');
+        particle.style.left = `${Math.random() * window.innerWidth}px`;
+        particle.style.animationDelay = `${Math.random() * 3}s`;
+        document.body.appendChild(particle);
+      }
+    });
+  </script>
+
+  <!-- Şarkı -->
   <div id="audio-controls">
-    <audio id="audio" controls>
-  <source src="romantik-sarki.mp3" type="audio/mpeg">
-  Your browser does not support the audio element.
-</audio>
+    <audio id="audio" controls autoplay>
+      <source src="romantik-sarki.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
   </div>
 
 </body>
