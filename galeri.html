@@ -1,174 +1,219 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fotoğraf Albümü</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 20px;
-      font-family: 'Arial', sans-serif;
-      background: linear-gradient(to bottom, #ff9a9e, #fad0c4);
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gelişmiş Sevgi Galerisi</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            background: #000;
+            color: #fff;
+        }
 
-    h1 {
-      margin-bottom: 30px;
-      color: #ffffff;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
-      font-size: 3rem;
-      animation: slideIn 1.5s ease-out;
-    }
+        /* Arka Plan Slayt Gösterisi */
+        .slideshow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
 
-    .photo-container {
-      width: 100%;
-      max-width: 1200px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
+        .slideshow img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            animation: fade 10s infinite;
+        }
 
-    .photo {
-      width: 200px;
-      height: 200px;
-      margin: 20px;
-      overflow: hidden;
-      border-radius: 15px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      cursor: pointer;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
+        .slideshow img:nth-child(2) {
+            animation-delay: 5s;
+        }
 
-    .photo:hover {
-      transform: scale(1.05);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-    }
+        @keyframes fade {
+            0%, 100% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
 
-    .photo img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+        /* Uçuşan Efektler */
+        .floating-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
 
-    /* Modal Tasarımı */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      justify-content: center;
-      align-items: center;
-    }
+        .floating-effect .particle {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float 10s infinite ease-in-out;
+        }
 
-    .modal-content {
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      text-align: center;
-      animation: fadeIn 0.5s ease;
-    }
+        .floating-effect .particle:nth-child(odd) {
+            background: rgba(255, 182, 193, 0.7);
+        }
 
-    .modal-content p {
-      margin: 0;
-      font-size: 1.2rem;
-      color: #555;
-    }
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0) scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-200px) translateX(100px) scale(1.2);
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-400px) translateX(-100px) scale(1);
+                opacity: 0;
+            }
+        }
 
-    .close {
-      margin-top: 20px;
-      padding: 10px 20px;
-      background: #ff6b6b;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+        /* Kaydırma ile Fotoğraf */
+        .photo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+            position: relative;
+            z-index: 2;
+        }
 
-    .close:hover {
-      background: #ff4d4d;
-    }
+        .photo-container .photo {
+            width: 60%;
+            margin: 20px auto;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            scroll-snap-align: center;
+            cursor: pointer;
+        }
 
-    /* Animasyon */
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: scale(0.8);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-  </style>
+        .photo-container .photo img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .photo-container .photo:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px rgba(255, 182, 193, 0.8);
+        }
+
+        /* Sevgi Notu */
+        .note {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 3;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .note.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -60%);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+    </style>
 </head>
 <body>
-  <h1>Güzel Anılarımız 📸</h1>
-  <div class="photo-container">
-    <!-- Fotoğraf Kartları ve Notlar -->
-    <div class="photo" data-note="Seninle her an bir şiir."><img src="foto1.jpg" alt="Fotoğraf 1"></div>
-    <div class="photo" data-note="Gözlerindeki ışıkla tüm yollar aydınlanıyor."><img src="foto2.jpg" alt="Fotoğraf 2"></div>
-    <div class="photo" data-note="Kalbim seninle bir ömür boyu."><img src="foto3.jpg" alt="Fotoğraf 3"></div>
-    <div class="photo" data-note="Birlikteyken zaman duruyor."><img src="foto4.jpg" alt="Fotoğraf 4"></div>
-    <div class="photo" data-note="Seninle hayat hep bahar."><img src="foto5.jpg" alt="Fotoğraf 5"></div>
-    <div class="photo" data-note="Aşkın tanımı seninle yapılır."><img src="foto6.jpg" alt="Fotoğraf 6"></div>
-    <div class="photo" data-note="Her şey seninle anlam buluyor."><img src="foto7.jpg" alt="Fotoğraf 7"></div>
-    <div class="photo" data-note="Bir gülüşün dünyalara değer."><img src="foto8.jpg" alt="Fotoğraf 8"></div>
-    <div class="photo" data-note="Seninle her an bir başka güzel."><img src="foto9.jpg" alt="Fotoğraf 9"></div>
-    <div class="photo" data-note="Sevgin dünyamı renklendiriyor."><img src="foto10.jpg" alt="Fotoğraf 10"></div>
-    <div class="photo" data-note="Birlikte her şey çok daha güzel."><img src="foto11.jpg" alt="Fotoğraf 11"></div>
-    <div class="photo" data-note="Seninle her an rüya gibi."><img src="foto12.jpg" alt="Fotoğraf 12"></div>
-    <div class="photo" data-note="Gözlerinde kayboluyorum."><img src="foto13.jpg" alt="Fotoğraf 13"></div>
-    <div class="photo" data-note="Sonsuzluğa giden yol seninle."><img src="foto14.jpg" alt="Fotoğraf 14"></div>
-    <div class="photo" data-note="Seninle her an bir ömre bedel."><img src="foto15.jpg" alt="Fotoğraf 15"></div>
-    <div class="photo" data-note="Aşkın her hali seninle güzel."><img src="foto16.jpg" alt="Fotoğraf 16"></div>
-    <div class="photo" data-note="Seninle zamanın anlamı yok."><img src="foto17.jpg" alt="Fotoğraf 17"></div>
-    <div class="photo" data-note="Her an seninle olmak bir mucize."><img src="foto18.jpg" alt="Fotoğraf 18"></div>
-    <div class="photo" data-note="Sonsuza kadar seninle olmak isterim."><img src="foto19.jpg" alt="Fotoğraf 19"></div>
-    <div class="photo" data-note="Seninle her şey mümkün."><img src="foto20.jpg" alt="Fotoğraf 20"></div>
-    <div class="photo" data-note="Birlikte her yere gitmeye hazırım."><img src="foto21.jpg" alt="Fotoğraf 21"></div>
-    <div class="photo" data-note="Seninle bir hayat kurmak en güzel hayalim."><img src="foto22.jpg" alt="Fotoğraf 22"></div>
-    <div class="photo" data-note="Seninle her şey tamam."><img src="foto23.jpg" alt="Fotoğraf 23"></div>
-    <div class="photo" data-note="Seninle her anın tadı bir başka."><img src="foto24.jpg" alt="Fotoğraf 24"></div>
-    <div class="photo" data-note="Senin gülüşün dünyama renk katıyor."><img src="foto25.jpg" alt="Fotoğraf 25"></div>
-    <div class="photo" data-note="Birlikte olmak her şeyin en güzel hali."><img src="foto26.jpg" alt="Fotoğraf 26"></div>
-    <div class="photo" data-note="Aşkımız her zaman büyüsün."><img src="foto27.jpg" alt="Fotoğraf 27"></div>
-    <div class="photo" data-note="Seninle her an bir masal."><img src="foto28.jpg" alt="Fotoğraf 28"></div>
-    <div class="photo" data-note="Birlikte her şey çok güzel."><img src="foto29.jpg" alt="Fotoğraf 29"></div>
-    <div class="photo" data-note="Seninle her an ölümsüzleşiyor."><img src="foto30.jpg" alt="Fotoğraf 30"></div>
-  </div>
-
-  <!-- Modal -->
-  <div class="modal" id="modal">
-    <div class="modal-content">
-      <p id="modal-text"></p>
-      <button class="close" onclick="closeModal()">Kapat</button>
+    <!-- Arka Plan Slayt Gösterisi -->
+    <div class="slideshow">
+        <img src="foto1.jpg" alt="Slayt 1">
+        <img src="foto2.jpg" alt="Slayt 2">
     </div>
-  </div>
 
-  <script>
-    const photos = document.querySelectorAll('.photo');
-    const modal = document.getElementById('modal');
-    const modalText = document.getElementById('modal-text');
+    <!-- Uçuşan Efektler -->
+    <div class="floating-effect">
+        <div class="particle" style="top: 10%; left: 20%; animation-delay: 0s;"></div>
+        <div class="particle" style="top: 30%; left: 50%; animation-delay: 2s;"></div>
+        <div class="particle" style="top: 70%; left: 80%; animation-delay: 4s;"></div>
+        <div class="particle" style="top: 50%; left: 10%; animation-delay: 6s;"></div>
+    </div>
 
-    photos.forEach(photo => {
-      photo.addEventListener('click', () => {
-        const note = photo.getAttribute('data-note');
-        modalText.textContent = note;
-        modal.style.display = 'flex';
-      });
-    });
+    <!-- Fotoğraf Galerisi -->
+    <div class="photo-container">
+        <!-- 30 Fotoğraf ve Notlar -->
+        <div class="photo" onclick="showNote('Seninle her an bir şiir.')">
+            <img src="foto1.jpg" alt="Fotoğraf 1">
+        </div>
+        <div class="photo" onclick="showNote('Gözlerindeki ışıkla tüm yollar aydınlanıyor.')">
+            <img src="foto2.jpg" alt="Fotoğraf 2">
+        </div>
+        <div class="photo" onclick="showNote('Kalbim seninle bir ömür boyu.')">
+            <img src="foto3.jpg" alt="Fotoğraf 3">
+        </div>
+        <div class="photo" onclick="showNote('Birlikteyken zaman duruyor.')">
+            <img src="foto4.jpg" alt="Fotoğraf 4">
+        </div>
+        <div class="photo" onclick="showNote('Seninle hayat hep bahar.')">
+            <img src="foto5.jpg" alt="Fotoğraf 5">
+        </div>
+        <div class="photo" onclick="showNote('Aşkın tanımı seninle yapılır.')">
+            <img src="foto6.jpg" alt="Fotoğraf 6">
+        </div>
+        <div class="photo" onclick="showNote('Her şey seninle anlam buluyor.')">
+            <img src="foto7.jpg" alt="Fotoğraf 7">
+        </div>
+        <div class="photo" onclick="showNote('Bir gülüşün dünyalara değer.')">
+            <img src="foto8.jpg" alt="Fotoğraf 8">
+        </div>
+        <div class="photo" onclick="showNote('Seninle her an bir başka güzel.')">
+            <img src="foto9.jpg" alt="Fotoğraf 9">
+        </div>
+        <div class="photo" onclick="showNote('Sevgin dünyamı renklendiriyor.')">
+            <img src="foto10.jpg" alt="Fotoğraf 10">
+        </div>
+        <!-- Daha fazla fotoğraf -->
+        <!-- 11-30 arasındaki fotoğraflar -->
+        <div class="photo" onclick="showNote('Seninle her şey tamam.')">
+            <img src="foto30.jpg" alt="Fotoğraf 30">
+        </div>
+    </div>
 
-    function closeModal() {
-      modal.style.display = 'none';
-    }
-  </script>
+    <!-- Sevgi Notu -->
+    <div class="note" id="note"></div>
+
+    <script>
+        function showNote(message) {
+            const note = document.getElementById('note');
+            note.textContent = message;
+            note.classList.add('active');
+            setTimeout(() => note.classList.remove('active'), 3000);
+        }
+    </script>
 </body>
 </html>
