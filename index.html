@@ -1,224 +1,222 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sana Özel</title>
-  <style>
-    /* Genel Stil */
-    body {
-      margin: 0;
-      font-family: 'Arial', sans-serif;
-      overflow: hidden;
-      background-color: #222;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sevgi Dolu Giriş</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: #000;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+        }
 
-    /* Arka Plan Slayt */
-    .slideshow {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-    }
-    .slideshow img {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      opacity: 0;
-      animation: fade 12s infinite;
-    }
-    .slideshow img:nth-child(1) {
-      animation-delay: 0s;
-    }
-    .slideshow img:nth-child(2) {
-      animation-delay: 4s;
-    }
-    .slideshow img:nth-child(3) {
-      animation-delay: 8s;
-    }
+        .container {
+            text-align: center;
+            animation: fadeIn 2s ease-in-out;
+            z-index: 2;
+            position: relative;
+        }
 
-    @keyframes fade {
-      0%, 100% { opacity: 0; }
-      33%, 66% { opacity: 1; }
-    }
+        h1 {
+            font-size: 3rem;
+            color: #ff6b6b;
+            animation: slideDown 1.5s ease-out;
+        }
 
-    /* Patlama Animasyonu */
-    @keyframes explosion {
-      0% {
-        transform: scale(1);
-        opacity: 1;
-      }
-      25% {
-        transform: scale(1.5);
-        opacity: 0.8;
-      }
-      50% {
-        transform: scale(1.8);
-        opacity: 0.5;
-      }
-      75% {
-        transform: scale(2);
-        opacity: 0.2;
-      }
-      100% {
-        transform: scale(0);
-        opacity: 0;
-      }
-    }
+        p {
+            font-size: 1.5rem;
+            color: #f8f8f8;
+            margin-top: 20px;
+            animation: fadeIn 2.5s ease-in-out;
+        }
 
-    .explosion-effect {
-      display: inline-block;
-      animation: explosion 1s ease-out;
-    }
+        a {
+            color: #ff6b6b;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.8rem;
+            position: relative;
+        }
 
-    /* Işık Patlaması Efekti */
-    @keyframes lightExplosion {
-      0% {
-        box-shadow: 0 0 0 rgba(255, 255, 255, 0.5);
-      }
-      50% {
-        box-shadow: 0 0 30px 15px rgba(255, 255, 255, 1);
-      }
-      100% {
-        box-shadow: 0 0 0 rgba(255, 255, 255, 0.5);
-      }
-    }
+        a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background: #ff6b6b;
+            left: 0;
+            bottom: -5px;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease-in-out;
+        }
 
-    .light-effect {
-      animation: lightExplosion 1s ease-out infinite;
-    }
+        a:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
 
-    /* Partikül Yükselmesi */
-    .particle {
-      position: absolute;
-      border-radius: 50%;
-      width: 10px;
-      height: 10px;
-      background-color: rgba(255, 255, 255, 0.7);
-      animation: rise 3s ease-in-out infinite;
-    }
+        a:hover {
+            color: #ffd1d1;
+        }
 
-    @keyframes rise {
-      0% {
-        transform: translateY(0) scale(1);
-      }
-      50% {
-        transform: translateY(-200px) scale(2);
-      }
-      100% {
-        transform: translateY(-400px) scale(3);
-      }
-    }
+        /* Uçan kalpler efekti */
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #ff6b6b;
+            opacity: 0.7;
+            animation: float 6s infinite ease-in-out;
+            border-radius: 50%;
+            clip-path: polygon(50% 0%, 100% 35%, 75% 100%, 50% 75%, 25% 100%, 0% 35%);
+        }
 
-    /* Işıltılı Yazı Efekti */
-    @keyframes sparkle {
-      0% {
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-      }
-      50% {
-        text-shadow: 0 0 30px rgba(255, 255, 255, 1), 0 0 50px rgba(255, 255, 255, 1);
-      }
-      100% {
-        text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-      }
-    }
+        .heart:nth-child(odd) {
+            background: #ffd1d1;
+        }
 
-    .sparkle-effect {
-      animation: sparkle 2s infinite;
-    }
+        @keyframes float {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 0.7;
+            }
+            50% {
+                transform: translateY(-100px) scale(1.2);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-200px) scale(1);
+                opacity: 0;
+            }
+        }
 
-    /* Mesaj ve Link */
-    .content {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-      color: white;
-      text-shadow: 2px 2px 4px #000;
-      animation: slideIn 2s ease-out;
-    }
+        /* Arka plan slayt gösterisi */
+        .slideshow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            opacity: 0;
+            animation: fadeInSlideshow 6s ease-in-out forwards;
+        }
 
-    h1 {
-      font-size: 3rem;
-      margin: 0;
-      font-weight: bold;
-    }
+        .slideshow img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            animation: slideShow 30s infinite;
+            transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
+        }
 
-    p {
-      font-size: 1.5rem;
-      margin: 10px 0 20px;
-    }
+        .slideshow img:nth-child(1) { animation-delay: 6s; }
+        .slideshow img:nth-child(2) { animation-delay: 9s; }
+        .slideshow img:nth-child(3) { animation-delay: 12s; }
+        .slideshow img:nth-child(4) { animation-delay: 15s; }
+        .slideshow img:nth-child(5) { animation-delay: 18s; }
+        .slideshow img:nth-child(6) { animation-delay: 21s; }
+        .slideshow img:nth-child(7) { animation-delay: 24s; }
+        .slideshow img:nth-child(8) { animation-delay: 27s; }
+        .slideshow img:nth-child(9) { animation-delay: 30s; }
+        .slideshow img:nth-child(10) { animation-delay: 33s; }
 
-    a {
-      display: inline-block;
-      padding: 15px 30px;
-      font-size: 1.2rem;
-      color: white;
-      text-decoration: none;
-      background: rgba(255, 255, 255, 0.2);
-      border: 2px solid white;
-      border-radius: 10px;
-      transition: all 0.3s ease;
-    }
+        /* Animasyonlar */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
 
-    a:hover {
-      background: white;
-      color: #f06292;
-    }
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
 
-    /* Animasyonlu İçerik Giriş */
-    @keyframes slideIn {
-      from { opacity: 0; transform: translate(-50%, -60%); }
-      to { opacity: 1; transform: translate(-50%, -50%); }
-    }
+        @keyframes fadeInSlideshow {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
 
-    /* Şarkı ve Kontroller */
-    #audio-controls {
-      position: fixed;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 1;
-    }
-  </style>
+        @keyframes slideShow {
+            0% {
+                opacity: 0;
+                transform: scale(1);
+            }
+            10% {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+            20% {
+                opacity: 0;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="slideshow">
-    <img src="foto1.jpg" alt="Fotoğraf 1">
-    <img src="foto2.jpg" alt="Fotoğraf 2">
-    <img src="foto3.jpg" alt="Fotoğraf 3">
-  </div>
+    <!-- Sevgi dolu metin -->
+    <div class="container">
+        <h1>Sevgili [İsim],</h1>
+        <p>
+            Hayatımın en güzel <a href="galeri.html">AŞK</a> hikayesi sensin.  
+            Kalbimin en özel köşesinde hep sen varsın.  
+            Bu sayfa seni mutlu etmek için, çünkü sen her şeyin en iyisini hak ediyorsun! ❤️
+        </p>
+    </div>
 
-  <div class="content">
-    <h1 class="sparkle-effect explosion-effect">Senin İçin Hazırladım 💕</h1>
-    <p>Birlikte geçirdiğimiz güzel anılar için...</p>
-    <a href="galeri.html">Devam Et</a>
-  </div>
+    <!-- Uçan kalpler -->
+    <div class="hearts">
+        <div class="heart" style="left: 10%; animation-delay: 0s;"></div>
+        <div class="heart" style="left: 20%; animation-delay: 1s;"></div>
+        <div class="heart" style="left: 30%; animation-delay: 2s;"></div>
+        <div class="heart" style="left: 40%; animation-delay: 3s;"></div>
+        <div class="heart" style="left: 50%; animation-delay: 4s;"></div>
+        <div class="heart" style="left: 60%; animation-delay: 5s;"></div>
+        <div class="heart" style="left: 70%; animation-delay: 6s;"></div>
+        <div class="heart" style="left: 80%; animation-delay: 7s;"></div>
+        <div class="heart" style="left: 90%; animation-delay: 8s;"></div>
+    </div>
 
-  <!-- Partiküller -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      for (let i = 0; i < 50; i++) {
-        let particle = document.createElement('div');
-        particle.classList.add('particle');
-        particle.style.left = `${Math.random() * window.innerWidth}px`;
-        particle.style.animationDelay = `${Math.random() * 3}s`;
-        document.body.appendChild(particle);
-      }
-    });
-  </script>
-
-  <!-- Şarkı -->
-  <div id="audio-controls">
-    <audio id="audio" controls autoplay>
-      <source src="romantik-sarki.mp3" type="audio/mpeg">
-      Your browser does not support the audio element.
-    </audio>
-  </div>
-
+    <!-- Arka plan slayt gösterisi -->
+    <div class="slideshow">
+        <img src="foto1.jpg" alt="Fotoğraf 1">
+        <img src="foto2.jpg" alt="Fotoğraf 2">
+        <img src="foto3.jpg" alt="Fotoğraf 3">
+        <img src="foto4.jpg" alt="Fotoğraf 4">
+        <img src="foto5.jpg" alt="Fotoğraf 5">
+        <img src="foto6.jpg" alt="Fotoğraf 6">
+        <img src="foto7.jpg" alt="Fotoğraf 7">
+        <img src="foto8.jpg" alt="Fotoğraf 8">
+        <img src="foto9.jpg" alt="Fotoğraf 9">
+        <img src="foto10.jpg" alt="Fotoğraf 10">
+    </div>
 </body>
 </html>
