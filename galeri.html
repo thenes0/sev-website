@@ -45,45 +45,6 @@
             }
         }
 
-        /* Uçuşan Efektler */
-        .floating-effect {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .floating-effect .particle {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 50%;
-            animation: float 10s infinite ease-in-out;
-        }
-
-        .floating-effect .particle:nth-child(odd) {
-            background: rgba(255, 182, 193, 0.7);
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateY(0) translateX(0) scale(1);
-                opacity: 1;
-            }
-            50% {
-                transform: translateY(-200px) translateX(100px) scale(1.2);
-                opacity: 0.7;
-            }
-            100% {
-                transform: translateY(-400px) translateX(-100px) scale(1);
-                opacity: 0;
-            }
-        }
-
         /* Kaydırma ile Fotoğraf */
         .photo-container {
             display: flex;
@@ -154,54 +115,50 @@
     <div class="slideshow">
         <img src="foto1.jpg" alt="Slayt 1">
         <img src="foto2.jpg" alt="Slayt 2">
-    </div>
+        <img src="foto3.jpg" alt="Slayt 3">
+        <img src="foto4.jpg" alt="Slayt 4">
+        <img src="foto5.jpg" alt="Slayt 5">
+          <img src="foto6.jpg" alt="Slayt 6">
+<img src="foto7.jpg" alt="Slayt 7">
+<img src="foto8.jpg" alt="Slayt 8">
+<img src="foto9.jpg" alt="Slayt 9">
+<img src="foto10.jpg" alt="Slayt 10">
 
-    <!-- Uçuşan Efektler -->
-    <div class="floating-effect">
-        <div class="particle" style="top: 10%; left: 20%; animation-delay: 0s;"></div>
-        <div class="particle" style="top: 30%; left: 50%; animation-delay: 2s;"></div>
-        <div class="particle" style="top: 70%; left: 80%; animation-delay: 4s;"></div>
-        <div class="particle" style="top: 50%; left: 10%; animation-delay: 6s;"></div>
     </div>
 
     <!-- Fotoğraf Galerisi -->
     <div class="photo-container">
         <!-- 30 Fotoğraf ve Notlar -->
-        <div class="photo" onclick="showNote('Seninle her an bir şiir.')">
-            <img src="foto1.jpg" alt="Fotoğraf 1">
-        </div>
-        <div class="photo" onclick="showNote('Gözlerindeki ışıkla tüm yollar aydınlanıyor.')">
-            <img src="foto2.jpg" alt="Fotoğraf 2">
-        </div>
-        <div class="photo" onclick="showNote('Kalbim seninle bir ömür boyu.')">
-            <img src="foto3.jpg" alt="Fotoğraf 3">
-        </div>
-        <div class="photo" onclick="showNote('Birlikteyken zaman duruyor.')">
-            <img src="foto4.jpg" alt="Fotoğraf 4">
-        </div>
-        <div class="photo" onclick="showNote('Seninle hayat hep bahar.')">
-            <img src="foto5.jpg" alt="Fotoğraf 5">
-        </div>
-        <div class="photo" onclick="showNote('Aşkın tanımı seninle yapılır.')">
-            <img src="foto6.jpg" alt="Fotoğraf 6">
-        </div>
-        <div class="photo" onclick="showNote('Her şey seninle anlam buluyor.')">
-            <img src="foto7.jpg" alt="Fotoğraf 7">
-        </div>
-        <div class="photo" onclick="showNote('Bir gülüşün dünyalara değer.')">
-            <img src="foto8.jpg" alt="Fotoğraf 8">
-        </div>
-        <div class="photo" onclick="showNote('Seninle her an bir başka güzel.')">
-            <img src="foto9.jpg" alt="Fotoğraf 9">
-        </div>
-        <div class="photo" onclick="showNote('Sevgin dünyamı renklendiriyor.')">
-            <img src="foto10.jpg" alt="Fotoğraf 10">
-        </div>
-        <!-- Daha fazla fotoğraf -->
-        <!-- 11-30 arasındaki fotoğraflar -->
-        <div class="photo" onclick="showNote('Seninle her şey tamam.')">
-            <img src="foto30.jpg" alt="Fotoğraf 30">
-        </div>
+        <div class="photo" onclick="showNote('Seninle her an bir şiir.')"><img src="foto1.jpg" alt="Fotoğraf 1"></div>
+        <div class="photo" onclick="showNote('Gözlerindeki ışıkla tüm yollar aydınlanıyor.')"><img src="foto2.jpg" alt="Fotoğraf 2"></div>
+        <div class="photo" onclick="showNote('Kalbim seninle bir ömür boyu.')"><img src="foto3.jpg" alt="Fotoğraf 3"></div>
+        <div class="photo" onclick="showNote('Birlikteyken zaman duruyor.')"><img src="foto4.jpg" alt="Fotoğraf 4"></div>
+        <div class="photo" onclick="showNote('Seninle hayat hep bahar.')"><img src="foto5.jpg" alt="Fotoğraf 5"></div>
+        <div class="photo" onclick="showNote('Aşkın tanımı seninle yapılır.')"><img src="foto6.jpg" alt="Fotoğraf 6"></div>
+        <div class="photo" onclick="showNote('Her şey seninle anlam buluyor.')"><img src="foto7.jpg" alt="Fotoğraf 7"></div>
+        <div class="photo" onclick="showNote('Bir gülüşün dünyalara değer.')"><img src="foto8.jpg" alt="Fotoğraf 8"></div>
+        <div class="photo" onclick="showNote('Seninle her an bir başka güzel.')"><img src="foto9.jpg" alt="Fotoğraf 9"></div>
+        <div class="photo" onclick="showNote('Sevgin dünyamı renklendiriyor.')"><img src="foto10.jpg" alt="Fotoğraf 10"></div>
+        <div class="photo" onclick="showNote('Birlikte her şey çok daha güzel.')"><img src="foto11.jpg" alt="Fotoğraf 11"></div>
+        <div class="photo" onclick="showNote('Seninle her an rüya gibi.')"><img src="foto12.jpg" alt="Fotoğraf 12"></div>
+        <div class="photo" onclick="showNote('Gözlerinde kayboluyorum.')"><img src="foto13.jpg" alt="Fotoğraf 13"></div>
+        <div class="photo" onclick="showNote('Sonsuzluğa giden yol seninle.')"><img src="foto14.jpg" alt="Fotoğraf 14"></div>
+        <div class="photo" onclick="showNote('Seninle her an bir ömre bedel.')"><img src="foto15.jpg" alt="Fotoğraf 15"></div>
+        <div class="photo" onclick="showNote('Aşkın her hali seninle güzel.')"><img src="foto16.jpg" alt="Fotoğraf 16"></div>
+        <div class="photo" onclick="showNote('Seninle zamanın anlamı yok.')"><img src="foto17.jpg" alt="Fotoğraf 17"></div>
+        <div class="photo" onclick="showNote('Her an seninle olmak bir mucize.')"><img src="foto18.jpg" alt="Fotoğraf 18"></div>
+        <div class="photo" onclick="showNote('Sonsuza kadar seninle olmak isterim.')"><img src="foto19.jpg" alt="Fotoğraf 19"></div>
+        <div class="photo" onclick="showNote('Seninle her şey mümkün.')"><img src="foto20.jpg" alt="Fotoğraf 20"></div>
+        <div class="photo" onclick="showNote('Birlikte her yere gitmeye hazırım.')"><img src="foto21.jpg" alt="Fotoğraf 21"></div>
+        <div class="photo" onclick="showNote('Seninle bir hayat kurmak en güzel hayalim.')"><img src="foto22.jpg" alt="Fotoğraf 22"></div>
+        <div class="photo" onclick="showNote('Seninle her şey tamam.')"><img src="foto23.jpg" alt="Fotoğraf 23"></div>
+        <div class="photo" onclick="showNote('Seninle her anın tadı bir başka.')"><img src="foto24.jpg" alt="Fotoğraf 24"></div>
+        <div class="photo" onclick="showNote('Senin gülüşün dünyama renk katıyor.')"><img src="foto25.jpg" alt="Fotoğraf 25"></div>
+        <div class="photo" onclick="showNote('Birlikte olmak her şeyin en güzel hali.')"><img src="foto26.jpg" alt="Fotoğraf 26"></div>
+        <div class="photo" onclick="showNote('Aşkımız her zaman büyüsün.')"><img src="foto27.jpg" alt="Fotoğraf 27"></div>
+        <div class="photo" onclick="showNote('Seninle her an bir masal.')"><img src="foto28.jpg" alt="Fotoğraf 28"></div>
+        <div class="photo" onclick="showNote('Birlikte her şey çok güzel.')"><img src="foto29.jpg" alt="Fotoğraf 29"></div>
+        <div class="photo" onclick="showNote('Seninle her an ölümsüzleşiyor.')"><img src="foto30.jpg" alt="Fotoğraf 30"></div>
     </div>
 
     <!-- Sevgi Notu -->
