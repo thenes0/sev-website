@@ -52,10 +52,11 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            height: 120vh; /* Daha fazla boşluk için yüksekliği artırdık */
             background: black;
             position: relative;
             overflow: hidden;
+            transition: background 1s ease-in-out; /* Geçiş efekti */
         }
 
         .star-map .star-image {
@@ -111,7 +112,7 @@
     </section>
 
     <!-- Yıldız haritası bölümü -->
-    <section class="star-map">
+    <section class="star-map" id="star-map">
         <img src="img/yildiz_haritasi.jpeg" alt="Yıldız Haritası" class="star-image">
     </section>
 
@@ -125,10 +126,19 @@
         document.addEventListener('scroll', () => {
             const scrollPosition = window.scrollY;
             const starImage = document.querySelector('.star-image');
+            const starMap = document.querySelector('.star-map');
 
             if (scrollPosition > 100) {
                 starImage.style.transform = `scale(${1 + scrollPosition / 1000})`;
                 starImage.style.boxShadow = `0 0 ${20 + scrollPosition / 10}px rgba(255, 255, 255, 0.8)`;
+            }
+
+            // Geçiş efekti: Arka plan videosundan yıldız haritasına geçiş
+            const windowHeight = window.innerHeight;
+            if (scrollPosition >= windowHeight) {
+                starMap.style.background = "radial-gradient(circle, rgba(0,0,0,1) 60%, rgba(255,255,255,0.1) 100%)";
+            } else {
+                starMap.style.background = "black";
             }
         });
     </script>
