@@ -43,9 +43,11 @@
         @keyframes fade {
             0%, 100% {
                 opacity: 0;
+                transform: scale(1.1); /* Hafif zoom-out efekti */
             }
             50% {
                 opacity: 1;
+                transform: scale(1); /* Normal boyut */
             }
         }
 
@@ -65,21 +67,51 @@
         .photo-container .photo {
             width: 60%;
             margin: 20px auto;
-            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            transition: transform 0.5s ease, box-shadow 0.5s ease, opacity 0.5s ease;
             scroll-snap-align: center;
             cursor: pointer;
+            opacity: 0; /* Başlangıçta görünmez */
+            animation: slideIn 1s ease forwards; /* Görünürlük animasyonu */
         }
 
-        .photo-container .photo img {
+        /* Fotoğraflar sırayla animasyonla görünür */
+        .photo:nth-child(1) {
+            animation-delay: 0.3s;
+        }
+        .photo:nth-child(2) {
+            animation-delay: 0.6s;
+        }
+        .photo:nth-child(3) {
+            animation-delay: 0.9s;
+        }
+        .photo:nth-child(4) {
+            animation-delay: 1.2s;
+        }
+        .photo:nth-child(5) {
+            animation-delay: 1.5s;
+        }
+
+        .photo img {
             width: 100%;
             height: auto;
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
         }
 
-        .photo-container .photo:hover {
-            transform: scale(1.1);
+        .photo:hover {
+            transform: scale(1.1) rotate(2deg); /* Hafif döndürme ve büyütme efekti */
             box-shadow: 0 8px 30px rgba(255, 182, 193, 0.8);
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
         /* Sevgi Notu */
@@ -138,26 +170,15 @@
         <img src="img/foto3.jpg" alt="Slayt 3">
         <img src="img/foto4.jpg" alt="Slayt 4">
         <img src="img/foto5.jpg" alt="Slayt 5">
-        <img src="img/foto6.jpg" alt="Slayt 6">
-        <img src="img/foto7.jpg" alt="Slayt 7">
-        <img src="img/foto8.jpg" alt="Slayt 8">
-        <img src="img/foto9.jpg" alt="Slayt 9">
-        <img src="img/foto30.jpg" alt="Slayt 30">
     </div>
 
     <!-- Fotoğraf Galerisi -->
     <div class="photo-container">
-        <!-- 10 Fotoğraf ve Notlar -->
         <div class="photo" onclick="showNote('Seninle her an bir şiir.')"><img src="img/foto1.jpg" alt="Fotoğraf 1"></div>
         <div class="photo" onclick="showNote('Gözlerindeki ışıkla tüm yollar aydınlanıyor.')"><img src="img/foto2.jpg" alt="Fotoğraf 2"></div>
         <div class="photo" onclick="showNote('Kalbim seninle bir ömür boyu.')"><img src="img/foto3.jpg" alt="Fotoğraf 3"></div>
         <div class="photo" onclick="showNote('Birlikteyken zaman duruyor.')"><img src="img/foto4.jpg" alt="Fotoğraf 4"></div>
         <div class="photo" onclick="showNote('Seninle hayat hep bahar.')"><img src="img/foto5.jpg" alt="Fotoğraf 5"></div>
-        <div class="photo" onclick="showNote('Aşkın tanımı seninle yapılır.')"><img src="img/foto6.jpg" alt="Fotoğraf 6"></div>
-        <div class="photo" onclick="showNote('Her şey seninle anlam buluyor.')"><img src="img/foto7.jpg" alt="Fotoğraf 7"></div>
-        <div class="photo" onclick="showNote('Sonsuza kadar seninle olacağım.')"><img src="img/foto8.jpg" alt="Fotoğraf 8"></div>
-        <div class="photo" onclick="showNote('Seninle her an bir başka güzel.')"><img src="img/foto9.jpg" alt="Fotoğraf 9"></div>
-        <div class="photo" onclick="showNote('Seninle her şey tamam.')"><img src="img/foto10.jpg" alt="Fotoğraf 10"></div>
     </div>
 
     <!-- Sevgi Notu -->
