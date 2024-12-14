@@ -1,37 +1,170 @@
-/* Ana Sayfa Stilleri */
-.homepage-header {
+/* Genel Ayarlar */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    background: #000;
+    overflow: hidden;
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     height: 100vh;
-    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
-    color: #fff;
+    color: white;
+}
+
+.container {
     text-align: center;
+    animation: fadeIn 2s ease-in-out;
+    z-index: 2;
+    position: relative;
 }
 
-.homepage-header h1 {
+h1 {
     font-size: 3rem;
-    margin-bottom: 20px;
+    color: #ff6b6b;
+    animation: slideDown 1.5s ease-out;
 }
 
-.homepage-header p {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
+p {
+    font-size: 1.5rem;
+    color: #f8f8f8;
+    margin-top: 20px;
+    animation: fadeIn 2.5s ease-in-out;
 }
 
-.gallery-button {
-    padding: 15px 30px;
-    font-size: 1.2rem;
-    color: #fff;
-    background-color: #ff6f61;
-    border: none;
-    border-radius: 5px;
+a {
+    color: #ff6b6b;
     text-decoration: none;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s ease;
+    font-weight: bold;
+    font-size: 1.8rem;
+    position: relative;
 }
 
-.gallery-button:hover {
-    background-color: #ff3b3b;
+a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 3px;
+    background: #ff6b6b;
+    left: 0;
+    bottom: -5px;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.3s ease-in-out;
+}
+
+a:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+a:hover {
+    color: #ffd1d1;
+}
+
+/* Uçan kalpler efekti */
+.heart {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #ff6b6b;
+    opacity: 0.7;
+    animation: float 6s infinite ease-in-out;
+    border-radius: 50%;
+    clip-path: polygon(50% 0%, 100% 35%, 75% 100%, 50% 75%, 25% 100%, 0% 35%);
+}
+
+.heart:nth-child(odd) {
+    background: #ffd1d1;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.7;
+    }
+    50% {
+        transform: translateY(-100px) scale(1.2);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-200px) scale(1);
+        opacity: 0;
+    }
+}
+
+/* Arka plan slayt gösterisi */
+.slideshow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0;
+    animation: fadeInSlideshow 6s ease-in-out forwards;
+}
+
+.slideshow img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    animation: slideShow 30s infinite;
+    transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
+}
+
+.slideshow img:nth-child(1) { animation-delay: 0s; }
+.slideshow img:nth-child(2) { animation-delay: 6s; }
+.slideshow img:nth-child(3) { animation-delay: 12s; }
+.slideshow img:nth-child(4) { animation-delay: 18s; }
+.slideshow img:nth-child(5) { animation-delay: 24s; }
+
+/* Animasyonlar */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInSlideshow {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideShow {
+    0% {
+        opacity: 0;
+        transform: scale(1);
+    }
+    10% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    20% {
+        opacity: 0;
+        transform: scale(1);
+    }
+    100% {
+        opacity: 0;
+    }
 }
