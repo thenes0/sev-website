@@ -45,7 +45,7 @@
             }
         }
 
-        /* Kaydırma ile Fotoğraf */
+        /* Fotoğraf Galerisi */
         .photo-container {
             display: flex;
             flex-direction: column;
@@ -116,25 +116,18 @@
     </style>
 </head>
 <body>
-    <!-- Arka Plan Slayt Gösterisi -->
     <div class="slideshow">
         <img src="foto1.jpg" alt="Slayt 1">
         <img src="foto2.jpg" alt="Slayt 2">
         <img src="foto3.jpg" alt="Slayt 3">
-        <img src="foto4.jpg" alt="Slayt 4">
-        <img src="foto5.jpg" alt="Slayt 5">
     </div>
 
-    <!-- Fotoğraf Galerisi -->
     <div class="photo-container">
-        <div class="photo" onclick="showNote('Bu sevgiyle beni tanıştırdığın için seni seviyorumm.')"><img src="foto1.jpg" alt="Fotoğraf 1"></div>
-        <div class="photo" onclick="showNote('Güldüğünde gözlerinin yaydığı ışıkla kalbim parıldıyor birtanemmmm.')"><img src="foto2.jpg" alt="Fotoğraf 2"></div>
-        <div class="photo" onclick="showNote('Kalbim seninle bir ömür boyu, söz veriyorum.')"><img src="foto3.jpg" alt="Fotoğraf 3"></div>
-        <div class="photo" onclick="showNote('Birlikteyken zaman duruyor kalbim hızlanıyor güzelimmm.')"><img src="foto4.jpg" alt="Fotoğraf 4"></div>
-        <div class="photo" onclick="showNote('Sonsuza kadar seninle olacağımmmm, BUNU İSTİYORUM.')"><img src="foto5.jpg" alt="Fotoğraf 5"></div>
+        <div class="photo" onclick="showNote('Seni seviyorum birtanem.')"><img src="foto1.jpg" alt="Fotoğraf 1"></div>
+        <div class="photo" onclick="showNote('Hayatımın anlamısın.')"><img src="foto2.jpg" alt="Fotoğraf 2"></div>
+        <div class="photo" onclick="showNote('Birlikte çok güzeliz.')"><img src="foto3.jpg" alt="Fotoğraf 3"></div>
     </div>
 
-    <!-- Sevgi Notu -->
     <div class="note" id="note"></div>
 
     <script>
