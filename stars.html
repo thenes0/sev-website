@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>8 Eylül İstanbul Yıldız Haritası</title>
+    <title>Yıldız Haritası</title>
     <style>
-        /* Genel stil */
         body {
             margin: 0;
             background: black;
@@ -14,16 +13,13 @@
             overflow: hidden;
         }
 
-        /* Yıldız haritası alanı */
         .star-map {
             position: relative;
             width: 100%;
             height: 100vh;
             background: radial-gradient(circle, rgba(0,0,0,1) 70%, rgba(0,0,0,0.8) 100%);
-            overflow: hidden;
         }
 
-        /* Yıldızlar */
         .star {
             position: absolute;
             width: 4px;
@@ -32,34 +28,11 @@
             border-radius: 50%;
         }
 
-        /* Önemli yıldızlar (daha büyük ve parlak) */
         .important-star {
             width: 8px;
             height: 8px;
             background: rgba(255, 255, 255, 0.9);
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-        }
-
-        /* Takımyıldız çizgileri */
-        .line {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: transparent;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            transform-origin: top left;
-        }
-
-        /* Başlık */
-        .title {
-            position: absolute;
-            top: 5%;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-            color: white;
-            font-size: 2rem;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
         }
 
         .label {
@@ -68,46 +41,113 @@
             font-size: 0.8rem;
             transform: translate(-50%, -150%);
         }
+
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 1.5rem;
+        }
     </style>
 </head>
 <body>
-    <div class="star-map">
-        <div class="title">8 Eylül 2024 - İstanbul Yıldız Haritası</div>
-
-        <!-- Kutup Yıldızı -->
-        <div class="star important-star" style="top: 20%; left: 50%;"></div>
-        <div class="label" style="top: 20%; left: 50%;">Kutup Yıldızı</div>
-
-        <!-- Vega -->
-        <div class="star important-star" style="top: 30%; left: 40%;"></div>
-        <div class="label" style="top: 30%; left: 40%;">Vega</div>
-
-        <!-- Deneb -->
-        <div class="star important-star" style="top: 35%; left: 60%;"></div>
-        <div class="label" style="top: 35%; left: 60%;">Deneb</div>
-
-        <!-- Altair -->
-        <div class="star important-star" style="top: 50%; left: 45%;"></div>
-        <div class="label" style="top: 50%; left: 45%;">Altair</div>
-
-        <!-- Büyük Ayı -->
-        <div class="star" style="top: 40%; left: 30%;"></div>
-        <div class="star" style="top: 42%; left: 32%;"></div>
-        <div class="star" style="top: 44%; left: 34%;"></div>
-        <div class="star" style="top: 46%; left: 36%;"></div>
-        <div class="label" style="top: 46%; left: 36%;">Büyük Ayı</div>
-
-        <!-- Küçük Ayı -->
-        <div class="star" style="top: 25%; left: 48%;"></div>
-        <div class="star" style="top: 27%; left: 50%;"></div>
-        <div class="star" style="top: 29%; left: 52%;"></div>
-        <div class="label" style="top: 29%; left: 52%;">Küçük Ayı</div>
-
-        <!-- Orion -->
-        <div class="star" style="top: 70%; left: 40%;"></div>
-        <div class="star" style="top: 72%; left: 42%;"></div>
-        <div class="star" style="top: 74%; left: 44%;"></div>
-        <div class="label" style="top: 74%; left: 44%;">Orion</div>
+    <div id="star-map" class="star-map">
+        <div id="loading" class="loading">Yıldız Haritası Yükleniyor...</div>
     </div>
+
+    <script>
+        // AstronomyAPI'den veri çekmek için gerekli bilgiler
+        const API_URL = "https://api.astronomyapi.com/api/v2/studio/star-chart";
+        const API_KEY = "YOUR_API_KEY"; // Buraya kendi API anahtarınızı ekleyin
+        const API_SECRET = "YOUR_API_SECRET"; // Buraya kendi API secret'ınızı ekleyin
+
+        // Rastgele bir yer ve tarih
+        const latitude = 41.0082; // İstanbul'un enlemi
+        const longitude = 28.9784; // İstanbul'un boylamı
+        const date = new Date().toISOString().split("T")[0]; // Bugünün tarihi
+
+        // API'den yıldız haritası verilerini çekme
+        async function fetchStarMap() {
+            const response = await fetch(API_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Basic ${btoa(API_KEY + ":" + API_SECRET)}`,
+                },
+                body: JSON.stringify({
+                    observer: {
+                        latitude: latitude,
+                        longitude: longitude,
+                        date: date,
+                    },
+                    view: {
+                        type: "constellation", // Takımyıldızları içeren bir görünüm
+                        parameters: {
+                            constellations: true, // Takımyıldızları göster
+                            stars: true, // Yıldızları göster
+                            planets: true, // Gezegenleri göster
+                        },
+                    },
+                }),
+            });
+
+            if (!response.ok) {
+                console.error("API'den veri alınamadı.");
+                return null;
+            }
+
+            const data = await response.json();
+            return data;
+        }
+
+        // Yıldız haritasını görselleştirme
+        async function renderStarMap() {
+            const starMapElement = document.getElementById("star-map");
+            const loadingElement = document.getElementById("loading");
+
+            // API'den veri çek
+            const data = await fetchStarMap();
+            if (!data) {
+                loadingElement.innerText = "Yıldız Haritası Yüklenemedi.";
+                return;
+            }
+
+            // Yükleniyor mesajını kaldır
+            loadingElement.style.display = "none";
+
+            // Yıldızları ve takımyıldızları ekle
+            const stars = data.data.stars;
+            stars.forEach((star) => {
+                const starElement = document.createElement("div");
+                starElement.classList.add("star");
+                starElement.style.top = `${star.position.top}%`;
+                starElement.style.left = `${star.position.left}%`;
+
+                // Önemli yıldızları vurgula
+                if (star.magnitude < 2) {
+                    starElement.classList.add("important-star");
+                }
+
+                starMapElement.appendChild(starElement);
+            });
+
+            // Takımyıldızları etiketle
+            const constellations = data.data.constellations;
+            constellations.forEach((constellation) => {
+                const labelElement = document.createElement("div");
+                labelElement.classList.add("label");
+                labelElement.style.top = `${constellation.position.top}%`;
+                labelElement.style.left = `${constellation.position.left}%`;
+                labelElement.innerText = constellation.name;
+
+                starMapElement.appendChild(labelElement);
+            });
+        }
+
+        // Haritayı başlat
+        renderStarMap();
+    </script>
 </body>
 </html>
