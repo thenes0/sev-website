@@ -38,7 +38,6 @@
             align-items: center;
             height: 100vh;
             text-align: center;
-            round: rgba(0, 0, 0, 0.5);
         }
 
         .intro h1 {
@@ -53,10 +52,9 @@
             justify-content: center;
             align-items: center;
             height: 120vh; /* Daha fazla boşluk için yüksekliği artırdık */
-            round: black;
             position: relative;
             overflow: hidden;
-            transition: round 1s ease-in-out; /* Geçiş efekti */
+            transition: background 1s ease-in-out; /* Geçiş efekti */
         }
 
         .star-map .star-image {
@@ -84,6 +82,42 @@
             line-height: 1.8;
         }
 
+        /* Yıldız parlaması efekti */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 2px, transparent 2px),
+                        radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 1px);
+            background-size: 3px 3px, 1px 1px;
+            background-position: 0 0, 50% 50%;
+            animation: moveStars 10s linear infinite;
+            z-index: -2;
+        }
+
+        @keyframes moveStars {
+            from {
+                background-position: 0 0, 50% 50%;
+            }
+            to {
+                background-position: 100% 100%, 150% 150%;
+            }
+        }
+
+        /* Fare takip efekti */
+        .mouse-effect {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+        }
+
         /* Animasyonlar */
         @keyframes fadeIn {
             from {
@@ -93,26 +127,47 @@
                 opacity: 1;
             }
         }
+
+        /* Glow (parlama) efekti */
+        .glow {
+            color: white;
+            text-shadow: 0 0 10px #fff, 0 0 20px #ff00ff, 0 0 30px #ff00ff, 0 0 40px #ff00ff;
+            animation: glow 2s infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #fff, 0 0 20px #ff00ff, 0 0 30px #ff00ff, 0 0 40px #ff00ff;
+            }
+            to {
+                text-shadow: 0 0 20px #fff, 0 0 30px #ff00ff, 0 0 40px #ff00ff, 0 0 50px #ff00ff;
+            }
+        }
     </style>
 </head>
 <body>
+    <!-- Arka plan yıldız efekti -->
+    <div class="stars"></div>
+
     <!-- Arka plan videosu -->
     <div class="background-video">
-    <video autoplay muted loop>
-        <!-- Önce MOV formatı -->
-        <source src="img/space.mov" type="video/quicktime">
-        <!-- Eğer MOV desteklenmezse MP4 formatına geçer -->
-        <source src="img/space.mp4" type="video/mp4">
-        <!-- Tarayıcı veya cihaz video oynatamıyorsa bir yedek resim gösterilir -->
-        Tarayıcınız videoyu desteklemiyor. 
-        <img src="img/space.jpg" alt="Arka Plan Resmi">
-    </video>
-</div>
+        <video autoplay muted loop>
+            <!-- Önce MOV formatı -->
+            <source src="img/space.mov" type="video/quicktime">
+            <!-- Eğer MOV desteklenmezse MP4 formatına geçer -->
+            <source src="img/space.mp4" type="video/mp4">
+            <!-- Tarayıcı veya cihaz video oynatamıyorsa bir yedek resim gösterilir -->
+            Tarayıcınız videoyu desteklemiyor. 
+            <img src="img/space.jpg" alt="Arka Plan Resmi">
+        </video>
+    </div>
 
+    <!-- Fare takip efekti -->
+    <div class="mouse-effect"></div>
 
     <!-- Sayfanın giriş kısmı -->
     <section class="intro">
-        <h1>Tanıştığımız Günün Yıldız Haritası</h1>
+        <h1 class="glow">Tanıştığımız Günün Yıldız Haritası</h1>
     </section>
 
     <!-- Yıldız haritası bölümü -->
@@ -126,6 +181,13 @@
     </section>
 
     <script>
+        // Fare takip efekti
+        const mouseEffect = document.querySelector('.mouse-effect');
+        document.addEventListener('mousemove', (e) => {
+            mouseEffect.style.left = `${e.pageX}px`;
+            mouseEffect.style.top = `${e.pageY}px`;
+        });
+
         // Scroll ile yıldız haritasını büyütme
         document.addEventListener('scroll', () => {
             const scrollPosition = window.scrollY;
