@@ -35,8 +35,8 @@
         /* Güneş Sistemi Stili */
         .solar-system {
             position: relative;
-            width: 200px;
-            height: 200px;
+            width: 300px;
+            height: 300px;
             border-radius: 50%;
             background: radial-gradient(circle, yellow, orange);
             box-shadow: 0 0 50px yellow;
@@ -59,14 +59,15 @@
             border-radius: 50%;
             background: radial-gradient(circle, blue, lightblue);
             animation: orbit 10s linear infinite;
+            cursor: pointer;
         }
 
         @keyframes orbit {
             from {
-                transform: rotate(0deg) translateX(150px) rotate(0deg);
+                transform: rotate(0deg) translateX(200px) rotate(0deg);
             }
             to {
-                transform: rotate(360deg) translateX(150px) rotate(-360deg);
+                transform: rotate(360deg) translateX(200px) rotate(-360deg);
             }
         }
 
@@ -101,16 +102,17 @@
             }
         }
 
-        .planet-section {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .planet-section img {
-            width: 150px;
-            margin: 20px 0;
+        #infoBox {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            display: none;
+            z-index: 10;
         }
 
         .star-map {
@@ -129,11 +131,13 @@
     <!-- Giriş Bölümü -->
     <section id="intro">
         <div class="content">
-            <h1>Dinamik Güneş Sistemi ve Yıldız Haritası</h1>
+            <h1>Dinamik Güneş Sistemi</h1>
             <p>Aşağı kaydırarak keşfetmeye başlayın!</p>
         </div>
         <div class="solar-system">
-            <div class="planet"></div>
+            <div class="planet" data-info="Bu, Merkür'dür!"></div>
+            <div class="planet" data-info="Bu, Venüs'tür!" style="animation: orbit 12s linear infinite;"></div>
+            <div class="planet" data-info="Bu, Dünya'dır!" style="animation: orbit 15s linear infinite; background: green;"></div>
         </div>
     </section>
 
@@ -141,8 +145,6 @@
     <section id="planets" class="planet-section">
         <h2>Gezegenler</h2>
         <p>Aşağı kaydırarak gezegenlere daha yakından bakın.</p>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Earth_poster_large.jpg" alt="Dünya">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Moon.jpg" alt="Ay">
     </section>
 
     <!-- Yıldız Haritası Bölümü -->
@@ -150,6 +152,9 @@
         <h2>Yıldız Haritası</h2>
         <div class="star-map" id="starCanvasContainer"></div>
     </section>
+
+    <!-- Gezegen Bilgi Kutusu -->
+    <div id="infoBox"></div>
 
     <script>
         // Dinamik Yıldızlar
@@ -195,6 +200,22 @@
         }
 
         drawStars();
+
+        // Gezegenlere tıklayınca bilgi göster
+        const planets = document.querySelectorAll(".planet");
+        const infoBox = document.getElementById("infoBox");
+
+        planets.forEach((planet) => {
+            planet.addEventListener("click", () => {
+                const info = planet.getAttribute("data-info");
+                infoBox.textContent = info;
+                infoBox.style.display = "block";
+
+                setTimeout(() => {
+                    infoBox.style.display = "none";
+                }, 3000);
+            });
+        });
     </script>
 </body>
 </html>
