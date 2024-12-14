@@ -7,35 +7,59 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>Galeri</h1>
-        <p>Hayatın en güzel anlarını bu galeride keşfedin.</p>
-    </header>
-    <nav>
-        <ul>
-            <li><a href="index.html">Ana Sayfa</a></li>
-            <li><a href="galeri.html">Galeri</a></li>
-            <li><a href="stars.html">Yıldızlar</a></li>
-        </ul>
-    </nav>
-    <main>
-        <section class="photo-container">
-            <div class="photo">
-                <img src="img/foto1.jpg" alt="Doğa Manzarası">
-                <p>Doğanın huzuru</p>
+    <!-- Dinamik arka plan slaytı -->
+    <div class="slideshow-container">
+        <div class="slideshow">
+            <div class="slide" style="background-image: url('img/foto1.jpg');"></div>
+            <div class="slide" style="background-image: url('img/foto2.jpg');"></div>
+            <div class="slide" style="background-image: url('img/foto3.jpg');"></div>
+        </div>
+    </div>
+
+    <!-- Galeri içeriği -->
+    <div class="content">
+        <h1 class="fade-in">Galeri</h1>
+        <p class="fade-in">Bu sayfada hayatın en güzel anlarını bulabilirsiniz. <br> 
+            Eski notlarınızı burada saklıyoruz: "Hayat bir yolculuk, her an bir hatıra."</p>
+
+        <!-- Galeri Resimleri -->
+        <div class="gallery">
+            <div class="gallery-item">
+                <img src="img/foto1.jpg" alt="Fotoğraf 1" onclick="openImage('img/foto1.jpg')">
+                <p>Doğa ile iç içe bir an.</p>
             </div>
-            <div class="photo">
-                <img src="img/foto2.jpg" alt="Deniz ve Güneş">
-                <p>Güneşin batışı</p>
+            <div class="gallery-item">
+                <img src="img/foto2.jpg" alt="Fotoğraf 2" onclick="openImage('img/foto2.jpg')">
+                <p>Güneşin batışı.</p>
             </div>
-            <div class="photo">
-                <img src="img/foto3.jpg" alt="Yıldızlı Gece">
-                <p>Yıldızların altında</p>
+            <div class="gallery-item">
+                <img src="img/foto3.jpg" alt="Fotoğraf 3" onclick="openImage('img/foto3.jpg')">
+                <p>Yıldızların altında bir gece.</p>
             </div>
-        </section>
-    </main>
-    <footer>
-        <p>© 2024 Sevgi Dolu Galeri. Tüm hakları saklıdır.</p>
-    </footer>
+        </div>
+    </div>
+
+    <!-- Görsel büyütme için modal -->
+    <div id="imageModal" class="modal">
+        <span class="close" onclick="closeImage()">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div id="caption"></div>
+    </div>
+
+    <script>
+        // Görsel büyütme fonksiyonu
+        function openImage(src) {
+            const modal = document.getElementById("imageModal");
+            const modalImg = document.getElementById("modalImage");
+            modal.style.display = "block";
+            modalImg.src = src;
+        }
+
+        // Modal kapatma fonksiyonu
+        function closeImage() {
+            const modal = document.getElementById("imageModal");
+            modal.style.display = "none";
+        }
+    </script>
 </body>
 </html>
