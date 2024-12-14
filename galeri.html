@@ -3,30 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fotoğraf Galerisi</title>
+    <title>Gelişmiş Sevgi Galerisi</title>
     <style>
-        /* Genel Stil Ayarları */
         body {
             margin: 0;
             font-family: Arial, sans-serif;
             overflow: hidden;
             background: #000;
             color: #fff;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
         }
 
-        /* Arka Plan Slayt */
+        /* Arka Plan Slayt Gösterisi */
         .slideshow {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1; /* Arka planda kalması için */
+            z-index: -1;
             overflow: hidden;
         }
 
@@ -35,105 +29,80 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            opacity: 0;
-            animation: fade 30s infinite; /* Efektli geçiş */
+            animation: fade 150s infinite;
         }
 
-        /* Her fotoğraf için farklı animasyon gecikmeleri */
-        .slideshow img:nth-child(1) {
-            animation-delay: 0s;
-        }
-        .slideshow img:nth-child(2) {
-            animation-delay: 5s;
-        }
-        .slideshow img:nth-child(3) {
-            animation-delay: 10s;
-        }
-        .slideshow img:nth-child(4) {
-            animation-delay: 15s;
-        }
-        .slideshow img:nth-child(5) {
-            animation-delay: 20s;
-        }
-        .slideshow img:nth-child(6) {
-            animation-delay: 25s;
-        }
-        .slideshow img:nth-child(7) {
-            animation-delay: 30s;
-        }
-        .slideshow img:nth-child(8) {
-            animation-delay: 35s;
-        }
-        .slideshow img:nth-child(9) {
-            animation-delay: 40s;
-        }
-        .slideshow img:nth-child(10) {
-            animation-delay: 45s;
-        }
-        .slideshow img:nth-child(11) {
-            animation-delay: 50s;
-        }
-        .slideshow img:nth-child(12) {
-            animation-delay: 55s;
-        }
-        .slideshow img:nth-child(13) {
-            animation-delay: 60s;
-        }
-        .slideshow img:nth-child(14) {
-            animation-delay: 65s;
-        }
-        .slideshow img:nth-child(15) {
-            animation-delay: 70s;
+        .slideshow img:nth-child(n) {
+            animation-delay: calc(5s * (n - 1));
         }
 
-        /* Fade Efekti */
         @keyframes fade {
-            0% {
+            0%, 100% {
                 opacity: 0;
+                transform: scale(1.1); /* Hafif zoom-out efekti */
             }
-            10% {
+            50% {
                 opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
+                transform: scale(1); /* Normal boyut */
             }
         }
 
         /* Fotoğraf Galerisi */
         .photo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
             position: relative;
-            z-index: 1;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 20px;
-            padding: 20px;
-            width: 80%;
+            z-index: 2;
         }
 
-        .photo {
-            position: relative;
-            overflow: hidden;
-            border-radius: 10px;
+        .photo-container .photo {
+            width: 60%;
+            margin: 20px auto;
+            transition: transform 0.5s ease, box-shadow 0.5s ease, opacity 0.5s ease;
+            scroll-snap-align: center;
             cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0; /* Başlangıçta görünmez */
+            animation: zoomIn 1s ease forwards; /* Küçükten büyüyerek görünme animasyonu */
+            border-radius: 10px;
+            border: 2px solid transparent; /* Parlayan çizgi için başlangıç */
+            box-shadow: 0 0 20px rgba(255, 182, 193, 0); /* Parlama efekti başlangıç */
+        }
+
+        .photo:nth-child(n) {
+            animation-delay: calc(0.3s * var(--i));
         }
 
         .photo img {
             width: 100%;
             height: auto;
-            display: block;
             border-radius: 10px;
         }
 
+        /* Hover Efekti */
         .photo:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            transform: scale(1.1) rotate(2deg); /* Hafif döndürme ve büyütme efekti */
+            box-shadow: 0 0 30px rgba(255, 182, 193, 0.8), 0 0 15px rgba(255, 255, 255, 0.5); /* Parlama efekti */
+            border: 2px solid rgba(255, 182, 193, 0.8); /* Beyaz-pembe karışımı parlayan çizgi */
         }
 
-        /* Not Gösterimi */
+        /* Küçükten büyüyerek görünme animasyonu */
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.5); /* Küçük boyut */
+                opacity: 0; /* Görünmez */
+            }
+            to {
+                transform: scale(1); /* Normal boyut */
+                opacity: 1; /* Görünür */
+            }
+        }
+
+        /* Sevgi Notu */
         .note {
             position: fixed;
             top: 50%;
@@ -141,98 +110,134 @@
             transform: translate(-50%, -50%);
             background: rgba(0, 0, 0, 0.8);
             color: #fff;
-            padding: 20px 40px;
+            padding: 20px 30px;
             border-radius: 10px;
-            font-size: 18px;
-            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
             display: none;
-            z-index: 2;
+            z-index: 3;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .note.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -60%);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        /* Çıkış Butonu */
+        .close-note {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .close-note:hover {
+            color: #ff69b4;
         }
     </style>
 </head>
 <body>
-    <!-- Arka Plan Slayt -->
+    <!-- Arka Plan Slayt Gösterisi -->
     <div class="slideshow">
-        <img src="img/foto1.jpg" alt="Fotoğraf 1">
-        <img src="img/foto2.jpg" alt="Fotoğraf 2">
-        <img src="img/foto3.jpg" alt="Fotoğraf 3">
-        <img src="img/foto4.jpg" alt="Fotoğraf 4">
-        <img src="img/foto5.jpg" alt="Fotoğraf 5">
-        <img src="img/foto6.jpg" alt="Fotoğraf 6">
-        <img src="img/foto7.jpg" alt="Fotoğraf 7">
-        <img src="img/foto8.jpg" alt="Fotoğraf 8">
-        <img src="img/foto9.jpg" alt="Fotoğraf 9">
-        <img src="img/foto10.jpg" alt="Fotoğraf 10">
-        <img src="img/foto11.jpg" alt="Fotoğraf 11">
-        <img src="img/foto12.jpg" alt="Fotoğraf 12">
-        <img src="img/foto13.jpg" alt="Fotoğraf 13">
-        <img src="img/foto14.jpg" alt="Fotoğraf 14">
-        <img src="img/foto15.jpg" alt="Fotoğraf 15">
+        <!-- 30 Fotoğraf için Arka Plan -->
+        <img src="img/foto1.jpg" alt="Slayt 1">
+        <img src="img/foto2.jpg" alt="Slayt 2">
+        <img src="img/foto3.jpg" alt="Slayt 3">
+        <img src="img/foto4.jpg" alt="Slayt 4">
+        <img src="img/foto5.jpg" alt="Slayt 5">
+        <img src="img/foto6.jpg" alt="Slayt 6">
+        <img src="img/foto7.jpg" alt="Slayt 7">
+        <img src="img/foto8.jpg" alt="Slayt 8">
+        <img src="img/foto9.jpg" alt="Slayt 9">
+        <img src="img/foto10.jpg" alt="Slayt 10">
+        <img src="img/foto11.jpg" alt="Slayt 11">
+        <img src="img/foto12.jpg" alt="Slayt 12">
+        <img src="img/foto13.jpg" alt="Slayt 13">
+        <img src="img/foto14.jpg" alt="Slayt 14">
+        <img src="img/foto15.jpg" alt="Slayt 15">
+        <img src="img/foto16.jpg" alt="Slayt 16">
+        <img src="img/foto17.jpg" alt="Slayt 17">
+        <img src="img/foto18.jpg" alt="Slayt 18">
+        <img src="img/foto19.jpg" alt="Slayt 19">
+        <img src="img/foto20.jpg" alt="Slayt 20">
+        <img src="img/foto21.jpg" alt="Slayt 21">
+        <img src="img/foto22.jpg" alt="Slayt 22">
+        <img src="img/foto23.jpg" alt="Slayt 23">
+        <img src="img/foto24.jpg" alt="Slayt 24">
+        <img src="img/foto25.jpg" alt="Slayt 25">
+        <img src="img/foto26.jpg" alt="Slayt 26">
+        <img src="img/foto27.jpg" alt="Slayt 27">
+        <img src="img/foto28.jpg" alt="Slayt 28">
+        <img src="img/foto29.jpg" alt="Slayt 29">
+        <img src="img/foto30.jpg" alt="Slayt 30">
     </div>
 
     <!-- Fotoğraf Galerisi -->
     <div class="photo-container">
-        <!-- Toplam 30 Fotoğraf -->
-        <div class="photo" onclick="showNote('Bu güzel bir anı!')">
-            <img src="img/foto1.jpg" alt="Fotoğraf 1">
-        </div>
-        <div class="photo" onclick="showNote('Hayatın en güzel anlarından biri!')">
-            <img src="img/foto2.jpg" alt="Fotoğraf 2">
-        </div>
-        <div class="photo" onclick="showNote('Göz alıcı bir manzara!')">
-            <img src="img/foto3.jpg" alt="Fotoğraf 3">
-        </div>
-        <div class="photo" onclick="showNote('Unutulmaz bir gün!')">
-            <img src="img/foto4.jpg" alt="Fotoğraf 4">
-        </div>
-        <div class="photo" onclick="showNote('Mutluluk burada saklı!')">
-            <img src="img/foto5.jpg" alt="Fotoğraf 5">
-        </div>
-        <div class="photo" onclick="showNote('Huzur dolu bir an!')">
-            <img src="img/foto6.jpg" alt="Fotoğraf 6">
-        </div>
-        <div class="photo" onclick="showNote('Hayallerin ötesinde bir güzellik!')">
-            <img src="img/foto7.jpg" alt="Fotoğraf 7">
-        </div>
-        <div class="photo" onclick="showNote('Bu anı asla unutma!')">
-            <img src="img/foto8.jpg" alt="Fotoğraf 8">
-        </div>
-        <div class="photo" onclick="showNote('Doğanın kalbinden bir kare!')">
-            <img src="img/foto9.jpg" alt="Fotoğraf 9">
-        </div>
-        <div class="photo" onclick="showNote('Sevgi dolu bir an!')">
-            <img src="img/foto10.jpg" alt="Fotoğraf 10">
-        </div>
-        <div class="photo" onclick="showNote('Gülümsemenin en güzel hali!')">
-            <img src="img/foto11.jpg" alt="Fotoğraf 11">
-        </div>
-        <div class="photo" onclick="showNote('Birlikte geçirilen en güzel zaman!')">
-            <img src="img/foto12.jpg" alt="Fotoğraf 12">
-        </div>
-        <div class="photo" onclick="showNote('Göz kamaştırıcı bir manzara!')">
-            <img src="img/foto13.jpg" alt="Fotoğraf 13">
-        </div>
-        <div class="photo" onclick="showNote('Hayatın tadını çıkar!')">
-            <img src="img/foto14.jpg" alt="Fotoğraf 14">
-        </div>
-        <div class="photo" onclick="showNote('Bir başka güzel anı!')">
-            <img src="img/foto15.jpg" alt="Fotoğraf 15">
-        </div>
-        <!-- 15 Fotoğraf daha ekleyebilirsiniz -->
+        <!-- 30 Fotoğraf için Galeri -->
+        <div class="photo" onclick="showNote('Seninle her an bir şiir.')"><img src="img/foto1.jpg" alt="Fotoğraf 1"></div>
+        <div class="photo" onclick="showNote('Gözlerindeki ışıkla tüm yollar aydınlanıyor.')"><img src="img/foto2.jpg" alt="Fotoğraf 2"></div>
+        <div class="photo" onclick="showNote('Kalbim seninle bir ömür boyu.')"><img src="img/foto3.jpg" alt="Fotoğraf 3"></div>
+        <div class="photo" onclick="showNote('Birlikteyken zaman duruyor.')"><img src="img/foto4.jpg" alt="Fotoğraf 4"></div>
+        <div class="photo" onclick="showNote('Seninle hayat hep bahar.')"><img src="img/foto5.jpg" alt="Fotoğraf 5"></div>
+        <div class="photo" onclick="showNote('Her şey seninle güzel.')"><img src="img/foto6.jpg" alt="Fotoğraf 6"></div>
+        <div class="photo" onclick="showNote('Sen benim en güzel hikayemsin.')"><img src="img/foto7.jpg" alt="Fotoğraf 7"></div>
+        <div class="photo" onclick="showNote('Seninle her gün bir mucize.')"><img src="img/foto8.jpg" alt="Fotoğraf 8"></div>
+        <div class="photo" onclick="showNote('Aşk seninle anlam buluyor.')"><img src="img/foto9.jpg" alt="Fotoğraf 9"></div>
+        <div class="photo" onclick="showNote('Sen benim sonsuzluğumsun.')"><img src="img/foto10.jpg" alt="Fotoğraf 10"></div>
+        <div class="photo" onclick="showNote('Seninle her an bir rüya.')"><img src="img/foto11.jpg" alt="Fotoğraf 11"></div>
+        <div class="photo" onclick="showNote('Seninle hayat bir masal.')"><img src="img/foto12.jpg" alt="Fotoğraf 12"></div>
+        <div class="photo" onclick="showNote('Sen benim güneşimsin.')"><img src="img/foto13.jpg" alt="Fotoğraf 13"></div>
+        <div class="photo" onclick="showNote('Seninle her şey mümkün.')"><img src="img/foto14.jpg" alt="Fotoğraf 14"></div>
+        <div class="photo" onclick="showNote('Seninle olmak cennetten bir parça.')"><img src="img/foto15.jpg" alt="Fotoğraf 15"></div>
+        <div class="photo" onclick="showNote('Seninle her yer evim.')"><img src="img/foto16.jpg" alt="Fotoğraf 16"></div>
+        <div class="photo" onclick="showNote('Sen benim en büyük şansımsın.')"><img src="img/foto17.jpg" alt="Fotoğraf 17"></div>
+        <div class="photo" onclick="showNote('Seninle her şey bir anlam kazanıyor.')"><img src="img/foto18.jpg" alt="Fotoğraf 18"></div>
+        <div class="photo" onclick="showNote('Seninle her an bir mucize.')"><img src="img/foto19.jpg" alt="Fotoğraf 19"></div>
+        <div class="photo" onclick="showNote('Seninle hayat bir şiir.')"><img src="img/foto20.jpg" alt="Fotoğraf 20"></div>
+        <div class="photo" onclick="showNote('Sen benim en güzel düşümsün.')"><img src="img/foto21.jpg" alt="Fotoğraf 21"></div>
+        <div class="photo" onclick="showNote('Sen benim en büyük hediyemsin.')"><img src="img/foto22.jpg" alt="Fotoğraf 22"></div>
+        <div class="photo" onclick="showNote('Seninle her şey daha güzel.')"><img src="img/foto23.jpg" alt="Fotoğraf 23"></div>
+        <div class="photo" onclick="showNote('Seninle olmak bir armağan.')"><img src="img/foto24.jpg" alt="Fotoğraf 24"></div>
+        <div class="photo" onclick="showNote('Seninle her an bir mutluluk.')"><img src="img/foto25.jpg" alt="Fotoğraf 25"></div>
+        <div class="photo" onclick="showNote('Sen benim en büyük aşkımsın.')"><img src="img/foto26.jpg" alt="Fotoğraf 26"></div>
+        <div class="photo" onclick="showNote('Seninle her şey bir bütün.')"><img src="img/foto27.jpg" alt="Fotoğraf 27"></div>
+        <div class="photo" onclick="showNote('Sen benim en güzel anımsın.')"><img src="img/foto28.jpg" alt="Fotoğraf 28"></div>
+        <div class="photo" onclick="showNote('Seninle hayat hep güzel.')"><img src="img/foto29.jpg" alt="Fotoğraf 29"></div>
+        <div class="photo" onclick="showNote('Sen benim sonsuz aşkımsın.')"><img src="img/foto30.jpg" alt="Fotoğraf 30"></div>
     </div>
 
-    <!-- Not Gösterimi -->
-    <div class="note" id="note"></div>
+    <!-- Sevgi Notu -->
+    <div class="note" id="note">
+        <button class="close-note" onclick="closeNote()">✖</button>
+        <p id="note-text"></p>
+    </div>
 
     <script>
-        // Not Gösterimi
         function showNote(message) {
             const note = document.getElementById('note');
-            note.textContent = message;
-            note.style.display = 'block';
-            setTimeout(() => {
-                note.style.display = 'none';
-            }, 3000); // Not 3 saniye sonra kaybolur
+            const noteText = document.getElementById('note-text');
+            noteText.textContent = message;
+            note.classList.add('active');
+        }
+
+        function closeNote() {
+            const note = document.getElementById('note');
+            note.classList.remove('active');
         }
     </script>
 </body>
