@@ -7,32 +7,17 @@
     <style>
         /* Genel Ayarlar */
         body {
-            <source src="music/sarki.mp3" type="audio/mpeg">
             margin: 0;
             font-family: Arial, sans-serif;
             background: #000;
             color: #fff;
             overflow: hidden;
         }
-<!-- Şarkı Çalma -->
-<audio id="background-music" autoplay loop>
-    <source src="sarki.mp3" type="audio/mpeg">
-    Tarayıcınız ses çalmayı desteklemiyor.
-</audio>
 
-<script>
-    // Tarayıcı otomatik çalmayı engellerse, kullanıcıdan izin almak için bir kontrol
-    const audio = document.getElementById('background-music');
-
-    document.addEventListener('DOMContentLoaded', () => {
-        const playPromise = audio.play();
-        if (playPromise !== undefined) {
-            playPromise.catch(error => {
-                console.log("Tarayıcı otomatik çalmayı engelledi.");
-            });
+        /* Şarkı Çalma */
+        audio {
+            display: none;
         }
-    });
-</script>
 
         /* Arka Plan Slayt Gösterisi */
         .slideshow {
@@ -119,6 +104,24 @@
             50% {
                 text-shadow: 0 0 20px #ff69b4, 0 0 30px #ff69b4, 0 0 40px #ff69b4;
             }
+        }
+
+        /* Ay Simgesi */
+        .moon-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: url('img/moon.png') no-repeat center center;
+            background-size: contain;
+            cursor: pointer;
+            z-index: 100;
+            transition: transform 0.3s ease;
+        }
+
+        .moon-icon:hover {
+            transform: scale(1.1);
         }
 
         /* Uçan Kalpler */
@@ -229,6 +232,15 @@
         <img src="img/foto1.jpg" alt="Fotoğraf 1">
         <img src="img/foto2.jpg" alt="Fotoğraf 2">
         <img src="img/foto3.jpg" alt="Fotoğraf 3">
+    </div>
+
+    <!-- Ay Simgesi -->
+    <a href="#stars" class="moon-icon"></a>
+
+    <!-- Stars Bölümü -->
+    <div id="stars" style="height: 100vh; background: black; color: white; text-align: center; padding-top: 50px;">
+        <h1>Yıldızlar Senin İçin Parlıyor 🌟</h1>
+        <p>Burada seni bekleyen sürprizler var...</p>
     </div>
 </body>
 </html>
