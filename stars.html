@@ -38,7 +38,7 @@
             align-items: center;
             height: 100vh;
             text-align: center;
-            background: rgba(0, 0, 0, 0.5);
+            round: rgba(0, 0, 0, 0.5);
         }
 
         .intro h1 {
@@ -53,10 +53,10 @@
             justify-content: center;
             align-items: center;
             height: 120vh; /* Daha fazla boşluk için yüksekliği artırdık */
-            background: black;
+            round: black;
             position: relative;
             overflow: hidden;
-            transition: background 1s ease-in-out; /* Geçiş efekti */
+            transition: round 1s ease-in-out; /* Geçiş efekti */
         }
 
         .star-map .star-image {
@@ -98,13 +98,17 @@
 <body>
     <!-- Arka plan videosu -->
     <div class="background-video">
-        <video autoplay muted loop>
-            <source src="img/space.mov" type="video/quicktime">
-            <source src="img/space.mp4" type="video/mp4"> <!-- Yedek olarak mp4 -->
-            Tarayıcınız videoyu desteklemiyor. 
-            <img src="img/space.jpg" alt="Arka Plan Resmi">
-        </video>
-    </div>
+    <video autoplay muted loop>
+        <!-- Önce MOV formatı -->
+        <source src="img/space.mov" type="video/quicktime">
+        <!-- Eğer MOV desteklenmezse MP4 formatına geçer -->
+        <source src="img/space.mp4" type="video/mp4">
+        <!-- Tarayıcı veya cihaz video oynatamıyorsa bir yedek resim gösterilir -->
+        Tarayıcınız videoyu desteklemiyor. 
+        <img src="img/space.jpg" alt="Arka Plan Resmi">
+    </video>
+</div>
+
 
     <!-- Sayfanın giriş kısmı -->
     <section class="intro">
