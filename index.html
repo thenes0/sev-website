@@ -11,7 +11,8 @@
             font-family: Arial, sans-serif;
             background: #000;
             color: #fff;
-            overflow-x: hidden;
+            overflow-x: hidden; /* Yatay kaydırmayı engeller */
+            width: 100%; /* Genişliği sınırlamak için */
         }
 
         /* Şarkı Çalma */
@@ -24,7 +25,7 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
+            width: 100%; /* Ekran genişliğine göre sınırlama */
             height: 100%;
             z-index: -1;
             overflow: hidden;
@@ -32,7 +33,7 @@
 
         .slideshow img {
             position: absolute;
-            width: 100%;
+            width: 100%; /* Görüntü genişliği ekran genişliğine tam oturur */
             height: 100%;
             object-fit: cover;
             animation: fade 18s infinite;
@@ -68,6 +69,8 @@
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            max-width: 90%; /* İçeriğin ekran dışına taşmasını önler */
+            word-wrap: break-word; /* Uzun metinlerin taşmasını engeller */
         }
 
         .content h1 {
@@ -113,6 +116,8 @@
             padding: 50px 20px;
             background: #000;
             color: #fff;
+            width: 100%; /* Genişliği sınırlamak için */
+            box-sizing: border-box; /* Padding ve margin hesaplamalarını düzgün yapar */
         }
 
         .stars-section h2 {
@@ -143,7 +148,7 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
+            width: 100%; /* Tüm ekran genişliğini kaplar */
             height: 100%;
             pointer-events: none;
             overflow: hidden;
