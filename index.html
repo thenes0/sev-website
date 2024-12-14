@@ -3,30 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dinamik Ana Sayfa</title>
+    <title>Galeri Ana Sayfa</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Dinamik arka plan slaytı -->
-    <div class="slideshow-container">
-        <div class="slideshow">
-            <div class="slide" style="background-image: url('img/foto1.jpg');"></div>
-            <div class="slide" style="background-image: url('img/foto2.jpg');"></div>
-            <div class="slide" style="background-image: url('img/foto3.jpg');"></div>
-        </div>
+    <!-- Ana Sayfa Başlık -->
+    <div class="homepage-header">
+        <h1>Hoş Geldiniz!</h1>
+        <p>Fotoğraf galerimize göz atmak için aşağıdaki butona tıklayın.</p>
+        <a href="galeri.html" class="gallery-button">Galeriyi Görüntüle</a>
     </div>
-
-    <!-- Dinamik yazılar -->
-    <div class="content">
-        <h1 class="fade-in">Hayatın Renklerini <span class="highlight" onclick="goToPage('galeri.html')">Galeri</span>'de Keşfet</h1>
-        <p class="fade-in">Yıldızların büyüsünü <span class="highlight" onclick="goToPage('stars.html')">Stars</span>'da hisset.</p>
-    </div>
-
-    <!-- JavaScript ile sayfa yönlendirme -->
-    <script>
-        function goToPage(page) {
-            window.location.href = page;
-        }
-    </script>
 </body>
 </html>
