@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AŞŞŞŞKIMMM BİRTANEMMMMMMMMM İLE GALERİ SAYFAMIZZZ</title>
+    <title>Gelişmiş Sevgi Galerisi</title>
     <style>
         body {
             margin: 0;
@@ -29,107 +29,12 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            animation: fade 150s infinite;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
         }
 
-        /* Her bir fotoğraf için gecikme ayarları */
-        .slideshow img:nth-child(2) {
-            animation-delay: 5s;
-        }
-        .slideshow img:nth-child(3) {
-            animation-delay: 10s;
-        }
-        .slideshow img:nth-child(4) {
-            animation-delay: 15s;
-        }
-        .slideshow img:nth-child(5) {
-            animation-delay: 20s;
-        }
-        .slideshow img:nth-child(6) {
-            animation-delay: 25s;
-        }
-        .slideshow img:nth-child(7) {
-            animation-delay: 30s;
-        }
-        .slideshow img:nth-child(8) {
-            animation-delay: 35s;
-        }
-        .slideshow img:nth-child(9) {
-            animation-delay: 40s;
-        }
-        .slideshow img:nth-child(10) {
-            animation-delay: 45s;
-        }
-        .slideshow img:nth-child(11) {
-            animation-delay: 50s;
-        }
-        .slideshow img:nth-child(12) {
-            animation-delay: 55s;
-        }
-        .slideshow img:nth-child(13) {
-            animation-delay: 60s;
-        }
-        .slideshow img:nth-child(14) {
-            animation-delay: 65s;
-        }
-        .slideshow img:nth-child(15) {
-            animation-delay: 70s;
-        }
-        .slideshow img:nth-child(16) {
-            animation-delay: 75s;
-        }
-        .slideshow img:nth-child(17) {
-            animation-delay: 80s;
-        }
-        .slideshow img:nth-child(18) {
-            animation-delay: 85s;
-        }
-        .slideshow img:nth-child(19) {
-            animation-delay: 90s;
-        }
-        .slideshow img:nth-child(20) {
-            animation-delay: 95s;
-        }
-        .slideshow img:nth-child(21) {
-            animation-delay: 100s;
-        }
-        .slideshow img:nth-child(22) {
-            animation-delay: 105s;
-        }
-        .slideshow img:nth-child(23) {
-            animation-delay: 110s;
-        }
-        .slideshow img:nth-child(24) {
-            animation-delay: 115s;
-        }
-        .slideshow img:nth-child(25) {
-            animation-delay: 120s;
-        }
-        .slideshow img:nth-child(26) {
-            animation-delay: 125s;
-        }
-        .slideshow img:nth-child(27) {
-            animation-delay: 130s;
-        }
-        .slideshow img:nth-child(28) {
-            animation-delay: 135s;
-        }
-        .slideshow img:nth-child(29) {
-            animation-delay: 140s;
-        }
-        .slideshow img:nth-child(30) {
-            animation-delay: 145s;
-        }
-
-        @keyframes fade {
-            0%, 100% {
-                opacity: 0;
-                transform: scale(1.1); /* Hafif zoom-out efekti */
-            }
-            50% {
-                opacity: 1;
-                transform: scale(1); /* Normal boyut */
-            }
+        .slideshow img.active {
+            opacity: 1;
         }
 
         /* Fotoğraf Galerisi */
@@ -235,7 +140,7 @@
     <!-- Arka Plan Slayt Gösterisi -->
     <div class="slideshow">
         <!-- 30 Fotoğraf için Arka Plan -->
-        <img src="img/foto1.jpg" alt="Slayt 1">
+        <img src="img/foto1.jpg" alt="Slayt 1" class="active">
         <img src="img/foto2.jpg" alt="Slayt 2">
         <img src="img/foto3.jpg" alt="Slayt 3">
         <img src="img/foto4.jpg" alt="Slayt 4">
@@ -245,31 +150,11 @@
         <img src="img/foto8.jpg" alt="Slayt 8">
         <img src="img/foto9.jpg" alt="Slayt 9">
         <img src="img/foto10.jpg" alt="Slayt 10">
-        <img src="img/foto11.jpg" alt="Slayt 11">
-        <img src="img/foto12.jpg" alt="Slayt 12">
-        <img src="img/foto13.jpg" alt="Slayt 13">
-        <img src="img/foto14.jpg" alt="Slayt 14">
-        <img src="img/foto15.jpg" alt="Slayt 15">
-        <img src="img/foto16.jpg" alt="Slayt 16">
-        <img src="img/foto17.jpg" alt="Slayt 17">
-        <img src="img/foto18.jpg" alt="Slayt 18">
-        <img src="img/foto19.jpg" alt="Slayt 19">
-        <img src="img/foto20.jpg" alt="Slayt 20">
-        <img src="img/foto21.jpg" alt="Slayt 21">
-        <img src="img/foto22.jpg" alt="Slayt 22">
-        <img src="img/foto23.jpg" alt="Slayt 23">
-        <img src="img/foto24.jpg" alt="Slayt 24">
-        <img src="img/foto25.jpg" alt="Slayt 25">
-        <img src="img/foto26.jpg" alt="Slayt 26">
-        <img src="img/foto27.jpg" alt="Slayt 27">
-        <img src="img/foto28.jpg" alt="Slayt 28">
-        <img src="img/foto29.jpg" alt="Slayt 29">
-        <img src="img/foto30.jpg" alt="Slayt 30">
     </div>
 
     <!-- Fotoğraf Galerisi -->
     <div class="photo-container">
-        <!-- 30 Fotoğraf için Galeri -->
+          <!-- 30 Fotoğraf için Galeri -->
         <div class="photo" onclick="showNote('Seninle geçen her an, hayatımın en değerli hazinesi.')"><img src="img/foto1.jpg" alt="Fotoğraf 1"></div>
         <div class="photo" onclick="showNote('Gözlerinde kaybolduğum her an, kalbim yeniden âşık oluyor sana.')"><img src="img/foto2.jpg" alt="Fotoğraf 2"></div>
         <div class="photo" onclick="showNote('Sen benim en güzel şiirim, en derin hayalim, en mutlu gerçeğimsin.')"><img src="img/foto3.jpg" alt="Fotoğraf 3"></div>
@@ -310,6 +195,7 @@
     </div>
 
     <script>
+        // Sevgi Notu Gösterme Fonksiyonu
         function showNote(message) {
             const note = document.getElementById('note');
             const noteText = document.getElementById('note-text');
@@ -321,6 +207,18 @@
             const note = document.getElementById('note');
             note.classList.remove('active'); // Notu gizle
         }
+
+        // Arka Plan Slayt Gösterisi
+        const slides = document.querySelectorAll('.slideshow img');
+        let currentSlide = 0;
+
+        function changeSlide() {
+            slides[currentSlide].classList.remove('active'); // Mevcut resmi gizle
+            currentSlide = (currentSlide + 1) % slides.length; // Sıradaki resmi seç
+            slides[currentSlide].classList.add('active'); // Yeni resmi göster
+        }
+
+        setInterval(changeSlide, 5000); // Her 5 saniyede bir resmi değiştir
     </script>
 </body>
 </html>
