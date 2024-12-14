@@ -36,7 +36,7 @@
         /* Parlama efekti */
         @keyframes twinkle {
             0%, 100% {
-                opacity: 0.8;
+                opacity: 0.6;
             }
             50% {
                 opacity: 1;
@@ -69,6 +69,43 @@
                 text-shadow: 0 0 20px #fff, 0 0 30px #ff00ff, 0 0 40px #ff00ff, 0 0 50px #ff00ff;
             }
         }
+
+        /* Yıldız Haritası Alanı */
+        .star-map {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 100vh; /* En alt kısım */
+            background: radial-gradient(circle, rgba(0, 0, 0, 1) 70%, rgba(0, 0, 0, 0.8) 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .constellation {
+            position: relative;
+            width: 80%;
+            height: 80%;
+        }
+
+        /* Takımyıldız çizgileri */
+        .line {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transform-origin: top left;
+        }
+
+        /* Takımyıldız yıldızları */
+        .constellation .star {
+            width: 5px;
+            height: 5px;
+            background: white;
+            border-radius: 50%;
+            animation: none;
+        }
     </style>
 </head>
 <body>
@@ -80,10 +117,17 @@
     <!-- Gökyüzü -->
     <div class="sky" id="sky"></div>
 
+    <!-- Yıldız Haritası -->
+    <div class="star-map">
+        <div class="constellation" id="constellation">
+            <!-- Takımyıldız yıldızları ve çizgileri JavaScript ile eklenecek -->
+        </div>
+    </div>
+
     <script>
         // Yıldızları oluşturma
         const sky = document.getElementById('sky');
-        const starCount = 300; // Yıldız sayısı
+        const starCount = 300; // Gökyüzündeki yıldız sayısı
 
         // Sabit yıldız yerleşimi için bir sabit rastgelelik fonksiyonu
         function seededRandom(seed) {
@@ -110,6 +154,45 @@
             // Yıldızı gökyüzüne ekle
             sky.appendChild(star);
         }
+
+        // Takımyıldızları oluşturma
+        const constellation = document.getElementById('constellation');
+
+        // Takımyıldız yıldızlarının koordinatları
+        const stars = [
+            { x: 10, y: 20 },
+            { x: 30, y: 50 },
+            { x: 50, y: 30 },
+            { x: 70, y: 70 },
+            { x: 90, y: 40 },
+        ];
+
+        // Takımyıldızları çizme
+        stars.forEach((star, index) => {
+            const starEl = document.createElement('div');
+            starEl.classList.add('star');
+            starEl.style.left = `${star.x}%`;
+            starEl.style.top = `${star.y}%`;
+            constellation.appendChild(starEl);
+
+            // Çizgiler
+            if (index > 0) {
+                const prevStar = stars[index - 1];
+                const line = document.createElement('div');
+                line.classList.add('line');
+
+                const dx = star.x - prevStar.x;
+                const dy = star.y - prevStar.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                line.style.width = `${distance}%`;
+                line.style.transform = `rotate(${Math.atan2(dy, dx)}rad)`;
+                line.style.left = `${prevStar.x}%`;
+                line.style.top = `${prevStar.y}%`;
+
+                constellation.appendChild(line);
+            }
+        });
     </script>
 </body>
 </html>
