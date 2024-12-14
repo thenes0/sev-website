@@ -3,42 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>8 Eylül Yıldız Haritamız</title>
+    <title>Gezegenlerin Gökyüzündeki Konumu</title>
     <style>
         body {
-            margin: 0;
-            padding: 0;
-            background: black;
-            color: white;
             font-family: Arial, sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-
-        iframe {
-            border: none;
-            width: 100%;
-            height: 100%;
-        }
-
-        h1 {
-            position: absolute;
-            top: 10px;
-            color: white;
+            background-color: #000;
+            color: #fff;
             text-align: center;
-            z-index: 10;
+            padding: 20px;
+        }
+        h1 {
+            color: #f9d71c;
+        }
+        .planet {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+        .loading {
+            color: #aaa;
         }
     </style>
 </head>
 <body>
-    <h1>İstanbul - 8 Eylül 2024 Saat 21:00 Yıldız Haritası</h1>
-    <!-- Stellarium Web iframe -->
-    <iframe 
-        src="https://stellarium-web.org/?lat=41.0082&lon=28.9784&date=2024-9-8T20%3A00%3A00&fov=100&projection=stereographic" 
-        title="Yıldız Haritası">
-    </iframe>
+    <h1>Gezegenlerin Gökyüzündeki Konumu</h1>
+    <div id="planet-info" class="loading">Gezegen verileri yükleniyor...</div>
+
+    <!-- Astronomy Engine için gerekli kütüphane -->
+    <script src="https://unpkg.com/@cosine/astronomy-engine"></script>
+    <script>
+        // Konum bilgileri (İstanbul için)
+        const latitude = 41.0082; // Enlem
+        const longitude = 28.9784; // Boylam
+
+        // Tarih bilgisi
+        const date = new Date("2024-12-14T20:00:00"); // Belirli bir tarih ve saat
+
+        // Astronomy Engine kullanarak gezegenlerin pozisyonlarını hesaplama
+        const observer = new Astronomy.Observer(latitude, longitude, 0); // İstanbul için gözlemci
+
+        // Gezegenlerin listesini tanımlayalım
+        const planets = ["Mercury", "Venus", "Mars", "Jupiter", "Saturn"];
+
+        // Gezegen bilgilerini hesaplayıp ekrana yazdırma
+        async function calculatePlanetPositions() {
+            const planetInfoDiv = document.getElementById("planet-info");
+            planetInfoDiv.innerHTML = ""; // Eski içeriği temizle
+
+            for (const planet of planets) {
+                const astroData = Astronomy.Equator(planet, date, observer, true, true);
+                const azimuth = astroData.azimuth.toFixed(2); // Azimut (derece)
+                const altitude = astroData.altitude.toFixed(2); // Yükselim (derece)
+
+                // Gezegen bilgilerini ekrana yazdır
+                const planetDiv = document.createElement("div");
+                planetDiv.className = "planet";
+                planetDiv.textContent = `${planet}: Azimut = ${azimuth}°, Yükselim = ${altitude}°`;
+                planetInfoDiv.appendChild(planetDiv);
+            }
+        }
+
+        // Fonksiyonu çağır
+        calculatePlanetPositions();
+    </script>
 </body>
 </html>
