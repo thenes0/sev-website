@@ -3,64 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yıldız Haritası</title>
+    <title>NASA Astronomy Picture of the Day</title>
     <style>
         body {
-            margin: 0;
             font-family: Arial, sans-serif;
-            background: #000;
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
             text-align: center;
+            background-color: #000;
+            color: #fff;
+            margin: 0;
+            padding: 0;
         }
-
         h1 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
+            margin-top: 20px;
         }
-
-        img {
-            width: 80%;
-            max-width: 600px;
+        img, iframe {
+            max-width: 90%;
+            height: auto;
             border: 2px solid #fff;
             border-radius: 10px;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-        }
-
-        p {
             margin-top: 20px;
+        }
+        p {
+            margin: 20px;
             font-size: 1.2rem;
         }
     </style>
 </head>
 <body>
-    <h1>Bugünün Astronomi Görseli</h1>
-    <img id="apod-image" src="" alt="Astronomi Görseli">
+    <h1>NASA Astronomy Picture of the Day</h1>
     <p id="apod-title"></p>
+    <img id="apod-image" src="" alt="Astronomy Picture of the Day" style="display: none;">
+    <iframe id="apod-video" src="" frameborder="0" allowfullscreen style="display: none;"></iframe>
     <p id="apod-description"></p>
 
     <script>
-        // NASA API Anahtarı
-        const API_KEY = 'DEMO_KEY'; // Buraya NASA API anahtarınızı ekleyin. DEMO_KEY sınırlı kullanım sunar.
+        // NASA API Anahtarı ve Tarih
+        const API_KEY = 'mSnRbpj0yFy9hlgAHdyvKXYZuXgqYeaxWWvkiHgm'; // Verdiğiniz API anahtarı
+        const date = '2024-09-08'; // 8 Eylül 2024
+        const API_URL = `https://api.nasa.gov/planetary/apod?api_key=${API_KEY}&date=${date}`;
 
-        // API URL'si
-        const apiUrl = `https://api.nasa.gov/planetary/apod?api_key=${API_KEY}`;
-
-        // Veriyi çek ve sayfada göster
-        fetch(apiUrl)
+        // API'den veri çekme
+        fetch(API_URL)
             .then(response => response.json())
             .then(data => {
-                document.getElementById('apod-image').src = data.url; // Görsel URL'si
-                document.getElementById('apod-title').innerText = data.title; // Görselin başlığı
-                document.getElementById('apod-description').innerText = data.explanation; // Açıklama
+                console.log(data); // Gelen veriyi konsola yazdır (isteğe bağlı)
+
+                // Görsel veya video kontrolü
+                if (data.media_type === 'image') {
+                    document.getElementById('apod-image').src = data.url;
+                    document.getElementById('apod-image').style.display = 'block';
+                } else if (data.media_type === 'video') {
+                    document.getElementById('apod-video').src = data.url;
+                    document.getElementById('apod-video').style.display = 'block';
+                }
+
+                // Başlık ve açıklama
+                document.getElementById('apod-title').textContent = data.title;
+                document.getElementById('apod-description').textContent = data.explanation;
             })
             .catch(error => {
                 console.error('API Hatası:', error);
-                alert('Astronomi görseli yüklenirken bir hata oluştu.');
+                alert('NASA API ile bağlantı kurulurken bir hata oluştu.');
             });
     </script>
 </body>
