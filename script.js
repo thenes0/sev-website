@@ -7,3 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
         heart.style.left = `${Math.random() * 100}%`;
     });
 });
+
+function showNote(note) {
+    alert(note); // Notu bir uyarı mesajı olarak gösterir
+}
