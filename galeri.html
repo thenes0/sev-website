@@ -3,175 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fotoğraf Galerisi</title>
-    <link rel="stylesheet" href="style.css">
+    <title>AŞIGIIIIIM GÜZEL KIZIMMMMM</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            background: #000;
+            color: #fff;
+        }
+
+        /* Arka Plan Slayt Gösterisi */
+        .slideshow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .slideshow img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            animation: fade 15s infinite;
+        }
+
+        .slideshow img:nth-child(2) {
+            animation-delay: 5s;
+        }
+
+        @keyframes fade {
+            0%, 100% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* Kaydırma ile Fotoğraf */
+        .photo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+            position: relative;
+            z-index: 2;
+        }
+
+        .photo-container .photo {
+            width: 60%;
+            margin: 20px auto;
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            scroll-snap-align: center;
+            cursor: pointer;
+        }
+
+        .photo-container .photo img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .photo-container .photo:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 30px rgba(255, 182, 193, 0.8);
+        }
+
+        /* Sevgi Notu */
+        .note {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 3;
+            animation: fadeInOut 3s ease;
+        }
+
+        .note.active {
+            display: block;
+            animation: fadeInOut 3s ease;
+        }
+
+        @keyframes fadeInOut {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, -60%) scale(0.8);
+            }
+            50% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -60%) scale(0.8);
+            }
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Fotoğraf Galerisi</h1>
-    </header>
-    <nav>
-        <a href="index.html">Ana Sayfa</a>
-        <a href="galeri.html">Galeri</a>
-        <a href="hakkinda.html">Hakkında</a>
-        <a href="iletisim.html">İletişim</a>
-    </nav>
-    <main>
-        <div class="photo-container">
-            <!-- Fotoğraf 1 -->
-            <div class="photo">
-                <img src="img/foto1.jpg" alt="Fotoğraf 1">
-                <div class="photo-note">Bu bir doğa fotoğrafı.</div>
-            </div>
-            <!-- Fotoğraf 2 -->
-            <div class="photo">
-                <img src="img/foto2.jpg" alt="Fotoğraf 2">
-                <div class="photo-note">Gün batımının eşsiz manzarası.</div>
-            </div>
-            <!-- Fotoğraf 3 -->
-            <div class="photo">
-                <img src="img/foto3.jpg" alt="Fotoğraf 3">
-                <div class="photo-note">Deniz kenarında bir gün.</div>
-            </div>
-            <!-- Fotoğraf 4 -->
-            <div class="photo">
-                <img src="img/foto4.jpg" alt="Fotoğraf 4">
-                <div class="photo-note">Karlı bir dağ manzarası.</div>
-            </div>
-            <!-- Fotoğraf 5 -->
-            <div class="photo">
-                <img src="img/foto5.jpg" alt="Fotoğraf 5">
-                <div class="photo-note">Ormanın derinliklerinde.</div>
-            </div>
-            <!-- Fotoğraf 6 -->
-            <div class="photo">
-                <img src="img/foto6.jpg" alt="Fotoğraf 6">
-                <div class="photo-note">Şehirde bir akşam.</div>
-            </div>
-            <!-- Fotoğraf 7 -->
-            <div class="photo">
-                <img src="img/foto7.jpg" alt="Fotoğraf 7">
-                <div class="photo-note">Renkli çiçekler bahçesi.</div>
-            </div>
-            <!-- Fotoğraf 8 -->
-            <div class="photo">
-                <img src="img/foto8.jpg" alt="Fotoğraf 8">
-                <div class="photo-note">Eski bir köy yolu.</div>
-            </div>
-            <!-- Fotoğraf 9 -->
-            <div class="photo">
-                <img src="img/foto9.jpg" alt="Fotoğraf 9">
-                <div class="photo-note">Gökyüzünde yıldızlar.</div>
-            </div>
-            <!-- Fotoğraf 10 -->
-            <div class="photo">
-                <img src="img/foto10.jpg" alt="Fotoğraf 10">
-                <div class="photo-note">Sahil kenarında bir yürüyüş.</div>
-            </div>
-            <!-- Fotoğraf 11 -->
-            <div class="photo">
-                <img src="img/foto11.jpg" alt="Fotoğraf 11">
-                <div class="photo-note">Göl kenarında huzur.</div>
-            </div>
-            <!-- Fotoğraf 12 -->
-            <div class="photo">
-                <img src="img/foto12.jpg" alt="Fotoğraf 12">
-                <div class="photo-note">Tarihi bir köprü.</div>
-            </div>
-            <!-- Fotoğraf 13 -->
-            <div class="photo">
-                <img src="img/foto13.jpg" alt="Fotoğraf 13">
-                <div class="photo-note">Doğanın renkleri.</div>
-            </div>
-            <!-- Fotoğraf 14 -->
-            <div class="photo">
-                <img src="img/foto14.jpg" alt="Fotoğraf 14">
-                <div class="photo-note">Kışın güzellikleri.</div>
-            </div>
-            <!-- Fotoğraf 15 -->
-            <div class="photo">
-                <img src="img/foto15.jpg" alt="Fotoğraf 15">
-                <div class="photo-note">Bir yaz günü.</div>
-            </div>
-            <!-- Fotoğraf 16 -->
-            <div class="photo">
-                <img src="img/foto16.jpg" alt="Fotoğraf 16">
-                <div class="photo-note">Köyde bir sabah.</div>
-            </div>
-            <!-- Fotoğraf 17 -->
-            <div class="photo">
-                <img src="img/foto17.jpg" alt="Fotoğraf 17">
-                <div class="photo-note">Gökkuşağı manzarası.</div>
-            </div>
-            <!-- Fotoğraf 18 -->
-            <div class="photo">
-                <img src="img/foto18.jpg" alt="Fotoğraf 18">
-                <div class="photo-note">Şelalenin sesi.</div>
-            </div>
-            <!-- Fotoğraf 19 -->
-            <div class="photo">
-                <img src="img/foto19.jpg" alt="Fotoğraf 19">
-                <div class="photo-note">Tarihi bir kale.</div>
-            </div>
-            <!-- Fotoğraf 20 -->
-            <div class="photo">
-                <img src="img/foto20.jpg" alt="Fotoğraf 20">
-                <div class="photo-note">Deniz feneri.</div>
-            </div>
-            <!-- Fotoğraf 21 -->
-            <div class="photo">
-                <img src="img/foto21.jpg" alt="Fotoğraf 21">
-                <div class="photo-note">Gün doğumu.</div>
-            </div>
-            <!-- Fotoğraf 22 -->
-            <div class="photo">
-                <img src="img/foto22.jpg" alt="Fotoğraf 22">
-                <div class="photo-note">Ormanda yürüyüş.</div>
-            </div>
-            <!-- Fotoğraf 23 -->
-            <div class="photo">
-                <img src="img/foto23.jpg" alt="Fotoğraf 23">
-                <div class="photo-note">Köprüden manzara.</div>
-            </div>
-            <!-- Fotoğraf 24 -->
-            <div class="photo">
-                <img src="img/foto24.jpg" alt="Fotoğraf 24">
-                <div class="photo-note">Tarihi bir sokak.</div>
-            </div>
-            <!-- Fotoğraf 25 -->
-            <div class="photo">
-                <img src="img/foto25.jpg" alt="Fotoğraf 25">
-                <div class="photo-note">Kumsalda bir gün.</div>
-            </div>
-            <!-- Fotoğraf 26 -->
-            <div class="photo">
-                <img src="img/foto26.jpg" alt="Fotoğraf 26">
-                <div class="photo-note">Baharda açan çiçekler.</div>
-            </div>
-            <!-- Fotoğraf 27 -->
-            <div class="photo">
-                <img src="img/foto27.jpg" alt="Fotoğraf 27">
-                <div class="photo-note">Eski bir ev.</div>
-            </div>
-            <!-- Fotoğraf 28 -->
-            <div class="photo">
-                <img src="img/foto28.jpg" alt="Fotoğraf 28">
-                <div class="photo-note">Karlı yollar.</div>
-            </div>
-            <!-- Fotoğraf 29 -->
-            <div class="photo">
-                <img src="img/foto29.jpg" alt="Fotoğraf 29">
-                <div class="photo-note">Göl kenarında bir akşam.</div>
-            </div>
-            <!-- Fotoğraf 30 -->
-            <div class="photo">
-                <img src="img/foto30.jpg" alt="Fotoğraf 30">
-                <div class="photo-note">Doğanın sessizliği.</div>
-            </div>
-        </div>
-    </main>
-    <footer>
-        <p>© 2024 Fotoğraf Galerisi. Tüm hakları saklıdır.</p>
-    </footer>
+    <!-- Arka Plan Slayt Gösterisi -->
+    <div class="slideshow">
+        <img src="foto1.jpg" alt="Slayt 1">
+        <img src="foto2.jpg" alt="Slayt 2">
+        <img src="foto3.jpg" alt="Slayt 3">
+        <img src="foto4.jpg" alt="Slayt 4">
+        <img src="foto5.jpg" alt="Slayt 5">
+    </div>
+
+    <!-- Fotoğraf Galerisi -->
+    <div class="photo-container">
+        <div class="photo" onclick="showNote('Bu sevgiyle beni tanıştırdığın için seni seviyorumm.')"><img src="foto1.jpg" alt="Fotoğraf 1"></div>
+        <div class="photo" onclick="showNote('Güldüğünde gözlerinin yaydığı ışıkla kalbim parıldıyor birtanemmmm.')"><img src="foto2.jpg" alt="Fotoğraf 2"></div>
+        <div class="photo" onclick="showNote('Kalbim seninle bir ömür boyu, söz veriyorum.')"><img src="foto3.jpg" alt="Fotoğraf 3"></div>
+        <div class="photo" onclick="showNote('Birlikteyken zaman duruyor kalbim hızlanıyor güzelimmm.')"><img src="foto4.jpg" alt="Fotoğraf 4"></div>
+        <div class="photo" onclick="showNote('Sonsuza kadar seninle olacağımmmm, BUNU İSTİYORUM.')"><img src="foto5.jpg" alt="Fotoğraf 5"></div>
+    </div>
+
+    <!-- Sevgi Notu -->
+    <div class="note" id="note"></div>
+
+    <script>
+        function showNote(message) {
+            const note = document.getElementById('note');
+            note.textContent = message;
+            note.classList.add('active');
+            setTimeout(() => note.classList.remove('active'), 3000);
+        }
+    </script>
 </body>
 </html>
