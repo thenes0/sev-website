@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AŞIGIIIIIM GÜZEL KIZIMMMMM</title>
+    <title>Gelişmiş Sevgi Galerisi</title>
     <style>
         body {
             margin: 0;
@@ -34,6 +34,10 @@
 
         .slideshow img:nth-child(2) {
             animation-delay: 5s;
+        }
+
+        .slideshow img:nth-child(3) {
+            animation-delay: 10s;
         }
 
         @keyframes fade {
@@ -91,51 +95,88 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
             display: none;
             z-index: 3;
-            animation: fadeInOut 3s ease;
+            animation: fadeIn 0.5s ease;
         }
 
         .note.active {
             display: block;
-            animation: fadeInOut 3s ease;
         }
 
-        @keyframes fadeInOut {
-            0% {
+        @keyframes fadeIn {
+            from {
                 opacity: 0;
-                transform: translate(-50%, -60%) scale(0.8);
+                transform: translate(-50%, -60%);
             }
-            50% {
+            to {
                 opacity: 1;
-                transform: translate(-50%, -50%) scale(1);
+                transform: translate(-50%, -50%);
             }
-            100% {
-                opacity: 0;
-                transform: translate(-50%, -60%) scale(0.8);
-            }
+        }
+
+        /* Çıkış Butonu */
+        .close-note {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .close-note:hover {
+            color: #ff69b4;
         }
     </style>
 </head>
 <body>
+    <!-- Arka Plan Slayt Gösterisi -->
     <div class="slideshow">
         <img src="foto1.jpg" alt="Slayt 1">
         <img src="foto2.jpg" alt="Slayt 2">
         <img src="foto3.jpg" alt="Slayt 3">
+        <img src="foto4.jpg" alt="Slayt 4">
+        <img src="foto5.jpg" alt="Slayt 5">
+        <img src="foto6.jpg" alt="Slayt 6">
+        <img src="foto7.jpg" alt="Slayt 7">
+        <img src="foto8.jpg" alt="Slayt 8">
+        <img src="foto9.jpg" alt="Slayt 9">
+        <img src="foto30.jpg" alt="Slayt 30">
     </div>
 
+    <!-- Fotoğraf Galerisi -->
     <div class="photo-container">
-        <div class="photo" onclick="showNote('Seni seviyorum birtanem.')"><img src="foto1.jpg" alt="Fotoğraf 1"></div>
-        <div class="photo" onclick="showNote('Hayatımın anlamısın.')"><img src="foto2.jpg" alt="Fotoğraf 2"></div>
-        <div class="photo" onclick="showNote('Birlikte çok güzeliz.')"><img src="foto3.jpg" alt="Fotoğraf 3"></div>
+        <!-- 30 Fotoğraf ve Notlar -->
+        <div class="photo" onclick="showNote('Seninle her an bir şiir.')"><img src="foto1.jpg" alt="Fotoğraf 1"></div>
+        <div class="photo" onclick="showNote('Gözlerindeki ışıkla tüm yollar aydınlanıyor.')"><img src="foto2.jpg" alt="Fotoğraf 2"></div>
+        <div class="photo" onclick="showNote('Kalbim seninle bir ömür boyu.')"><img src="foto3.jpg" alt="Fotoğraf 3"></div>
+        <div class="photo" onclick="showNote('Birlikteyken zaman duruyor.')"><img src="foto4.jpg" alt="Fotoğraf 4"></div>
+        <div class="photo" onclick="showNote('Seninle hayat hep bahar.')"><img src="foto5.jpg" alt="Fotoğraf 5"></div>
+        <div class="photo" onclick="showNote('Aşkın tanımı seninle yapılır.')"><img src="foto6.jpg" alt="Fotoğraf 6"></div>
+        <div class="photo" onclick="showNote('Her şey seninle anlam buluyor.')"><img src="foto7.jpg" alt="Fotoğraf 7"></div>
+        <div class="photo" onclick="showNote('Sonsuza kadar seninle olacağım.')"><img src="foto8.jpg" alt="Fotoğraf 8"></div>
+        <div class="photo" onclick="showNote('Seninle her an bir başka güzel.')"><img src="foto9.jpg" alt="Fotoğraf 9"></div>
+        <div class="photo" onclick="showNote('Seninle her şey tamam.')"><img src="foto10.jpg" alt="Fotoğraf 10"></div>
     </div>
 
-    <div class="note" id="note"></div>
+    <!-- Sevgi Notu -->
+    <div class="note" id="note">
+        <button class="close-note" onclick="closeNote()">✖</button>
+        <p id="note-text"></p>
+    </div>
 
     <script>
         function showNote(message) {
             const note = document.getElementById('note');
-            note.textContent = message;
+            const noteText = document.getElementById('note-text');
+            noteText.textContent = message;
             note.classList.add('active');
-            setTimeout(() => note.classList.remove('active'), 3000);
+        }
+
+        function closeNote() {
+            const note = document.getElementById('note');
+            note.classList.remove('active');
         }
     </script>
 </body>
