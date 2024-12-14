@@ -37,8 +37,16 @@
             const longitude = 28.9784; // Boylam
             const observer = new Astronomy.Observer(latitude, longitude, 0); // Gözlemci
 
-            // Belirli bir tarih ve saat
-            const date = new Date("2024-12-14T20:00:00");
+            // Rastgele bir tarih oluştur
+            function getRandomDate() {
+                const start = new Date(2000, 0, 1); // 1 Ocak 2000
+                const end = new Date(2030, 11, 31); // 31 Aralık 2030
+                const randomTime = start.getTime() + Math.random() * (end.getTime() - start.getTime());
+                return new Date(randomTime);
+            }
+
+            const randomDate = getRandomDate(); // Rastgele bir tarih seç
+            console.log("Rastgele Seçilen Tarih:", randomDate);
 
             // Gezegenlerin listesi
             const planets = ["Mercury", "Venus", "Mars", "Jupiter", "Saturn"];
@@ -48,12 +56,12 @@
 
             // Gezegenlerin pozisyonlarını hesapla ve göster
             function calculatePlanetPositions() {
-                planetInfoDiv.innerHTML = ""; // Yükleniyor mesajını temizle
+                planetInfoDiv.innerHTML = `<h3>Rastgele Tarih: ${randomDate.toDateString()}</h3>`; // Tarihi göster
 
                 planets.forEach(planet => {
                     try {
                         // Astronomy Engine kullanarak gezegenin konumunu hesapla
-                        const equatorial = Astronomy.Equator(planet, date, observer, true, true);
+                        const equatorial = Astronomy.Equator(planet, randomDate, observer, true, true);
                         const azimuth = equatorial.azimuth.toFixed(2); // Azimut (derece)
                         const altitude = equatorial.altitude.toFixed(2); // Yükselim (derece)
 
