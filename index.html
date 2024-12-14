@@ -13,6 +13,25 @@
             color: #fff;
             overflow: hidden;
         }
+<!-- Şarkı Çalma -->
+<audio id="background-music" autoplay loop>
+    <source src="sarki.mp3" type="audio/mpeg">
+    Tarayıcınız ses çalmayı desteklemiyor.
+</audio>
+
+<script>
+    // Tarayıcı otomatik çalmayı engellerse, kullanıcıdan izin almak için bir kontrol
+    const audio = document.getElementById('background-music');
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const playPromise = audio.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(error => {
+                console.log("Tarayıcı otomatik çalmayı engelledi.");
+            });
+        }
+    });
+</script>
 
         /* Arka Plan Slayt Gösterisi */
         .slideshow {
