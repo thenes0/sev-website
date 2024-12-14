@@ -133,4 +133,109 @@
             color: #fff;
         }
 
-        .star
+        .star-icon {
+            font-size: 3rem;
+            color: #ffd700;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .star-icon:hover {
+            transform: scale(1.2);
+        }
+
+        /* Uçan Kalpler */
+        .hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #ff69b4;
+            opacity: 0.8;
+            transform: rotate(45deg);
+            animation: floatDiagonal 5s linear infinite; /* Sürekli hareket */
+        }
+
+        .heart::before,
+        .heart::after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #ff69b4;
+            border-radius: 50%;
+        }
+
+        .heart::before {
+            top: -10px;
+            left: 0;
+        }
+
+        .heart::after {
+            top: 0;
+            left: -10px;
+        }
+
+        @keyframes floatDiagonal {
+            0% {
+                transform: translate(calc(100vw * var(--startX)), calc(100vh * var(--startY))) rotate(45deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(calc(100vw * var(--endX)), calc(-100vh * var(--endY))) rotate(45deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Yazı Kutusu -->
+    <div class="content">
+        <h1>Sevgilimmm,</h1>
+        <p>
+            Hayatımın en güzel <a href="galeri.html">AŞK</a> hikayesi sensin.  
+            Kalbimin en özel köşesinde hep sen varsın.  
+            Bu sayfa seni mutlu etmek için,
+            çünkü sen her şeyin en iyisini hak ediyorsun! 
+                            Seni seviyorum...❤️
+        </p>
+    </div>
+
+    <!-- Uçan Kalpler -->
+    <div class="hearts">
+        <!-- Çapraz hareket eden kalpler (dinamik başlangıç ve bitiş noktaları) -->
+        <div class="heart" style="--startX: 0.1; --startY: 1; --endX: 0.3; --endY: 0;"></div>
+        <div class="heart" style="--startX: 0.2; --startY: 1; --endX: 0.5; --endY: 0;"></div>
+        <div class="heart" style="--startX: 0.3; --startY: 1; --endX: 0.7; --endY: 0;"></div>
+        <div class="heart" style="--startX: 0.4; --startY: 1; --endX: 0.9; --endY: 0;"></div>
+        <div class="heart" style="--startX: 0.5; --startY: 1; --endX: 0.1; --endY: 0;"></div>
+        <div class="heart" style="--startX: 0.6; --startY: 1; --endX: 0.3; --endY: 0;"></div>
+        <div class="heart" style="--startX: 0.7; --startY: 1; --endX: 0.5; --endY: 0;"></div>
+        <div class="heart" style="--startX: 0.8; --startY: 1; --endX: 0.7; --endY: 0;"></div>
+        <div class="heart" style="--startX: 0.9; --startY: 1; --endX: 0.9; --endY: 0;"></div>
+    </div>
+
+    <!-- Arka Plan Slayt Gösterisi -->
+    <div class="slideshow">
+        <img src="img/foto1.jpg" alt="Fotoğraf 1">
+        <img src="img/foto2.jpg" alt="Fotoğraf 2">
+        <img src="img/foto3.jpg" alt="Fotoğraf 3">
+    </div>
+
+    <!-- Yıldızlar Bölümü -->
+    <div class="stars-section">
+        <a href="stars.html">
+            <img src="img/foto31.jpg" alt="Yıldızlar Fotoğrafı" style="width: 100%; max-width: 600px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);">
+        </a>
+    </div>
+</body>
+</html>
