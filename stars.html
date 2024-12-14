@@ -3,219 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dinamik Güneş Sistemi ve Yıldız Haritası</title>
-    <style>
-        /* Genel Sayfa Ayarları */
-        body, html {
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-            font-family: Arial, sans-serif;
-            background: black;
-            color: white;
-        }
-
-        section {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-
-        canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-
-        /* Güneş Sistemi Stili */
-        .solar-system {
-            position: relative;
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            background: radial-gradient(circle, yellow, orange);
-            box-shadow: 0 0 50px yellow;
-            animation: rotate 20s linear infinite;
-        }
-
-        @keyframes rotate {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        .planet {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: radial-gradient(circle, blue, lightblue);
-            animation: orbit 10s linear infinite;
-            cursor: pointer;
-        }
-
-        @keyframes orbit {
-            from {
-                transform: rotate(0deg) translateX(200px) rotate(0deg);
-            }
-            to {
-                transform: rotate(360deg) translateX(200px) rotate(-360deg);
-            }
-        }
-
-        /* Scroll Animasyon Alanları */
-        .content {
-            text-align: center;
-            font-size: 2rem;
-            z-index: 1;
-        }
-
-        .stars {
-            height: 100%;
-            width: 100%;
-            overflow: hidden;
-        }
-
-        .star {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: white;
-            border-radius: 50%;
-            animation: twinkle 2s infinite ease-in-out;
-        }
-
-        @keyframes twinkle {
-            0%, 100% {
-                opacity: 0.5;
-            }
-            50% {
-                opacity: 1;
-            }
-        }
-
-        #infoBox {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.8);
-            color: white;
-            padding: 20px;
-            border-radius: 10px;
-            display: none;
-            z-index: 10;
-        }
-
-        .star-map {
-            position: relative;
-            width: 80%;
-            height: 80%;
-            margin: auto;
-            border: 2px solid white;
-            border-radius: 10px;
-            background: black;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-        }
-    </style>
+    <title>Yıldızlar</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Giriş Bölümü -->
-    <section id="intro">
-        <div class="content">
-            <h1>Dinamik Güneş Sistemi</h1>
-            <p>Aşağı kaydırarak keşfetmeye başlayın!</p>
-        </div>
-        <div class="solar-system">
-            <div class="planet" data-info="Bu, Merkür'dür!"></div>
-            <div class="planet" data-info="Bu, Venüs'tür!" style="animation: orbit 12s linear infinite;"></div>
-            <div class="planet" data-info="Bu, Dünya'dır!" style="animation: orbit 15s linear infinite; background: green;"></div>
-        </div>
-    </section>
-
-    <!-- Gezegenlere Yaklaşma Bölümü -->
-    <section id="planets" class="planet-section">
-        <h2>Gezegenler</h2>
-        <p>Aşağı kaydırarak gezegenlere daha yakından bakın.</p>
-    </section>
-
-    <!-- Yıldız Haritası Bölümü -->
-    <section id="star-map">
-        <h2>Yıldız Haritası</h2>
-        <div class="star-map" id="starCanvasContainer"></div>
-    </section>
-
-    <!-- Gezegen Bilgi Kutusu -->
-    <div id="infoBox"></div>
-
-    <script>
-        // Dinamik Yıldızlar
-        const canvas = document.createElement("canvas");
-        const ctx = canvas.getContext("2d");
-        const starContainer = document.getElementById("starCanvasContainer");
-        starContainer.appendChild(canvas);
-
-        canvas.width = starContainer.offsetWidth;
-        canvas.height = starContainer.offsetHeight;
-
-        const stars = [];
-        for (let i = 0; i < 300; i++) {
-            stars.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                size: Math.random() * 2,
-                opacity: Math.random(),
-                speedX: (Math.random() - 0.5) * 0.5,
-                speedY: (Math.random() - 0.5) * 0.5,
-            });
-        }
-
-        function drawStars() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            stars.forEach((star) => {
-                ctx.beginPath();
-                ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
-                ctx.fill();
-
-                // Yıldız hareketi
-                star.x += star.speedX;
-                star.y += star.speedY;
-
-                // Ekran dışına çıkan yıldızları yeniden yerleştir
-                if (star.x < 0) star.x = canvas.width;
-                if (star.x > canvas.width) star.x = 0;
-                if (star.y < 0) star.y = canvas.height;
-                if (star.y > canvas.height) star.y = 0;
-            });
-            requestAnimationFrame(drawStars);
-        }
-
-        drawStars();
-
-        // Gezegenlere tıklayınca bilgi göster
-        const planets = document.querySelectorAll(".planet");
-        const infoBox = document.getElementById("infoBox");
-
-        planets.forEach((planet) => {
-            planet.addEventListener("click", () => {
-                const info = planet.getAttribute("data-info");
-                infoBox.textContent = info;
-                infoBox.style.display = "block";
-
-                setTimeout(() => {
-                    infoBox.style.display = "none";
-                }, 3000);
-            });
-        });
-    </script>
+    <header>
+        <h1>Yıldızlı Geceler</h1>
+        <p>Dilek tutun ve hayallerinizi gerçekleştirin.</p>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="index.html">Ana Sayfa</a></li>
+            <li><a href="galeri.html">Galeri</a></li>
+            <li><a href="stars.html">Yıldızlar</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section class="stars-container">
+            <div class="star" style="top: 10%; left: 20%;"></div>
+            <div class="star" style="top: 30%; left: 40%;"></div>
+            <div class="star" style="top: 50%; left: 60%;"></div>
+            <div class="star" style="top: 70%; left: 80%;"></div>
+        </section>
+        <p>Yıldızların altında dilek tutmayı unutmayın!</p>
+    </main>
+    <footer>
+        <p>© 2024 Sevgi Dolu Galeri. Tüm hakları saklıdır.</p>
+    </footer>
 </body>
 </html>
