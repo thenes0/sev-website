@@ -3,197 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gelişmiş 3D Güneş Sistemi</title>
+    <title>Yıldız Haritası</title>
     <style>
+        /* Genel stil */
         body {
             margin: 0;
+            font-family: 'Arial', sans-serif;
+            color: white;
+            overflow-x: hidden;
+            background: black;
+        }
+
+        /* Arka plan videosu */
+        .background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
             overflow: hidden;
         }
-        canvas {
-            display: block;
+
+        .background-video video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
-        #infoBox {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 15px;
-            border-radius: 10px;
-            display: none;
-            width: 300px;
+
+        /* Giriş bölümü */
+        .intro {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.5);
         }
-        #infoBox h2 {
-            margin: 0;
-            font-size: 18px;
+
+        .intro h1 {
+            font-size: 3rem;
+            animation: fadeIn 3s ease-in-out;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
         }
-        #infoBox p {
-            font-size: 14px;
-            margin: 10px 0 0;
+
+        /* Yıldız haritası bölümü */
+        .star-map {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 120vh; /* Daha fazla boşluk için yüksekliği artırdık */
+            background: black;
+            position: relative;
+            overflow: hidden;
+            transition: background 1s ease-in-out; /* Geçiş efekti */
+        }
+
+        .star-map .star-image {
+            width: 50%;
+            transition: transform 1s ease, box-shadow 1s ease;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .star-map .star-image:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.8);
+        }
+
+        /* Daha fazla içerik */
+        .content {
+            padding: 20px;
+            background: #111;
+            text-align: center;
+        }
+
+        .content p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+        }
+
+        /* Animasyonlar */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
         }
     </style>
 </head>
 <body>
-    <div id="infoBox">
-        <h2 id="objectName"></h2>
-        <p id="objectInfo"></p>
+    <!-- Arka plan videosu -->
+    <div class="background-video">
+        <video autoplay muted loop>
+            <source src="img/space.mov" type="video/quicktime">
+            <source src="img/space.mp4" type="video/mp4"> <!-- Yedek olarak mp4 -->
+            Tarayıcınız videoyu desteklemiyor. 
+            <img src="img/space.jpg" alt="Arka Plan Resmi">
+        </video>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/TextureLoader.js"></script>
+
+    <!-- Sayfanın giriş kısmı -->
+    <section class="intro">
+        <h1>Tanıştığımız Günün Yıldız Haritası</h1>
+    </section>
+
+    <!-- Yıldız haritası bölümü -->
+    <section class="star-map" id="star-map">
+        <img src="img/yildiz_haritasi.jpeg" alt="Yıldız Haritası" class="star-image">
+    </section>
+
+    <!-- Daha fazla içerik -->
+    <section class="content">
+        <p>Bu harita, tanıştığımız günün yıldızlarını gösteriyor...</p>
+    </section>
+
     <script>
-        // === Temel Three.js Ayarları ===
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 5000);
-        const renderer = new THREE.WebGLRenderer();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.body.appendChild(renderer.domElement);
+        // Scroll ile yıldız haritasını büyütme
+        document.addEventListener('scroll', () => {
+            const scrollPosition = window.scrollY;
+            const starImage = document.querySelector('.star-image');
+            const starMap = document.querySelector('.star-map');
 
-        // === Kamera Kontrolleri ===
-        const controls = new THREE.OrbitControls(camera, renderer.domElement);
-        camera.position.set(0, 100, 500);
-        controls.update();
-
-        // === Işıklar ===
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.2); // Ortam ışığı
-        scene.add(ambientLight);
-
-        const pointLight = new THREE.PointLight(0xffffff, 1); // Güneş ışığı
-        pointLight.position.set(0, 0, 0);
-        scene.add(pointLight);
-
-        // === Güneş ===
-        const sunGeometry = new THREE.SphereGeometry(50, 32, 32);
-        const sunMaterial = new THREE.MeshBasicMaterial({ color: 0xffcc00 });
-        const sun = new THREE.Mesh(sunGeometry, sunMaterial);
-        scene.add(sun);
-
-        // === Gezegenler ve Uydular ===
-        const textureLoader = new THREE.TextureLoader();
-
-        const celestialBodies = [
-            {
-                name: "Dünya",
-                radius: 10,
-                distance: 200,
-                color: 0x3399ff,
-                speed: 0.01,
-                texture: "https://planet-textures.s3.amazonaws.com/earth.jpg",
-                info: "Dünya, yaşam barındıran tek gezegendir ve suya sahiptir.",
-                atmosphereTexture: "https://planet-textures.s3.amazonaws.com/earth-clouds.png",
-                moons: [
-                    {
-                        name: "Ay",
-                        radius: 3,
-                        distance: 20,
-                        color: 0xaaaaaa,
-                        speed: 0.05,
-                        texture: "https://planet-textures.s3.amazonaws.com/moon.jpg",
-                        info: "Ay, Dünya'nın tek doğal uydusudur."
-                    }
-                ]
-            }
-        ];
-
-        const celestialMeshes = [];
-        const orbits = [];
-
-        celestialBodies.forEach(body => {
-            // Gezegen
-            const planetGeometry = new THREE.SphereGeometry(body.radius, 32, 32);
-            const planetTexture = textureLoader.load(body.texture);
-            const planetMaterial = new THREE.MeshStandardMaterial({ map: planetTexture });
-            const planetMesh = new THREE.Mesh(planetGeometry, planetMaterial);
-            planetMesh.position.x = body.distance;
-            scene.add(planetMesh);
-
-            // Atmosfer (Sadece Dünya için)
-            if (body.atmosphereTexture) {
-                const atmosphereGeometry = new THREE.SphereGeometry(body.radius + 0.5, 32, 32);
-                const atmosphereTexture = textureLoader.load(body.atmosphereTexture);
-                const atmosphereMaterial = new THREE.MeshStandardMaterial({
-                    map: atmosphereTexture,
-                    transparent: true,
-                    opacity: 0.5
-                });
-                const atmosphereMesh = new THREE.Mesh(atmosphereGeometry, atmosphereMaterial);
-                atmosphereMesh.position.copy(planetMesh.position);
-                scene.add(atmosphereMesh);
+            if (scrollPosition > 100) {
+                starImage.style.transform = `scale(${1 + scrollPosition / 1000})`;
+                starImage.style.boxShadow = `0 0 ${20 + scrollPosition / 10}px rgba(255, 255, 255, 0.8)`;
             }
 
-            celestialMeshes.push({
-                mesh: planetMesh,
-                speed: body.speed,
-                distance: body.distance,
-                angle: 0,
-                info: body.info,
-                name: body.name
-            });
-
-            // Uydular
-            body.moons.forEach(moon => {
-                const moonGeometry = new THREE.SphereGeometry(moon.radius, 32, 32);
-                const moonTexture = textureLoader.load(moon.texture);
-                const moonMaterial = new THREE.MeshStandardMaterial({ map: moonTexture });
-                const moonMesh = new THREE.Mesh(moonGeometry, moonMaterial);
-                moonMesh.position.set(body.distance + moon.distance, 0, 0);
-                scene.add(moonMesh);
-                celestialMeshes.push({
-                    mesh: moonMesh,
-                    speed: moon.speed,
-                    distance: moon.distance,
-                    angle: 0,
-                    info: moon.info,
-                    name: moon.name
-                });
-            });
-        });
-
-        // === Gezegen ve Uydu Bilgisi Gösterme ===
-        const infoBox = document.getElementById("infoBox");
-        const objectName = document.getElementById("objectName");
-        const objectInfo = document.getElementById("objectInfo");
-
-        window.addEventListener("click", (event) => {
-            const mouse = new THREE.Vector2();
-            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
-            const raycaster = new THREE.Raycaster();
-            raycaster.setFromCamera(mouse, camera);
-
-            const intersects = raycaster.intersectObjects(celestialMeshes.map(c => c.mesh));
-            if (intersects.length > 0) {
-                const celestial = celestialMeshes.find(c => c.mesh === intersects[0].object);
-                objectName.textContent = celestial.name;
-                objectInfo.textContent = celestial.info;
-                infoBox.style.display = "block";
+            // Geçiş efekti: Arka plan videosundan yıldız haritasına geçiş
+            const windowHeight = window.innerHeight;
+            if (scrollPosition >= windowHeight) {
+                starMap.style.background = "radial-gradient(circle, rgba(0,0,0,1) 60%, rgba(255,255,255,0.1) 100%)";
             } else {
-                infoBox.style.display = "none";
+                starMap.style.background = "black";
             }
-        });
-
-        // === Animasyon ===
-        function animate() {
-            requestAnimationFrame(animate);
-
-            celestialMeshes.forEach(celestial => {
-                celestial.angle += celestial.speed;
-                celestial.mesh.position.x = celestial.distance * Math.cos(celestial.angle);
-                celestial.mesh.position.z = celestial.distance * Math.sin(celestial.angle);
-            });
-
-            controls.update();
-            renderer.render(scene, camera);
-        }
-
-        animate();
-
-        // === Pencere Boyutlandırma ===
-        window.addEventListener("resize", () => {
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
         });
     </script>
 </body>
