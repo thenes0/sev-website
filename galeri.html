@@ -3,45 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galeri</title>
+    <title>ASIGIIIIIIM GUZELL KIZIMMMMM</title>
+    <!-- CSS Dosyasını Bağlama -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Arka planda slayt gösterisi -->
-    <div class="background-slideshow">
-        <div class="slide" style="background-image: url('img/foto1.jpg');"></div>
-        <div class="slide" style="background-image: url('img/foto2.jpg');"></div>
-        <div class="slide" style="background-image: url('img/foto3.jpg');"></div>
-        <!-- Diğer fotoğraflar otomatik olarak eklenecek -->
+    <!-- Arka Plan Slayt Gösterisi -->
+    <div class="slideshow">
+        <img src="foto1.jpg" alt="Slayt 1">
+        <img src="foto2.jpg" alt="Slayt 2">
+        <img src="foto3.jpg" alt="Slayt 3">
+        <img src="foto4.jpg" alt="Slayt 4">
+        <img src="foto5.jpg" alt="Slayt 5">
+        <img src="foto6.jpg" alt="Slayt 6">
+        <img src="foto7.jpg" alt="Slayt 7">
+        <img src="foto8.jpg" alt="Slayt 8">
+        <img src="foto9.jpg" alt="Slayt 9">
+        <img src="foto30.jpg" alt="Slayt 30">
     </div>
 
-    <!-- Uçan kalpler -->
-    <div class="flying-hearts">
-        <div class="heart"></div>
-        <div class="heart"></div>
-        <div class="heart"></div>
+    <!-- Fotoğraf Galerisi -->
+    <div class="photo-container">
+        <!-- 30 Fotoğraf ve Notlar -->
+        <div class="photo" onclick="showNote('Bu sevgiyle beni tanıştırdığın için seni seviyorumm.')"><img src="foto1.jpg" alt="Fotoğraf 1"></div>
+        <div class="photo" onclick="showNote('Güldüğünde gözlerinin yaydığı ışıkla kalbim parıldıyor birtanemmmm.')"><img src="foto2.jpg" alt="Fotoğraf 2"></div>
+        <div class="photo" onclick="showNote('Kalbim seninle bir ömür boyu, söz veriyorum.')"><img src="foto3.jpg" alt="Fotoğraf 3"></div>
+        <div class="photo" onclick="showNote('Birlikteyken zaman duruyor kalbim hızlanıyor güzelimmm.')"><img src="foto4.jpg" alt="Fotoğraf 4"></div>
+        <div class="photo" onclick="showNote('Seni gördüğüm o ilk anı asla unutamıyorum. O an, kalbimin senin için atmaya başladığı andı.')"><img src="foto5.jpg" alt="Fotoğraf 5"></div>
+        <div class="photo" onclick="showNote('Aşkın tanımı seninle yaşadığım her şeydir.')"><img src="foto6.jpg" alt="Fotoğraf 6"></div>
+        <div class="photo" onclick="showNote('Seninle her konuşmamızda, her gülüşünde, her bakışında yeniden aşık oluyorum. Ve bu aşk, her geçen gün daha da büyüyor.')"><img src="foto7.jpg" alt="Fotoğraf 7"></div>
+        <div class="photo" onclick="showNote('Sonsuza kadar seninle olacağımmmm, BUNU İSTİYORUM.')"><img src="foto8.jpg" alt="Fotoğraf 8"></div>
+        <div class="photo" onclick="showNote('Güzelle her an bir başka güzel be :)')"><img src="foto9.jpg" alt="Fotoğraf 9"></div>
+        <div class="photo" onclick="showNote('Sevgin dünyamın rengine renk katıyor aşkımmm.')"><img src="foto10.jpg" alt="Fotoğraf 10"></div>
+        <div class="photo" onclick="showNote('Birlikte her şey çok daha güzel.')"><img src="foto11.jpg" alt="Fotoğraf 11"></div>
+        <div class="photo" onclick="showNote('Seninle her gün rüya gibi.')"><img src="foto12.jpg" alt="Fotoğraf 12"></div>
+        <div class="photo" onclick="showNote('SANA BEN KURBANNNNNNNNN OLURUM .')"><img src="foto13.jpg" alt="Fotoğraf 13"></div>
+        <div class="photo" onclick="showNote('Bazen düşünüyorum, hayatımda sen olmasaydın ne yapardım diye... Ama sonra fark ediyorum ki, sen olmadan hayat, sadece siyah-beyaz bir film olurdu')"><img src="foto14.jpg" alt="Fotoğraf 14"></div>
+        <div class="photo" onclick="showNote('Seninle her an bir ömre bedel.')"><img src="foto15.jpg" alt="Fotoğraf 15"></div>
+        <div class="photo" onclick="showNote('Senin varlığın, hayatımı aydınlatan bir güneş gibi. Ne zaman karanlıkta kalsam, senin sevgin bana ışık oluyor.')"><img src="foto16.jpg" alt="Fotoğraf 16"></div>
+        <div class="photo" onclick="showNote('Seninle zamanın anlamı yok.')"><img src="foto17.jpg" alt="Fotoğraf 17"></div>
+        <div class="photo" onclick="showNote('Her an seninle olmak bir mucize.')"><img src="foto18.jpg" alt="Fotoğraf 18"></div>
+        <div class="photo" onclick="showNote('Bir gülüşün dünyalara değer.')"><img src="foto19.jpg" alt="Fotoğraf 19"></div>
+        <div class="photo" onclick="showNote('Gözlerine her baktığımda, içinde kaybolduğum bir evren görüyorum. O evrenin adı aşk ve ben o evrende sonsuza dek yaşamak istiyorum.')"><img src="foto20.jpg" alt="Fotoğraf 20"></div>
+        <div class="photo" onclick="showNote('Seninle birlikteyken, kendimi dünyanın en özel insanı gibi hissediyorum. Çünkü senin sevgin, bana kendimi değerli hissettiriyor.')"><img src="foto21.jpg" alt="Fotoğraf 21"></div>
+        <div class="photo" onclick="showNote('Seninle bir hayat kurmak en güzel hayalim.')"><img src="foto22.jpg" alt="Fotoğraf 22"></div>
+        <div class="photo" onclick="showNote('Seninle her şeye tamamım BİRTANEMM.')"><img src="foto23.jpg" alt="Fotoğraf 23"></div>
+        <div class="photo" onclick="showNote('Seninle her anın tadı bir başka güzel SEVGİLİMMMMMMM.')"><img src="foto24.jpg" alt="Fotoğraf 24"></div>
+        <div class="photo" onclick="showNote('Senin gülüşün dünyama renk katıyor. Gülünce kısılan gözlerine hayranımmm')"><img src="foto25.jpg" alt="Fotoğraf 25"></div>
+        <div class="photo" onclick="showNote('Birlikte olmak her şeyin en güzel hali biriciğimm.')"><img src="foto26.jpg" alt="Fotoğraf 26"></div>
+        <div class="photo" onclick="showNote('Aşkımız her gün katlanarak büyüsün güzelim.')"><img src="foto27.jpg" alt="Fotoğraf 27"></div>
+        <div class="photo" onclick="showNote('Kalbimde senin için öyle bir yer var ki, oraya başka kimse dokunamaz. Çünkü orası, sadece sana ait.')"><img src="foto28.jpg" alt="Fotoğraf 28"></div>
+        <div class="photo" onclick="showNote('Birlikte her şey çok güzel ve değerli...')"><img src="foto29.jpg" alt="Fotoğraf 29"></div>
+        <div class="photo" onclick="showNote('Seninle her anın ölümsüzleştiğini hissediyorummm yavrummm.')"><img src="foto30.jpg" alt="Fotoğraf 30"></div>
     </div>
 
-    <!-- Galeri Başlığı -->
-    <div class="gallery-header">
-        <h1>Fotoğraf Galerisi</h1>
-    </div>
+    <!-- Sevgi Notu -->
+    <div class="note" id="note"></div>
 
-    <!-- Galeri Fotoğrafları -->
-    <div class="gallery-container">
-        <!-- 30 Fotoğrafı otomatik olarak ekle -->
-        <script>
-            for (let i = 1; i <= 30; i++) {
-                document.write(`
-                    <div class="gallery-item">
-                        <img src="img/foto${i}.jpg" alt="Fotoğraf ${i}">
-                    </div>
-                `);
-            }
-        </script>
-    </div>
-
-    <!-- JavaScript Dosyasını Bağla -->
-    <script src="script.js"></script>
+    <script>
+        function showNote(message) {
+            const note = document.getElementById('note');
+            note.textContent = message;
+            note.classList.add('active');
+            setTimeout(() => note.classList.remove('active'), 3000);
+        }
+    </script>
 </body>
 </html>
