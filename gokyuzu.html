@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Güneş Sistemi ve Yıldız Haritası</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            font-family: Arial, sans-serif;
+            background-color: black;
+            color: white;
+        }
+
+        #solar-system, #stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+        }
+
+        .content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            margin-top: 100vh;
+            padding: 50px;
+        }
+
+        .content h1 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .content p {
+            font-size: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Güneş Sistemi -->
+    <div id="solar-system"></div>
+
+    <!-- Scroll İçeriği -->
+    <div class="content">
+        <h1>8 Eylül 2024 - İstanbul</h1>
+        <p>Buluştuğumuz gün gökyüzünün bize sunduğu manzaraya yaklaşıyoruz...</p>
+    </div>
+
+    <!-- Yıldız Haritası -->
+    <div id="stars"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <script>
+        // Three.js Sahnesi: Güneş Sistemi
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('solar-system').appendChild(renderer.domElement);
+
+        // Güneş
+        const sunGeometry = new THREE.SphereGeometry(5, 32, 32);
+        const sunMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00 });
+        const sun = new THREE.Mesh(sunGeometry, sunMaterial);
+        scene.add(sun);
+
+        // Gezegenler
+        const planetGeometry = new THREE.SphereGeometry(1, 32, 32);
+        const planetMaterial = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+
+        const planet = new THREE.Mesh(planetGeometry, planetMaterial);
+        planet.position.x = 10;
+        scene.add(planet);
+
+        // Kamera Pozisyonu
+        camera.position.z = 20;
+
+        // Animasyon Döngüsü
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Güneş ve Gezegen Animasyonu
+            sun.rotation.y += 0.01;
+            planet.rotation.y += 0.02;
+            planet.position.x = 10 * Math.cos(Date.now() * 0.001);
+            planet.position.z = 10 * Math.sin(Date.now() * 0.001);
+
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Yıldız Haritası Sahnesi
+        const starsScene = new THREE.Scene();
+        const starsCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const starsRenderer = new THREE.WebGLRenderer();
+        starsRenderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('stars').appendChild(starsRenderer.domElement);
+
+        // Yıldızlar
+        const starGeometry = new THREE.SphereGeometry(50, 64, 64);
+        const starMaterial = new THREE.MeshBasicMaterial({
+            map: new THREE.TextureLoader().load('https://upload.wikimedia.org/wikipedia/commons/7/7f/Star_Map.jpg'), // Yıldız haritası görselini buraya ekleyin
+            side: THREE.BackSide
+        });
+        const starMesh = new THREE.Mesh(starGeometry, starMaterial);
+        starsScene.add(starMesh);
+
+        // Kamera Pozisyonu
+        starsCamera.position.z = 100;
+
+        // Yıldız Animasyonu
+        function animateStars() {
+            requestAnimationFrame(animateStars);
+            starMesh.rotation.y += 0.001;
+            starsRenderer.render(starsScene, starsCamera);
+        }
+        animateStars();
+
+        // Scroll Event
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            const solarSystem = document.getElementById('solar-system');
+            const stars = document.getElementById('stars');
+
+            // Güneş Sistemi Opaklığını Azalt
+            solarSystem.style.opacity = 1 - scrollY / window.innerHeight;
+
+            // Yıldız Haritasını Göster
+            if (scrollY > window.innerHeight) {
+                stars.style.opacity = (scrollY - window.innerHeight) / window.innerHeight;
+            }
+        });
+    </script>
+</body>
+</html>
