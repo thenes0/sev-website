@@ -3,24 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yıldız Haritası Animasyonu</title>
+    <title>Yıldız Haritası</title>
     <style>
         /* Genel stil */
         body {
             margin: 0;
             font-family: 'Arial', sans-serif;
             color: white;
-            overflow: hidden; /* Kaydırmayı kaldırıyoruz */
+            overflow-x: hidden;
             background: black;
         }
 
-        /* Yıldız animasyonu alanı */
-        .star-animation {
+        /* Gökyüzü arka planı */
+        .sky {
             position: relative;
             width: 100%;
-            height: 100vh;
+            height: 300vh; /* Sayfayı uzatıyoruz */
+            background: linear-gradient(to bottom, #000, #001a33, #00264d, #003366); /* Gökyüzü geçişi */
             overflow: hidden;
-            background: radial-gradient(circle, rgba(0,0,0,1) 60%, rgba(255,255,255,0.1) 100%);
         }
 
         /* Yıldızlar */
@@ -30,27 +30,25 @@
             height: 2px;
             background: white;
             border-radius: 50%;
-            animation: twinkle 3s infinite ease-in-out;
+            opacity: 0.8;
         }
 
-        /* Yıldız parlaması efekti */
+        /* Parlama efekti */
         @keyframes twinkle {
             0%, 100% {
-                opacity: 0.5;
-                transform: scale(1);
+                opacity: 0.8;
             }
             50% {
                 opacity: 1;
-                transform: scale(1.5);
             }
         }
 
         /* Başlık */
         .intro {
-            position: absolute;
-            top: 50%;
+            position: fixed;
+            top: 10%;
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translateX(-50%);
             text-align: center;
             z-index: 10;
         }
@@ -74,32 +72,43 @@
     </style>
 </head>
 <body>
-    <!-- Giriş kısmı -->
+    <!-- Başlık -->
     <section class="intro">
-        <h1>Tanıştığımız Günün Yıldızları</h1>
+        <h1>Tanıştığımız Günün Yıldız Haritası</h1>
     </section>
 
-    <!-- Yıldız animasyonu alanı -->
-    <div class="star-animation" id="star-animation"></div>
+    <!-- Gökyüzü -->
+    <div class="sky" id="sky"></div>
 
     <script>
         // Yıldızları oluşturma
-        const starContainer = document.getElementById('star-animation');
-        const starCount = 200; // Yıldız sayısı
+        const sky = document.getElementById('sky');
+        const starCount = 300; // Yıldız sayısı
+
+        // Sabit yıldız yerleşimi için bir sabit rastgelelik fonksiyonu
+        function seededRandom(seed) {
+            const x = Math.sin(seed) * 10000;
+            return x - Math.floor(x);
+        }
 
         for (let i = 0; i < starCount; i++) {
             const star = document.createElement('div');
             star.classList.add('star');
-            
-            // Rastgele konumlandırma
-            star.style.top = Math.random() * 100 + 'vh';
-            star.style.left = Math.random() * 100 + 'vw';
 
-            // Rastgele parlama süresi
-            star.style.animationDuration = Math.random() * 3 + 2 + 's';
+            // Sabit rastgele bir pozisyon oluşturmak için bir tohum değeri kullanıyoruz
+            const seed = i * 137; // Her yıldız için farklı bir tohum
+            const top = seededRandom(seed) * 300; // Yıldızın yüksekliği (% olarak)
+            const left = seededRandom(seed + 1) * 100; // Yıldızın genişliği (% olarak)
 
-            // Yıldızı ekle
-            starContainer.appendChild(star);
+            // Yıldızın pozisyonunu ayarla
+            star.style.top = `${top}vh`;
+            star.style.left = `${left}vw`;
+
+            // Hafif parlama efekti
+            star.style.animation = `twinkle ${Math.random() * 3 + 2}s infinite ease-in-out`;
+
+            // Yıldızı gökyüzüne ekle
+            sky.appendChild(star);
         }
     </script>
 </body>
