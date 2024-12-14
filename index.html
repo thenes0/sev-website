@@ -7,33 +7,26 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>Sevgi Dolu Galeriye Hoş Geldiniz</h1>
-        <p>Hayatın en güzel anlarını yakalayın ve paylaşın.</p>
-    </header>
-    <nav>
-        <ul>
-            <li><a href="index.html">Ana Sayfa</a></li>
-            <li><a href="galeri.html">Galeri</a></li>
-            <li><a href="stars.html">Yıldızlar</a></li>
-        </ul>
-    </nav>
-    <main>
-        <section>
-            <h2>Hakkımızda</h2>
-            <p>Sevgi dolu galeri, hayatın en özel anlarını yakalamak ve ilham vermek için tasarlanmıştır. Burada, hem doğanın güzelliklerini hem de insanların unutulmaz anlarını bulabilirsiniz.</p>
-        </section>
-        <section>
-            <h2>Ne Sunuyoruz?</h2>
-            <ul>
-                <li>Yüksek kaliteli fotoğraflar</li>
-                <li>Sanat ve doğa galerileri</li>
-                <li>Yıldızlı gecelerin büyüsü</li>
-            </ul>
-        </section>
-    </main>
-    <footer>
-        <p>© 2024 Sevgi Dolu Galeri. Tüm hakları saklıdır.</p>
-    </footer>
+    <div class="slideshow-container">
+        <!-- Slaytlar (arka plan fotoğrafları) -->
+        <div class="slideshow">
+            <div class="slide" style="background-image: url('img/foto1.jpg');"></div>
+            <div class="slide" style="background-image: url('img/foto2.jpg');"></div>
+            <div class="slide" style="background-image: url('img/foto3.jpg');"></div>
+        </div>
+    </div>
+
+    <!-- Ekrandaki yazı -->
+    <div class="content">
+        <h1>Hayatın En Güzel Anlarını <span class="highlight" onclick="goToPage('galeri.html')">Galeri</span> ile Keşfedin</h1>
+        <p>Yıldızlı gecelerin büyüsünü <span class="highlight" onclick="goToPage('stars.html')">Stars</span> sayfasında yaşayın.</p>
+    </div>
+
+    <script>
+        // Sayfa yönlendirme fonksiyonu
+        function goToPage(page) {
+            window.location.href = page;
+        }
+    </script>
 </body>
 </html>
