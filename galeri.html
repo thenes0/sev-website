@@ -64,7 +64,7 @@
             z-index: 2;
         }
 
-        .photo-container .photo {
+        .photo {
             width: 60%;
             margin: 20px auto;
             transition: transform 0.5s ease, box-shadow 0.5s ease, opacity 0.5s ease;
@@ -93,6 +93,81 @@
         .photo:nth-child(5) {
             animation-delay: 1.5s;
         }
+        .photo:nth-child(6) {
+            animation-delay: 1.8s;
+        }
+        .photo:nth-child(7) {
+            animation-delay: 2.1s;
+        }
+        .photo:nth-child(8) {
+            animation-delay: 2.4s;
+        }
+        .photo:nth-child(9) {
+            animation-delay: 2.7s;
+        }
+        .photo:nth-child(10) {
+            animation-delay: 3s;
+        }
+        .photo:nth-child(11) {
+            animation-delay: 3.3s;
+        }
+        .photo:nth-child(12) {
+            animation-delay: 3.6s;
+        }
+        .photo:nth-child(13) {
+            animation-delay: 3.9s;
+        }
+        .photo:nth-child(14) {
+            animation-delay: 4.2s;
+        }
+        .photo:nth-child(15) {
+            animation-delay: 4.5s;
+        }
+        .photo:nth-child(16) {
+            animation-delay: 4.8s;
+        }
+        .photo:nth-child(17) {
+            animation-delay: 5.1s;
+        }
+        .photo:nth-child(18) {
+            animation-delay: 5.4s;
+        }
+        .photo:nth-child(19) {
+            animation-delay: 5.7s;
+        }
+        .photo:nth-child(20) {
+            animation-delay: 6s;
+        }
+        .photo:nth-child(21) {
+            animation-delay: 6.3s;
+        }
+        .photo:nth-child(22) {
+            animation-delay: 6.6s;
+        }
+        .photo:nth-child(23) {
+            animation-delay: 6.9s;
+        }
+        .photo:nth-child(24) {
+            animation-delay: 7.2s;
+        }
+        .photo:nth-child(25) {
+            animation-delay: 7.5s;
+        }
+        .photo:nth-child(26) {
+            animation-delay: 7.8s;
+        }
+        .photo:nth-child(27) {
+            animation-delay: 8.1s;
+        }
+        .photo:nth-child(28) {
+            animation-delay: 8.4s;
+        }
+        .photo:nth-child(29) {
+            animation-delay: 8.7s;
+        }
+        .photo:nth-child(30) {
+            animation-delay: 9s;
+        }
 
         .photo img {
             width: 100%;
@@ -102,23 +177,29 @@
 
         /* Hover Efekti */
         .photo:hover {
-            transform: scale(1.1) rotate(2deg); /* Hafif döndürme ve büyütme efekti */
-            box-shadow: 0 0 30px rgba(255, 182, 193, 0.8), 0 0 15px rgba(255, 255, 255, 0.5); /* Parlama efekti */
-            border: 2px solid rgba(255, 182, 193, 0.8); /* Beyaz-pembe karışımı parlayan çizgi */
+            transform: scale(1.1);
+            box-shadow: 0 0 30px rgba(255, 182, 193, 0.8); /* Parlayan kenarlık */
         }
 
-        /* Küçükten büyüyerek görünme animasyonu */
+        /* Zoom In Animasyonu */
         @keyframes zoomIn {
-            from {
-                transform: scale(0.5); /* Küçük boyut */
-                opacity: 0; /* Görünmez */
+            0% {
+                transform: scale(0.8);
+                opacity: 0;
             }
-            to {
-                transform: scale(1); /* Normal boyut */
-                opacity: 1; /* Görünür */
+            100% {
+                transform: scale(1);
+                opacity: 1;
             }
         }
 
+        /* Fotoğraf Açıklaması (Caption) */
+        .caption {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 16px;
+            color: #fff;
+        }
         /* Sevgi Notu */
         .note {
             position: fixed;
