@@ -5,13 +5,10 @@ body {
     font-family: 'Arial', sans-serif;
     background: #000;
     overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
     color: white;
 }
 
+/* Ana Sayfa Konteyner */
 .container {
     text-align: center;
     animation: fadeIn 2s ease-in-out;
@@ -62,7 +59,7 @@ a:hover {
     color: #ffd1d1;
 }
 
-/* Uçan kalpler efekti */
+/* Uçan Kalpler Efekti */
 .heart {
     position: absolute;
     width: 20px;
@@ -93,16 +90,15 @@ a:hover {
     }
 }
 
-/* Arka plan slayt gösterisi */
+/* Arka Plan Slayt Gösterisi (Hem Ana Sayfa Hem Galeri) */
 .slideshow {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 1;
-    opacity: 0;
-    animation: fadeInSlideshow 6s ease-in-out forwards;
+    z-index: -1;
+    overflow: hidden;
 }
 
 .slideshow img {
@@ -110,16 +106,85 @@ a:hover {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0;
-    animation: slideShow 30s infinite;
-    transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
+    animation: fade 10s infinite;
 }
 
-.slideshow img:nth-child(1) { animation-delay: 0s; }
-.slideshow img:nth-child(2) { animation-delay: 6s; }
-.slideshow img:nth-child(3) { animation-delay: 12s; }
-.slideshow img:nth-child(4) { animation-delay: 18s; }
-.slideshow img:nth-child(5) { animation-delay: 24s; }
+.slideshow img:nth-child(2) {
+    animation-delay: 5s;
+}
+
+@keyframes fade {
+    0%, 100% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+/* Galeri Fotoğraf Konteyneri */
+.photo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+    position: relative;
+    z-index: 2;
+}
+
+.photo-container .photo {
+    width: 60%;
+    margin: 20px auto;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+    scroll-snap-align: center;
+    cursor: pointer;
+}
+
+.photo-container .photo img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.photo-container .photo:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 30px rgba(255, 182, 193, 0.8);
+}
+
+/* Sevgi Notu */
+.note {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 3;
+    animation: fadeIn 0.5s ease;
+}
+
+.note.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -60%);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+    }
+}
 
 /* Animasyonlar */
 @keyframes fadeIn {
