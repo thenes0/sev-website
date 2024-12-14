@@ -1,48 +1,88 @@
-/* Güneş Sistemi */
-.solar-system {
-    position: relative;
-    width: 100%;
-    height: 100vh; /* Ekranın tamamını kaplasın */
-    display: flex;
-    justify-content: center;
-    align-items: center; /* Güneş ve gezegenleri tam ortalayalım */
-    overflow: hidden;
-    background: radial-gradient(circle, #000, #001f3f); /* Arka planı daha etkileyici yapalım */
-}
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Yıldız Haritası</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
 
-.planet {
-    position: absolute;
-    border-radius: 50%;
-    animation: orbit 10s linear infinite;
-}
+        canvas {
+            display: block;
+            background: radial-gradient(circle, #000, #001f3f, #000);
+            border: 2px solid #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+    <canvas id="starCanvas"></canvas>
 
-.sun {
-    width: 120px; /* Güneşi biraz daha büyük yapalım */
-    height: 120px;
-    background: radial-gradient(circle, #ffcc00, #ff9900);
-    box-shadow: 0 0 40px #ffcc00, 0 0 80px #ff9900;
-    z-index: 10;
-}
+    <script>
+        // Canvas Ayarları
+        const canvas = document.getElementById("starCanvas");
+        const ctx = canvas.getContext("2d");
 
-.earth {
-    width: 70px; /* Dünyayı biraz büyütelim */
-    height: 70px;
-    background: radial-gradient(circle, #2e86c1, #154360);
-    animation-duration: 15s;
-}
+        // Canvas boyutlarını ayarla
+        canvas.width = window.innerWidth * 0.9;
+        canvas.height = window.innerHeight * 0.9;
 
-.moon {
-    width: 40px; /* Ayı biraz büyütelim */
-    height: 40px;
-    background: radial-gradient(circle, #ddd, #aaa);
-    animation-duration: 5s;
-}
+        // Yıldızları çizme fonksiyonu
+        function drawStars(count) {
+            for (let i = 0; i < count; i++) {
+                const x = Math.random() * canvas.width; // Rastgele X konumu
+                const y = Math.random() * canvas.height; // Rastgele Y konumu
+                const size = Math.random() * 2; // Yıldız boyutu
+                const opacity = Math.random(); // Yıldız parlaklığı
 
-@keyframes orbit {
-    0% {
-        transform: rotate(0deg) translateX(200px) rotate(0deg); /* Gezegenlerin güneş etrafındaki mesafesini artırdık */
-    }
-    100% {
-        transform: rotate(360deg) translateX(200px) rotate(-360deg);
-    }
-}
+                ctx.beginPath();
+                ctx.arc(x, y, size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
+                ctx.fill();
+            }
+        }
+
+        // Gezegenleri çizme fonksiyonu
+        function drawPlanets(count) {
+            const planetColors = ["#ffcc00", "#ff5733", "#33ff57", "#3380ff", "#ff33a6"];
+            for (let i = 0; i < count; i++) {
+                const x = Math.random() * canvas.width; // Rastgele X konumu
+                const y = Math.random() * canvas.height; // Rastgele Y konumu
+                const size = Math.random() * 10 + 5; // Gezegen boyutu
+
+                ctx.beginPath();
+                ctx.arc(x, y, size, 0, Math.PI * 2);
+                ctx.fillStyle = planetColors[Math.floor(Math.random() * planetColors.length)];
+                ctx.shadowColor = ctx.fillStyle;
+                ctx.shadowBlur = 20; // Gezegenin parlama efekti
+                ctx.fill();
+                ctx.shadowBlur = 0; // Sonraki çizimler için gölgeyi sıfırla
+            }
+        }
+
+        // Yıldız haritasını oluştur
+        function createStarMap() {
+            // Arka planı temizle
+            ctx.fillStyle = "black";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Yıldızları ve gezegenleri çiz
+            drawStars(500); // 500 adet yıldız
+            drawPlanets(10); // 10 adet gezegen
+        }
+
+        // Haritayı başlat
+        createStarMap();
+    </script>
+</body>
+</html>
