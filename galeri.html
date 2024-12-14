@@ -7,59 +7,42 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Dinamik arka plan slaytı -->
-    <div class="slideshow-container">
-        <div class="slideshow">
-            <div class="slide" style="background-image: url('img/foto1.jpg');"></div>
-            <div class="slide" style="background-image: url('img/foto2.jpg');"></div>
-            <div class="slide" style="background-image: url('img/foto3.jpg');"></div>
-        </div>
+    <!-- Arka planda slayt gösterisi -->
+    <div class="background-slideshow">
+        <div class="slide" style="background-image: url('img/foto1.jpg');"></div>
+        <div class="slide" style="background-image: url('img/foto2.jpg');"></div>
+        <div class="slide" style="background-image: url('img/foto3.jpg');"></div>
+        <!-- Diğer fotoğraflar da otomatik olarak eklenecek -->
     </div>
 
-    <!-- Galeri içeriği -->
-    <div class="content">
-        <h1 class="fade-in">Galeri</h1>
-        <p class="fade-in">Bu sayfada hayatın en güzel anlarını bulabilirsiniz. <br> 
-            Eski notlarınızı burada saklıyoruz: "Hayat bir yolculuk, her an bir hatıra."</p>
-
-        <!-- Galeri Resimleri -->
-        <div class="gallery">
-            <div class="gallery-item">
-                <img src="img/foto1.jpg" alt="Fotoğraf 1" onclick="openImage('img/foto1.jpg')">
-                <p>Doğa ile iç içe bir an.</p>
-            </div>
-            <div class="gallery-item">
-                <img src="img/foto2.jpg" alt="Fotoğraf 2" onclick="openImage('img/foto2.jpg')">
-                <p>Güneşin batışı.</p>
-            </div>
-            <div class="gallery-item">
-                <img src="img/foto3.jpg" alt="Fotoğraf 3" onclick="openImage('img/foto3.jpg')">
-                <p>Yıldızların altında bir gece.</p>
-            </div>
-        </div>
+    <!-- Uçan kalpler -->
+    <div class="flying-hearts">
+        <div class="heart"></div>
+        <div class="heart"></div>
+        <div class="heart"></div>
+        <!-- Daha fazla kalp animasyonu için -->
     </div>
 
-    <!-- Görsel büyütme için modal -->
-    <div id="imageModal" class="modal">
-        <span class="close" onclick="closeImage()">&times;</span>
-        <img class="modal-content" id="modalImage">
-        <div id="caption"></div>
+    <!-- Galeri Başlığı -->
+    <div class="gallery-header">
+        <h1>Fotoğraf Galerisi</h1>
     </div>
 
-    <script>
-        // Görsel büyütme fonksiyonu
-        function openImage(src) {
-            const modal = document.getElementById("imageModal");
-            const modalImg = document.getElementById("modalImage");
-            modal.style.display = "block";
-            modalImg.src = src;
-        }
+    <!-- Galeri Fotoğrafları -->
+    <div class="gallery-container">
+        <!-- 30 Fotoğrafı otomatik olarak ekle -->
+        <script>
+            for (let i = 1; i <= 30; i++) {
+                document.write(`
+                    <div class="gallery-item">
+                        <img src="img/foto${i}.jpg" alt="Fotoğraf ${i}">
+                    </div>
+                `);
+            }
+        </script>
+    </div>
 
-        // Modal kapatma fonksiyonu
-        function closeImage() {
-            const modal = document.getElementById("imageModal");
-            modal.style.display = "none";
-        }
-    </script>
+    <!-- JavaScript -->
+    <script src="script.js"></script>
 </body>
 </html>
