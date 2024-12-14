@@ -29,7 +29,7 @@
     <div id="planet-info" class="loading">Gezegen verileri yükleniyor...</div>
 
     <!-- Astronomy Engine için gerekli kütüphane -->
-    <script src="https://unpkg.com/@cosine/astronomy-engine"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@cosine/astronomy-engine"></script>
     <script>
         // Konum bilgileri (İstanbul için)
         const latitude = 41.0082; // Enlem
@@ -45,21 +45,26 @@
         const planets = ["Mercury", "Venus", "Mars", "Jupiter", "Saturn"];
 
         // Gezegen bilgilerini hesaplayıp ekrana yazdırma
-        async function calculatePlanetPositions() {
+        function calculatePlanetPositions() {
             const planetInfoDiv = document.getElementById("planet-info");
             planetInfoDiv.innerHTML = ""; // Eski içeriği temizle
 
-            for (const planet of planets) {
-                const astroData = Astronomy.Equator(planet, date, observer, true, true);
-                const azimuth = astroData.azimuth.toFixed(2); // Azimut (derece)
-                const altitude = astroData.altitude.toFixed(2); // Yükselim (derece)
+            planets.forEach(planet => {
+                try {
+                    // Gezegenin gökyüzündeki konumunu hesapla
+                    const astroData = Astronomy.Equator(planet, date, observer, true, true);
+                    const azimuth = astroData.azimuth.toFixed(2); // Azimut (derece)
+                    const altitude = astroData.altitude.toFixed(2); // Yükselim (derece)
 
-                // Gezegen bilgilerini ekrana yazdır
-                const planetDiv = document.createElement("div");
-                planetDiv.className = "planet";
-                planetDiv.textContent = `${planet}: Azimut = ${azimuth}°, Yükselim = ${altitude}°`;
-                planetInfoDiv.appendChild(planetDiv);
-            }
+                    // Gezegen bilgilerini ekrana yazdır
+                    const planetDiv = document.createElement("div");
+                    planetDiv.className = "planet";
+                    planetDiv.textContent = `${planet}: Azimut = ${azimuth}°, Yükselim = ${altitude}°`;
+                    planetInfoDiv.appendChild(planetDiv);
+                } catch (error) {
+                    console.error(`Error calculating position for ${planet}:`, error);
+                }
+            });
         }
 
         // Fonksiyonu çağır
