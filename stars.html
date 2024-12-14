@@ -1,167 +1,48 @@
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Güneş Sistemi ve Yıldız Haritası</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background: #000;
-            color: #fff;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
+/* Güneş Sistemi */
+.solar-system {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Ekranın tamamını kaplasın */
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Güneş ve gezegenleri tam ortalayalım */
+    overflow: hidden;
+    background: radial-gradient(circle, #000, #001f3f); /* Arka planı daha etkileyici yapalım */
+}
 
-        /* Parallax Scroll */
-        .section {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            position: relative;
-        }
+.planet {
+    position: absolute;
+    border-radius: 50%;
+    animation: orbit 10s linear infinite;
+}
 
-        .section h1 {
-            font-size: 3rem;
-            color: #ffcc00;
-            text-shadow: 0 0 10px #ffcc00, 0 0 20px #ffcc00;
-        }
+.sun {
+    width: 120px; /* Güneşi biraz daha büyük yapalım */
+    height: 120px;
+    background: radial-gradient(circle, #ffcc00, #ff9900);
+    box-shadow: 0 0 40px #ffcc00, 0 0 80px #ff9900;
+    z-index: 10;
+}
 
-        /* Güneş Sistemi */
-        .solar-system {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
+.earth {
+    width: 70px; /* Dünyayı biraz büyütelim */
+    height: 70px;
+    background: radial-gradient(circle, #2e86c1, #154360);
+    animation-duration: 15s;
+}
 
-        .planet {
-            position: absolute;
-            border-radius: 50%;
-            animation: orbit 10s linear infinite;
-        }
+.moon {
+    width: 40px; /* Ayı biraz büyütelim */
+    height: 40px;
+    background: radial-gradient(circle, #ddd, #aaa);
+    animation-duration: 5s;
+}
 
-        .sun {
-            width: 100px;
-            height: 100px;
-            background: radial-gradient(circle, #ffcc00, #ff9900);
-            box-shadow: 0 0 30px #ffcc00, 0 0 60px #ff9900;
-            z-index: 10;
-        }
-
-        .earth {
-            width: 60px;
-            height: 60px;
-            background: radial-gradient(circle, #2e86c1, #154360);
-            animation-duration: 15s;
-        }
-
-        .moon {
-            width: 30px;
-            height: 30px;
-            background: radial-gradient(circle, #ddd, #aaa);
-            animation-duration: 5s;
-        }
-
-        @keyframes orbit {
-            0% {
-                transform: rotate(0deg) translateX(150px) rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg) translateX(150px) rotate(-360deg);
-            }
-        }
-
-        /* Yıldız Haritası */
-        .star-map {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            height: 100vh;
-        }
-
-        .star-map canvas {
-            width: 90%;
-            height: 90%;
-            border: 2px solid #fff;
-            border-radius: 10px;
-        }
-
-        .star-map h2 {
-            color: #ffcc00;
-            margin-bottom: 20px;
-        }
-    </style>
-</head>
-<body>
-    <!-- Güneş Sistemi -->
-    <div class="section solar-system" id="solar-system">
-        <div class="sun planet"></div>
-        <div class="earth planet"></div>
-        <div class="moon planet"></div>
-        <h1>Güneş Sistemi</h1>
-    </div>
-
-    <!-- Yıldız Haritası -->
-    <div class="section star-map" id="star-map">
-        <h2>Yıldız Haritası</h2>
-        <canvas id="starCanvas"></canvas>
-    </div>
-
-    <script>
-        // Scroll Event to Show Star Map
-        window.addEventListener('scroll', () => {
-            const starMap = document.getElementById('star-map');
-            const solarSystem = document.getElementById('solar-system');
-            const scrollY = window.scrollY;
-
-            if (scrollY > solarSystem.offsetHeight) {
-                starMap.style.display = 'flex';
-            }
-        });
-
-        // Yıldız Haritası API Entegrasyonu
-        async function fetchStarMap() {
-            const canvas = document.getElementById('starCanvas');
-            const ctx = canvas.getContext('2d');
-
-            // Örnek API: Astro API
-            const response = await fetch('https://api.le-systeme-solaire.net/rest/bodies/');
-            const data = await response.json();
-
-            // Basit bir yıldız haritası çizimi (örnek)
-            ctx.fillStyle = '#000';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            // Yıldızlar
-            for (let i = 0; i < 100; i++) {
-                ctx.beginPath();
-                ctx.arc(
-                    Math.random() * canvas.width,
-                    Math.random() * canvas.height,
-                    Math.random() * 3,
-                    0,
-                    Math.PI * 2
-                );
-                ctx.fillStyle = '#fff';
-                ctx.fill();
-            }
-
-            // Gezegenler
-            ctx.beginPath();
-            ctx.arc(canvas.width / 2, canvas.height / 2, 50, 0, Math.PI * 2);
-            ctx.fillStyle = '#ffcc00';
-            ctx.fill();
-        }
-
-        // Sayfa yüklendiğinde yıldız haritasını oluştur
-        window.onload = fetchStarMap;
-    </script>
-</body>
-</html>
+@keyframes orbit {
+    0% {
+        transform: rotate(0deg) translateX(200px) rotate(0deg); /* Gezegenlerin güneş etrafındaki mesafesini artırdık */
+    }
+    100% {
+        transform: rotate(360deg) translateX(200px) rotate(-360deg);
+    }
+}
