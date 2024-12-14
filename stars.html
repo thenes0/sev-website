@@ -3,89 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yıldız Haritası</title>
+    <title>8 Eylül İstanbul Yıldız Haritası</title>
     <style>
         /* Genel stil */
         body {
             margin: 0;
-            font-family: 'Arial', sans-serif;
-            color: white;
-            overflow-x: hidden;
             background: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
         }
 
-        /* Gökyüzü arka planı */
-        .sky {
+        /* Yıldız haritası alanı */
+        .star-map {
             position: relative;
             width: 100%;
-            height: 300vh; /* Sayfayı uzatıyoruz */
-            background: linear-gradient(to bottom, #000, #001a33, #00264d, #003366); /* Gökyüzü geçişi */
+            height: 100vh;
+            background: radial-gradient(circle, rgba(0,0,0,1) 70%, rgba(0,0,0,0.8) 100%);
             overflow: hidden;
         }
 
         /* Yıldızlar */
         .star {
             position: absolute;
-            width: 2px;
-            height: 2px;
+            width: 4px;
+            height: 4px;
             background: white;
             border-radius: 50%;
-            opacity: 0.8;
         }
 
-        /* Parlama efekti */
-        @keyframes twinkle {
-            0%, 100% {
-                opacity: 0.6;
-            }
-            50% {
-                opacity: 1;
-            }
-        }
-
-        /* Başlık */
-        .intro {
-            position: fixed;
-            top: 10%;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-            z-index: 10;
-        }
-
-        .intro h1 {
-            font-size: 3rem;
-            color: white;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
-            animation: glow 2s infinite alternate;
-        }
-
-        /* Glow (parlama) efekti */
-        @keyframes glow {
-            from {
-                text-shadow: 0 0 10px #fff, 0 0 20px #ff00ff, 0 0 30px #ff00ff, 0 0 40px #ff00ff;
-            }
-            to {
-                text-shadow: 0 0 20px #fff, 0 0 30px #ff00ff, 0 0 40px #ff00ff, 0 0 50px #ff00ff;
-            }
-        }
-
-        /* Yıldız Haritası Alanı */
-        .star-map {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 100vh; /* En alt kısım */
-            background: radial-gradient(circle, rgba(0, 0, 0, 1) 70%, rgba(0, 0, 0, 0.8) 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .constellation {
-            position: relative;
-            width: 80%;
-            height: 80%;
+        /* Önemli yıldızlar (daha büyük ve parlak) */
+        .important-star {
+            width: 8px;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
         }
 
         /* Takımyıldız çizgileri */
@@ -98,101 +50,64 @@
             transform-origin: top left;
         }
 
-        /* Takımyıldız yıldızları */
-        .constellation .star {
-            width: 5px;
-            height: 5px;
-            background: white;
-            border-radius: 50%;
-            animation: none;
+        /* Başlık */
+        .title {
+            position: absolute;
+            top: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            color: white;
+            font-size: 2rem;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+
+        .label {
+            position: absolute;
+            color: white;
+            font-size: 0.8rem;
+            transform: translate(-50%, -150%);
         }
     </style>
 </head>
 <body>
-    <!-- Başlık -->
-    <section class="intro">
-        <h1>Tanıştığımız Günün Yıldız Haritası</h1>
-    </section>
-
-    <!-- Gökyüzü -->
-    <div class="sky" id="sky"></div>
-
-    <!-- Yıldız Haritası -->
     <div class="star-map">
-        <div class="constellation" id="constellation">
-            <!-- Takımyıldız yıldızları ve çizgileri JavaScript ile eklenecek -->
-        </div>
+        <div class="title">8 Eylül 2024 - İstanbul Yıldız Haritası</div>
+
+        <!-- Kutup Yıldızı -->
+        <div class="star important-star" style="top: 20%; left: 50%;"></div>
+        <div class="label" style="top: 20%; left: 50%;">Kutup Yıldızı</div>
+
+        <!-- Vega -->
+        <div class="star important-star" style="top: 30%; left: 40%;"></div>
+        <div class="label" style="top: 30%; left: 40%;">Vega</div>
+
+        <!-- Deneb -->
+        <div class="star important-star" style="top: 35%; left: 60%;"></div>
+        <div class="label" style="top: 35%; left: 60%;">Deneb</div>
+
+        <!-- Altair -->
+        <div class="star important-star" style="top: 50%; left: 45%;"></div>
+        <div class="label" style="top: 50%; left: 45%;">Altair</div>
+
+        <!-- Büyük Ayı -->
+        <div class="star" style="top: 40%; left: 30%;"></div>
+        <div class="star" style="top: 42%; left: 32%;"></div>
+        <div class="star" style="top: 44%; left: 34%;"></div>
+        <div class="star" style="top: 46%; left: 36%;"></div>
+        <div class="label" style="top: 46%; left: 36%;">Büyük Ayı</div>
+
+        <!-- Küçük Ayı -->
+        <div class="star" style="top: 25%; left: 48%;"></div>
+        <div class="star" style="top: 27%; left: 50%;"></div>
+        <div class="star" style="top: 29%; left: 52%;"></div>
+        <div class="label" style="top: 29%; left: 52%;">Küçük Ayı</div>
+
+        <!-- Orion -->
+        <div class="star" style="top: 70%; left: 40%;"></div>
+        <div class="star" style="top: 72%; left: 42%;"></div>
+        <div class="star" style="top: 74%; left: 44%;"></div>
+        <div class="label" style="top: 74%; left: 44%;">Orion</div>
     </div>
-
-    <script>
-        // Yıldızları oluşturma
-        const sky = document.getElementById('sky');
-        const starCount = 300; // Gökyüzündeki yıldız sayısı
-
-        // Sabit yıldız yerleşimi için bir sabit rastgelelik fonksiyonu
-        function seededRandom(seed) {
-            const x = Math.sin(seed) * 10000;
-            return x - Math.floor(x);
-        }
-
-        for (let i = 0; i < starCount; i++) {
-            const star = document.createElement('div');
-            star.classList.add('star');
-
-            // Sabit rastgele bir pozisyon oluşturmak için bir tohum değeri kullanıyoruz
-            const seed = i * 137; // Her yıldız için farklı bir tohum
-            const top = seededRandom(seed) * 300; // Yıldızın yüksekliği (% olarak)
-            const left = seededRandom(seed + 1) * 100; // Yıldızın genişliği (% olarak)
-
-            // Yıldızın pozisyonunu ayarla
-            star.style.top = `${top}vh`;
-            star.style.left = `${left}vw`;
-
-            // Hafif parlama efekti
-            star.style.animation = `twinkle ${Math.random() * 3 + 2}s infinite ease-in-out`;
-
-            // Yıldızı gökyüzüne ekle
-            sky.appendChild(star);
-        }
-
-        // Takımyıldızları oluşturma
-        const constellation = document.getElementById('constellation');
-
-        // Takımyıldız yıldızlarının koordinatları
-        const stars = [
-            { x: 10, y: 20 },
-            { x: 30, y: 50 },
-            { x: 50, y: 30 },
-            { x: 70, y: 70 },
-            { x: 90, y: 40 },
-        ];
-
-        // Takımyıldızları çizme
-        stars.forEach((star, index) => {
-            const starEl = document.createElement('div');
-            starEl.classList.add('star');
-            starEl.style.left = `${star.x}%`;
-            starEl.style.top = `${star.y}%`;
-            constellation.appendChild(starEl);
-
-            // Çizgiler
-            if (index > 0) {
-                const prevStar = stars[index - 1];
-                const line = document.createElement('div');
-                line.classList.add('line');
-
-                const dx = star.x - prevStar.x;
-                const dy = star.y - prevStar.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-
-                line.style.width = `${distance}%`;
-                line.style.transform = `rotate(${Math.atan2(dy, dx)}rad)`;
-                line.style.left = `${prevStar.x}%`;
-                line.style.top = `${prevStar.y}%`;
-
-                constellation.appendChild(line);
-            }
-        });
-    </script>
 </body>
 </html>
