@@ -12,11 +12,35 @@
         canvas {
             display: block;
         }
+        #infoBox {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+            width: 300px;
+        }
+        #infoBox h2 {
+            margin: 0;
+            font-size: 18px;
+        }
+        #infoBox p {
+            font-size: 14px;
+            margin: 10px 0 0;
+        }
     </style>
 </head>
 <body>
+    <div id="infoBox">
+        <h2 id="objectName"></h2>
+        <p id="objectInfo"></p>
+    </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/TextureLoader.js"></script>
     <script>
         // === Temel Three.js Ayarları ===
         const scene = new THREE.Scene();
@@ -44,100 +68,193 @@
         const sun = new THREE.Mesh(sunGeometry, sunMaterial);
         scene.add(sun);
 
-        // === Gezegenler ve Yörüngeler ===
-        const planets = [
-            { name: "Merkür", radius: 5, distance: 100, color: 0xaaaaaa, speed: 0.04 },
-            { name: "Venüs", radius: 8, distance: 150, color: 0xffcc66, speed: 0.02 },
-            { name: "Dünya", radius: 10, distance: 200, color: 0x3399ff, speed: 0.01 },
-            { name: "Mars", radius: 7, distance: 250, color: 0xff3300, speed: 0.008 },
-            { name: "Jüpiter", radius: 20, distance: 350, color: 0xff9966, speed: 0.005 },
-            { name: "Satürn", radius: 18, distance: 450, color: 0xffcc33, speed: 0.003 },
-            { name: "Uranüs", radius: 15, distance: 550, color: 0x66ccff, speed: 0.002 },
-            { name: "Neptün", radius: 15, distance: 650, color: 0x3333ff, speed: 0.0015 }
+        // === Gezegenler, Uydular ve Yörüngeler ===
+        const textureLoader = new THREE.TextureLoader();
+
+        const celestialBodies = [
+            {
+                name: "Merkür",
+                radius: 5,
+                distance: 100,
+                color: 0xaaaaaa,
+                speed: 0.04,
+                texture: null,
+                info: "Merkür, Güneş'e en yakın gezegendir ve yüzeyi kayalık bir yapıya sahiptir.",
+                moons: []
+            },
+            {
+                name: "Venüs",
+                radius: 8,
+                distance: 150,
+                color: 0xffcc66,
+                speed: 0.02,
+                texture: "https://planet-textures.s3.amazonaws.com/venus.jpg",
+                info: "Venüs, yoğun bir atmosfere sahip ve yüzeyi oldukça sıcaktır.",
+                moons: []
+            },
+            {
+                name: "Dünya",
+                radius: 10,
+                distance: 200,
+                color: 0x3399ff,
+                speed: 0.01,
+                texture: "https://planet-textures.s3.amazonaws.com/earth.jpg",
+                info: "Dünya, yaşam barındıran tek gezegendir ve suya sahiptir.",
+                moons: [
+                    {
+                        name: "Ay",
+                        radius: 3,
+                        distance: 20,
+                        color: 0xaaaaaa,
+                        speed: 0.05,
+                        texture: "https://planet-textures.s3.amazonaws.com/moon.jpg",
+                        info: "Ay, Dünya'nın tek doğal uydusudur."
+                    }
+                ]
+            },
+            {
+                name: "Mars",
+                radius: 7,
+                distance: 250,
+                color: 0xff3300,
+                speed: 0.008,
+                texture: "https://planet-textures.s3.amazonaws.com/mars.jpg",
+                info: "Mars, kırmızı gezegen olarak bilinir ve ince bir atmosfere sahiptir.",
+                moons: [
+                    {
+                        name: "Phobos",
+                        radius: 2,
+                        distance: 12,
+                        color: 0xaaaaaa,
+                        speed: 0.07,
+                        texture: null,
+                        info: "Phobos, Mars'ın en büyük uydusudur."
+                    },
+                    {
+                        name: "Deimos",
+                        radius: 1.5,
+                        distance: 20,
+                        color: 0xaaaaaa,
+                        speed: 0.05,
+                        texture: null,
+                        info: "Deimos, Mars'ın ikinci uydusudur."
+                    }
+                ]
+            },
+            {
+                name: "Jüpiter",
+                radius: 20,
+                distance: 350,
+                color: 0xff9966,
+                speed: 0.005,
+                texture: "https://planet-textures.s3.amazonaws.com/jupiter.jpg",
+                info: "Jüpiter, Güneş Sistemi'nin en büyük gezegenidir ve gaz devlerinden biridir.",
+                moons: [
+                    {
+                        name: "Io",
+                        radius: 4,
+                        distance: 30,
+                        color: 0xffcc66,
+                        speed: 0.07,
+                        texture: null,
+                        info: "Io, Jüpiter'in volkanik yüzeye sahip uydusudur."
+                    },
+                    {
+                        name: "Europa",
+                        radius: 3.5,
+                        distance: 40,
+                        color: 0x3399ff,
+                        speed: 0.05,
+                        texture: null,
+                        info: "Europa, Jüpiter'in buzlu yüzeye sahip uydusudur."
+                    }
+                ]
+            }
         ];
 
-        const planetMeshes = [];
+        const celestialMeshes = [];
         const orbits = [];
 
-        planets.forEach(planet => {
+        celestialBodies.forEach(body => {
             // Gezegen
-            const planetGeometry = new THREE.SphereGeometry(planet.radius, 32, 32);
-            const planetMaterial = new THREE.MeshStandardMaterial({ color: planet.color });
+            const planetGeometry = new THREE.SphereGeometry(body.radius, 32, 32);
+            let planetMaterial;
+            if (body.texture) {
+                const texture = textureLoader.load(body.texture);
+                planetMaterial = new THREE.MeshStandardMaterial({ map: texture });
+            } else {
+                planetMaterial = new THREE.MeshStandardMaterial({ color: body.color });
+            }
             const planetMesh = new THREE.Mesh(planetGeometry, planetMaterial);
-            planetMesh.position.x = planet.distance;
+            planetMesh.position.x = body.distance;
             scene.add(planetMesh);
-            planetMeshes.push({ mesh: planetMesh, speed: planet.speed, distance: planet.distance, angle: 0 });
+            celestialMeshes.push({ mesh: planetMesh, speed: body.speed, distance: body.distance, angle: 0, info: body.info, name: body.name });
 
             // Yörünge
-            const orbitGeometry = new THREE.RingGeometry(planet.distance - 0.1, planet.distance + 0.1, 64);
+            const orbitGeometry = new THREE.RingGeometry(body.distance - 0.1, body.distance + 0.1, 64);
             const orbitMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide });
             const orbit = new THREE.Mesh(orbitGeometry, orbitMaterial);
             orbit.rotation.x = Math.PI / 2;
             scene.add(orbit);
             orbits.push(orbit);
+
+            // Uydular
+            body.moons.forEach(moon => {
+                const moonGeometry = new THREE.SphereGeometry(moon.radius, 32, 32);
+                let moonMaterial;
+                if (moon.texture) {
+                    const texture = textureLoader.load(moon.texture);
+                    moonMaterial = new THREE.MeshStandardMaterial({ map: texture });
+                } else {
+                    moonMaterial = new THREE.MeshStandardMaterial({ color: moon.color });
+                }
+                const moonMesh = new THREE.Mesh(moonGeometry, moonMaterial);
+                moonMesh.position.set(body.distance + moon.distance, 0, 0);
+                scene.add(moonMesh);
+                celestialMeshes.push({ mesh: moonMesh, speed: moon.speed, distance: moon.distance, angle: 0, info: moon.info, name: moon.name });
+            });
         });
-
-        // === Arka Plan Yıldızları ===
-        function createStars() {
-            const starGeometry = new THREE.SphereGeometry(0.5, 24, 24);
-            const starMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
-
-            for (let i = 0; i < 1000; i++) {
-                const star = new THREE.Mesh(starGeometry, starMaterial);
-                star.position.set(
-                    (Math.random() - 0.5) * 5000,
-                    (Math.random() - 0.5) * 5000,
-                    (Math.random() - 0.5) * 5000
-                );
-                scene.add(star);
-            }
-        }
-        createStars();
-
-        // === Dünya'nın İçine Girme ===
-        let isInsideEarth = false;
-
-        function checkEarthProximity() {
-            const earth = planetMeshes.find(p => p.mesh.geometry.parameters.radius === 10).mesh;
-            const distanceToEarth = camera.position.distanceTo(earth.position);
-
-            if (distanceToEarth < 50 && !isInsideEarth) {
-                isInsideEarth = true;
-                enterEarth();
-            } else if (distanceToEarth > 50 && isInsideEarth) {
-                isInsideEarth = false;
-                exitEarth();
-            }
-        }
-
-        function enterEarth() {
-            console.log("Dünya'nın içine girildi!");
-            scene.background = new THREE.Color(0x0000ff); // İçeride mavi bir ortam
-        }
-
-        function exitEarth() {
-            console.log("Dünya'dan çıkıldı!");
-            scene.background = null; // Dışarıda yıldızlı ortam
-        }
 
         // === Animasyon ===
         function animate() {
             requestAnimationFrame(animate);
 
-            // Gezegenlerin hareketi
-            planetMeshes.forEach(planet => {
-                planet.angle += planet.speed;
-                planet.mesh.position.x = planet.distance * Math.cos(planet.angle);
-                planet.mesh.position.z = planet.distance * Math.sin(planet.angle);
+            // Gezegenlerin ve uyduların hareketi
+            celestialMeshes.forEach(celestial => {
+                celestial.angle += celestial.speed;
+                celestial.mesh.position.x = celestial.distance * Math.cos(celestial.angle);
+                celestial.mesh.position.z = celestial.distance * Math.sin(celestial.angle);
             });
-
-            checkEarthProximity();
 
             controls.update();
             renderer.render(scene, camera);
         }
 
         animate();
+
+        // === Gezegen ve Uydu Bilgisi Gösterme ===
+        const infoBox = document.getElementById("infoBox");
+        const objectName = document.getElementById("objectName");
+        const objectInfo = document.getElementById("objectInfo");
+
+        window.addEventListener("click", (event) => {
+            const mouse = new THREE.Vector2();
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+            const raycaster = new THREE.Raycaster();
+            raycaster.setFromCamera(mouse, camera);
+
+            const intersects = raycaster.intersectObjects(celestialMeshes.map(c => c.mesh));
+            if (intersects.length > 0) {
+                const celestial = celestialMeshes.find(c => c.mesh === intersects[0].object);
+                objectName.textContent = celestial.name;
+                objectInfo.textContent = celestial.info;
+                infoBox.style.display = "block";
+            } else {
+                infoBox.style.display = "none";
+            }
+        });
 
         // === Pencere Boyutlandırma ===
         window.addEventListener("resize", () => {
