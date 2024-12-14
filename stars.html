@@ -3,86 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gezegenlerin Gökyüzündeki Konumu</title>
+    <title>Güneş Sistemi Animasyonu</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #000;
-            color: #fff;
-            text-align: center;
-            padding: 20px;
+            margin: 0;
+            background: black;
+            overflow: hidden;
         }
-        h1 {
-            color: #f9d71c;
-        }
-        .planet {
-            margin-top: 20px;
-            font-size: 1.2em;
-        }
-        .loading {
-            color: #aaa;
+
+        canvas {
+            display: block;
         }
     </style>
 </head>
 <body>
-    <h1>Gezegenlerin Gökyüzündeki Konumu</h1>
-    <div id="planet-info" class="loading">Gezegen verileri yükleniyor...</div>
+    <canvas id="solarSystem"></canvas>
 
-    <!-- Astronomy Engine için CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/@cosine/astronomy-engine"></script>
     <script>
-        window.onload = function() {
-            // İstanbul'un enlem ve boylam bilgileri
-            const latitude = 41.0082; // Enlem
-            const longitude = 28.9784; // Boylam
-            const observer = new Astronomy.Observer(latitude, longitude, 0); // Gözlemci
+        const canvas = document.getElementById("solarSystem");
+        const ctx = canvas.getContext("2d");
 
-            // Rastgele bir tarih oluştur
-            function getRandomDate() {
-                const start = new Date(2000, 0, 1); // 1 Ocak 2000
-                const end = new Date(2030, 11, 31); // 31 Aralık 2030
-                const randomTime = start.getTime() + Math.random() * (end.getTime() - start.getTime());
-                return new Date(randomTime);
-            }
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
 
-            const randomDate = getRandomDate(); // Rastgele bir tarih seç
-            console.log("Rastgele Seçilen Tarih:", randomDate);
+        // Güneş Sistemi Parametreleri
+        const sun = {
+            x: canvas.width / 2,
+            y: canvas.height / 2,
+            radius: 50,
+            color: "orange"
+        };
 
-            // Gezegenlerin listesi
-            const planets = ["Mercury", "Venus", "Mars", "Jupiter", "Saturn"];
+        const planets = [
+            { name: "Merkür", radius: 5, distance: 80, color: "gray", speed: 0.02, angle: 0 },
+            { name: "Venüs", radius: 8, distance: 120, color: "yellow", speed: 0.015, angle: 0 },
+            { name: "Dünya", radius: 10, distance: 170, color: "blue", speed: 0.01, angle: 0 },
+            { name: "Mars", radius: 7, distance: 220, color: "red", speed: 0.008, angle: 0 },
+            { name: "Jüpiter", radius: 20, distance: 300, color: "orange", speed: 0.005, angle: 0 },
+            { name: "Satürn", radius: 18, distance: 400, color: "gold", speed: 0.004, angle: 0 }
+        ];
 
-            // Verilerin gösterileceği alan
-            const planetInfoDiv = document.getElementById("planet-info");
+        // Animasyon Fonksiyonu
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-            // Gezegenlerin pozisyonlarını hesapla ve göster
-            function calculatePlanetPositions() {
-                planetInfoDiv.innerHTML = `<h3>Rastgele Tarih: ${randomDate.toDateString()}</h3>`; // Tarihi göster
+            // Güneş'i çiz
+            ctx.beginPath();
+            ctx.arc(sun.x, sun.y, sun.radius, 0, Math.PI * 2);
+            ctx.fillStyle = sun.color;
+            ctx.fill();
 
-                planets.forEach(planet => {
-                    try {
-                        // Astronomy Engine kullanarak gezegenin konumunu hesapla
-                        const equatorial = Astronomy.Equator(planet, randomDate, observer, true, true);
-                        const azimuth = equatorial.azimuth.toFixed(2); // Azimut (derece)
-                        const altitude = equatorial.altitude.toFixed(2); // Yükselim (derece)
+            // Gezegenleri çiz
+            planets.forEach(planet => {
+                // Gezegenin pozisyonunu hesapla
+                planet.angle += planet.speed;
+                const x = sun.x + planet.distance * Math.cos(planet.angle);
+                const y = sun.y + planet.distance * Math.sin(planet.angle);
 
-                        // Sonuçları ekrana yazdır
-                        const planetDiv = document.createElement("div");
-                        planetDiv.className = "planet";
-                        planetDiv.textContent = `${planet}: Azimut = ${azimuth}°, Yükselim = ${altitude}°`;
-                        planetInfoDiv.appendChild(planetDiv);
-                    } catch (error) {
-                        console.error(`Hata oluştu (${planet}):`, error);
-                        const errorDiv = document.createElement("div");
-                        errorDiv.className = "planet";
-                        errorDiv.textContent = `${planet}: Veri alınamadı.`;
-                        planetInfoDiv.appendChild(errorDiv);
+                // Gezegenin yörüngesini çiz
+                ctx.beginPath();
+                ctx.arc(sun.x, sun.y, planet.distance, 0, Math.PI * 2);
+                ctx.strokeStyle = "rgba(255, 255, 255, 0.1)";
+                ctx.stroke();
+
+                // Gezegenin kendisini çiz
+                ctx.beginPath();
+                ctx.arc(x, y, planet.radius, 0, Math.PI * 2);
+                ctx.fillStyle = planet.color;
+                ctx.fill();
+
+                // Gezegenin ismini yaz (fareyle üzerine geldiğinde)
+                canvas.addEventListener("mousemove", (e) => {
+                    const rect = canvas.getBoundingClientRect();
+                    const mouseX = e.clientX - rect.left;
+                    const mouseY = e.clientY - rect.top;
+
+                    const distance = Math.sqrt((mouseX - x) ** 2 + (mouseY - y) ** 2);
+                    if (distance < planet.radius + 5) {
+                        ctx.font = "14px Arial";
+                        ctx.fillStyle = "white";
+                        ctx.fillText(planet.name, x + 10, y - 10);
                     }
                 });
-            }
+            });
 
-            // Hesaplama işlemini başlat
-            calculatePlanetPositions();
-        };
+            requestAnimationFrame(draw);
+        }
+
+        draw();
+
+        // Tarayıcı yeniden boyutlandırıldığında canvas'ı güncelle
+        window.addEventListener("resize", () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            sun.x = canvas.width / 2;
+            sun.y = canvas.height / 2;
+        });
     </script>
 </body>
 </html>
