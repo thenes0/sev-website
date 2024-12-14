@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Güneş Sistemi</title>
+    <title>Gelişmiş 3D Güneş Sistemi</title>
     <style>
         body {
             margin: 0;
@@ -20,14 +20,14 @@
     <script>
         // === Temel Three.js Ayarları ===
         const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 5000);
         const renderer = new THREE.WebGLRenderer();
         renderer.setSize(window.innerWidth, window.innerHeight);
         document.body.appendChild(renderer.domElement);
 
         // === Kamera Kontrolleri ===
         const controls = new THREE.OrbitControls(camera, renderer.domElement);
-        camera.position.set(0, 50, 200);
+        camera.position.set(0, 100, 500);
         controls.update();
 
         // === Işıklar ===
@@ -39,21 +39,21 @@
         scene.add(pointLight);
 
         // === Güneş ===
-        const sunGeometry = new THREE.SphereGeometry(15, 32, 32);
+        const sunGeometry = new THREE.SphereGeometry(50, 32, 32);
         const sunMaterial = new THREE.MeshBasicMaterial({ color: 0xffcc00 });
         const sun = new THREE.Mesh(sunGeometry, sunMaterial);
         scene.add(sun);
 
         // === Gezegenler ve Yörüngeler ===
         const planets = [
-            { name: "Merkür", radius: 2, distance: 25, color: 0xaaaaaa, speed: 0.04 },
-            { name: "Venüs", radius: 4, distance: 40, color: 0xffcc66, speed: 0.02 },
-            { name: "Dünya", radius: 5, distance: 60, color: 0x3399ff, speed: 0.01 },
-            { name: "Mars", radius: 3, distance: 80, color: 0xff3300, speed: 0.008 },
-            { name: "Jüpiter", radius: 10, distance: 120, color: 0xff9966, speed: 0.005 },
-            { name: "Satürn", radius: 8, distance: 160, color: 0xffcc33, speed: 0.003 },
-            { name: "Uranüs", radius: 7, distance: 200, color: 0x66ccff, speed: 0.002 },
-            { name: "Neptün", radius: 7, distance: 240, color: 0x3333ff, speed: 0.0015 }
+            { name: "Merkür", radius: 5, distance: 100, color: 0xaaaaaa, speed: 0.04 },
+            { name: "Venüs", radius: 8, distance: 150, color: 0xffcc66, speed: 0.02 },
+            { name: "Dünya", radius: 10, distance: 200, color: 0x3399ff, speed: 0.01 },
+            { name: "Mars", radius: 7, distance: 250, color: 0xff3300, speed: 0.008 },
+            { name: "Jüpiter", radius: 20, distance: 350, color: 0xff9966, speed: 0.005 },
+            { name: "Satürn", radius: 18, distance: 450, color: 0xffcc33, speed: 0.003 },
+            { name: "Uranüs", radius: 15, distance: 550, color: 0x66ccff, speed: 0.002 },
+            { name: "Neptün", radius: 15, distance: 650, color: 0x3333ff, speed: 0.0015 }
         ];
 
         const planetMeshes = [];
@@ -82,17 +82,43 @@
             const starGeometry = new THREE.SphereGeometry(0.5, 24, 24);
             const starMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
 
-            for (let i = 0; i < 500; i++) {
+            for (let i = 0; i < 1000; i++) {
                 const star = new THREE.Mesh(starGeometry, starMaterial);
                 star.position.set(
-                    (Math.random() - 0.5) * 2000,
-                    (Math.random() - 0.5) * 2000,
-                    (Math.random() - 0.5) * 2000
+                    (Math.random() - 0.5) * 5000,
+                    (Math.random() - 0.5) * 5000,
+                    (Math.random() - 0.5) * 5000
                 );
                 scene.add(star);
             }
         }
         createStars();
+
+        // === Dünya'nın İçine Girme ===
+        let isInsideEarth = false;
+
+        function checkEarthProximity() {
+            const earth = planetMeshes.find(p => p.mesh.geometry.parameters.radius === 10).mesh;
+            const distanceToEarth = camera.position.distanceTo(earth.position);
+
+            if (distanceToEarth < 50 && !isInsideEarth) {
+                isInsideEarth = true;
+                enterEarth();
+            } else if (distanceToEarth > 50 && isInsideEarth) {
+                isInsideEarth = false;
+                exitEarth();
+            }
+        }
+
+        function enterEarth() {
+            console.log("Dünya'nın içine girildi!");
+            scene.background = new THREE.Color(0x0000ff); // İçeride mavi bir ortam
+        }
+
+        function exitEarth() {
+            console.log("Dünya'dan çıkıldı!");
+            scene.background = null; // Dışarıda yıldızlı ortam
+        }
 
         // === Animasyon ===
         function animate() {
@@ -104,6 +130,8 @@
                 planet.mesh.position.x = planet.distance * Math.cos(planet.angle);
                 planet.mesh.position.z = planet.distance * Math.sin(planet.angle);
             });
+
+            checkEarthProximity();
 
             controls.update();
             renderer.render(scene, camera);
