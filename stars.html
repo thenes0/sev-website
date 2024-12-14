@@ -3,138 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yıldız Haritamız</title>
+    <title>Yıldız Haritası Animasyonu</title>
     <style>
         /* Genel stil */
         body {
             margin: 0;
             font-family: 'Arial', sans-serif;
             color: white;
-            overflow-x: hidden;
+            overflow: hidden; /* Kaydırmayı kaldırıyoruz */
             background: black;
         }
 
-        /* Arka plan videosu */
-        .background-video {
-            position: fixed;
-            top: 0;
-            left: 0;
+        /* Yıldız animasyonu alanı */
+        .star-animation {
+            position: relative;
             width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-        }
-
-        .background-video video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* Giriş bölümü */
-        .intro {
-            display: flex;
-            justify-content: center;
-            align-items: center;
             height: 100vh;
+            overflow: hidden;
+            background: radial-gradient(circle, rgba(0,0,0,1) 60%, rgba(255,255,255,0.1) 100%);
+        }
+
+        /* Yıldızlar */
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite ease-in-out;
+        }
+
+        /* Yıldız parlaması efekti */
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0.5;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.5);
+            }
+        }
+
+        /* Başlık */
+        .intro {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             text-align: center;
+            z-index: 10;
         }
 
         .intro h1 {
             font-size: 3rem;
-            animation: fadeIn 3s ease-in-out;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
-        }
-
-        /* Yıldız haritası bölümü */
-        .star-map {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 120vh; /* Daha fazla boşluk için yüksekliği artırdık */
-            position: relative;
-            overflow: hidden;
-            transition: background 1s ease-in-out; /* Geçiş efekti */
-        }
-
-        .star-map .star-image {
-            width: 50%;
-            transition: transform 1s ease, box-shadow 1s ease;
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            border-radius: 50%;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-        }
-
-        .star-map .star-image:hover {
-            transform: scale(1.2);
-            box-shadow: 0 0 40px rgba(255, 255, 255, 0.8);
-        }
-
-        /* Daha fazla içerik */
-        .content {
-            padding: 20px;
-            background: #111;
-            text-align: center;
-        }
-
-        .content p {
-            font-size: 1.2rem;
-            line-height: 1.8;
-        }
-
-        /* Yıldız parlaması efekti */
-        .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(255,255,255,0.8) 2px, transparent 2px),
-                        radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 1px);
-            background-size: 3px 3px, 1px 1px;
-            background-position: 0 0, 50% 50%;
-            animation: moveStars 10s linear infinite;
-            z-index: -2;
-        }
-
-        @keyframes moveStars {
-            from {
-                background-position: 0 0, 50% 50%;
-            }
-            to {
-                background-position: 100% 100%, 150% 150%;
-            }
-        }
-
-        /* Fare takip efekti */
-        .mouse-effect {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 70%);
-            border-radius: 50%;
-            pointer-events: none;
-            transform: translate(-50%, -50%);
-            z-index: 1000;
-        }
-
-        /* Animasyonlar */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        /* Glow (parlama) efekti */
-        .glow {
             color: white;
-            text-shadow: 0 0 10px #fff, 0 0 20px #ff00ff, 0 0 30px #ff00ff, 0 0 40px #ff00ff;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
             animation: glow 2s infinite alternate;
         }
 
+        /* Glow (parlama) efekti */
         @keyframes glow {
             from {
                 text-shadow: 0 0 10px #fff, 0 0 20px #ff00ff, 0 0 30px #ff00ff, 0 0 40px #ff00ff;
@@ -146,67 +74,33 @@
     </style>
 </head>
 <body>
-    <!-- Arka plan yıldız efekti -->
-    <div class="stars"></div>
-
-    <!-- Arka plan videosu -->
-    <div class="background-video">
-        <video autoplay muted loop>
-            <!-- Önce MOV formatı -->
-            <source src="img/space.mov" type="video/quicktime">
-            <!-- Eğer MOV desteklenmezse MP4 formatına geçer -->
-            <source src="img/space.mp4" type="video/mp4">
-            <!-- Tarayıcı veya cihaz video oynatamıyorsa bir yedek resim gösterilir -->
-            Tarayıcınız videoyu desteklemiyor. 
-            <img src="img/space.jpg" alt="Arka Plan Resmi">
-        </video>
-    </div>
-
-    <!-- Fare takip efekti -->
-    <div class="mouse-effect"></div>
-
-    <!-- Sayfanın giriş kısmı -->
+    <!-- Giriş kısmı -->
     <section class="intro">
-        <h1 class="glow">Tanıştığımız Günün Yıldız Haritası</h1>
+        <h1>Tanıştığımız Günün Yıldızları</h1>
     </section>
 
-    <!-- Yıldız haritası bölümü -->
-    <section class="star-map" id="star-map">
-        <img src="img/yildiz_haritasi.jpeg" alt="Yıldız Haritası" class="star-image">
-    </section>
-
-    <!-- Daha fazla içerik -->
-    <section class="content">
-        <p>İyi ki de seni tanımışım, o özel günde üstümüzdeki yıldızlar...</p>
-    </section>
+    <!-- Yıldız animasyonu alanı -->
+    <div class="star-animation" id="star-animation"></div>
 
     <script>
-        // Fare takip efekti
-        const mouseEffect = document.querySelector('.mouse-effect');
-        document.addEventListener('mousemove', (e) => {
-            mouseEffect.style.left = `${e.pageX}px`;
-            mouseEffect.style.top = `${e.pageY}px`;
-        });
+        // Yıldızları oluşturma
+        const starContainer = document.getElementById('star-animation');
+        const starCount = 200; // Yıldız sayısı
 
-        // Scroll ile yıldız haritasını büyütme
-        document.addEventListener('scroll', () => {
-            const scrollPosition = window.scrollY;
-            const starImage = document.querySelector('.star-image');
-            const starMap = document.querySelector('.star-map');
+        for (let i = 0; i < starCount; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            
+            // Rastgele konumlandırma
+            star.style.top = Math.random() * 100 + 'vh';
+            star.style.left = Math.random() * 100 + 'vw';
 
-            if (scrollPosition > 100) {
-                starImage.style.transform = `scale(${1 + scrollPosition / 1000})`;
-                starImage.style.boxShadow = `0 0 ${20 + scrollPosition / 10}px rgba(255, 255, 255, 0.8)`;
-            }
+            // Rastgele parlama süresi
+            star.style.animationDuration = Math.random() * 3 + 2 + 's';
 
-            // Geçiş efekti: Arka plan videosundan yıldız haritasına geçiş
-            const windowHeight = window.innerHeight;
-            if (scrollPosition >= windowHeight) {
-                starMap.style.background = "radial-gradient(circle, rgba(0,0,0,1) 60%, rgba(255,255,255,0.1) 100%)";
-            } else {
-                starMap.style.background = "black";
-            }
-        });
+            // Yıldızı ekle
+            starContainer.appendChild(star);
+        }
     </script>
 </body>
 </html>
