@@ -71,7 +71,10 @@
             scroll-snap-align: center;
             cursor: pointer;
             opacity: 0; /* Başlangıçta görünmez */
-            animation: slideIn 1s ease forwards; /* Görünürlük animasyonu */
+            animation: zoomIn 1s ease forwards; /* Küçükten büyüyerek görünme animasyonu */
+            border-radius: 10px;
+            border: 2px solid transparent; /* Parlayan çizgi için başlangıç */
+            box-shadow: 0 0 20px rgba(255, 182, 193, 0); /* Parlama efekti başlangıç */
         }
 
         /* Fotoğraflar sırayla animasyonla görünür */
@@ -95,22 +98,24 @@
             width: 100%;
             height: auto;
             border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
         }
 
+        /* Hover Efekti */
         .photo:hover {
             transform: scale(1.1) rotate(2deg); /* Hafif döndürme ve büyütme efekti */
-            box-shadow: 0 8px 30px rgba(255, 182, 193, 0.8);
+            box-shadow: 0 0 30px rgba(255, 182, 193, 0.8), 0 0 15px rgba(255, 255, 255, 0.5); /* Parlama efekti */
+            border: 2px solid rgba(255, 182, 193, 0.8); /* Beyaz-pembe karışımı parlayan çizgi */
         }
 
-        @keyframes slideIn {
+        /* Küçükten büyüyerek görünme animasyonu */
+        @keyframes zoomIn {
             from {
-                transform: translateY(50px);
-                opacity: 0;
+                transform: scale(0.5); /* Küçük boyut */
+                opacity: 0; /* Görünmez */
             }
             to {
-                transform: translateY(0);
-                opacity: 1;
+                transform: scale(1); /* Normal boyut */
+                opacity: 1; /* Görünür */
             }
         }
 
