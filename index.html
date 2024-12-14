@@ -11,7 +11,7 @@
             font-family: Arial, sans-serif;
             background: #000;
             color: #fff;
-            overflow: hidden;
+            overflow-x: hidden;
         }
 
         /* Şarkı Çalma */
@@ -106,22 +106,36 @@
             }
         }
 
-        /* Ay Simgesi */
-        .moon-icon {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            background: url('img/moon.png') no-repeat center center;
-            background-size: contain;
+        /* Yıldızlar Bölümü */
+        .stars-section {
+            margin-top: 100vh; /* Sayfanın aşağısına eklemek için */
+            text-align: center;
+            padding: 50px 20px;
+            background: #000;
+            color: #fff;
+        }
+
+        .stars-section h2 {
+            font-size: 2.5rem;
+            color: #ffd700; /* Altın sarısı renk */
+            margin-bottom: 20px;
+        }
+
+        .stars-section p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #fff;
+        }
+
+        .star-icon {
+            font-size: 3rem;
+            color: #ffd700;
             cursor: pointer;
-            z-index: 100;
             transition: transform 0.3s ease;
         }
 
-        .moon-icon:hover {
-            transform: scale(1.1);
+        .star-icon:hover {
+            transform: scale(1.2);
         }
 
         /* Uçan Kalpler */
@@ -234,13 +248,13 @@
         <img src="img/foto3.jpg" alt="Fotoğraf 3">
     </div>
 
-    <!-- Ay Simgesi -->
-    <a href="#stars" class="moon-icon"></a>
-
-    <!-- Stars Bölümü -->
-    <div id="stars" style="height: 100vh; background: black; color: white; text-align: center; padding-top: 50px;">
-        <h1>Yıldızlar Senin İçin Parlıyor 🌟</h1>
+    <!-- Yıldızlar Bölümü -->
+    <div class="stars-section">
+        <h2>Yıldızlar Senin İçin Parlıyor 🌟</h2>
         <p>Burada seni bekleyen sürprizler var...</p>
+        <a href="stars.html">
+            <span class="star-icon">🌟</span>
+        </a>
     </div>
 </body>
 </html>
