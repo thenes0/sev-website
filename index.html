@@ -1,1 +1,299 @@
-ll
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Denizimi Çok Seviyorum ❤️</title>
+    <style>
+        /* Genel Ayarlar */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden; /* Yatay kaydırmayı engeller */
+            width: 100%;
+        }
+
+        /* Şarkı Çalma */
+        audio {
+            display: none;
+        }
+
+        /* Arka Plan Slayt Gösterisi */
+        .slideshow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .slideshow img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            animation: fade 18s infinite;
+            filter: brightness(50%) blur(3px);
+        }
+
+        .slideshow img:nth-child(2) {
+            animation-delay: 6s;
+        }
+
+        .slideshow img:nth-child(3) {
+            animation-delay: 12s;
+        }
+
+        @keyframes fade {
+            0%, 100% {
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+        }
+
+        /* Yazı Kutusu */
+        .content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 2;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            max-width: 90%;
+            word-wrap: break-word;
+        }
+
+        .content h1 {
+            font-size: 3.5rem;
+            color: #ff69b4;
+            margin: 0 0 20px;
+            font-weight: bold;
+            animation: glow 2s infinite;
+        }
+
+        .content p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            color: #fff;
+            margin: 0;
+        }
+
+        .content a {
+            color: #ff69b4;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .content a:hover {
+            color: #fff;
+            text-decoration: underline;
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff69b4, 0 0 30px #ff69b4;
+            }
+            50% {
+                text-shadow: 0 0 20px #ff69b4, 0 0 30px #ff69b4, 0 0 40px #ff69b4;
+            }
+        }
+
+        /* Uçan Kalpler */
+        .hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .heart, .mini-heart {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #ff69b4;
+            opacity: 0.8;
+            transform: rotate(45deg);
+        }
+
+        .heart::before,
+        .heart::after,
+        .mini-heart::before,
+        .mini-heart::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: inherit;
+            border-radius: 50%;
+        }
+
+        .heart::before,
+        .mini-heart::before {
+            top: -10px;
+            left: 0;
+        }
+
+        .heart::after,
+        .mini-heart::after {
+            top: 0;
+            left: -10px;
+        }
+
+        /* Büyük kalpler yukarı doğru hareket eder */
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) scale(0.5);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-10vh) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        /* Küçük kalpler patlayarak rastgele yönlere hareket eder */
+        @keyframes explode {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--x), var(--y)) scale(0.5);
+                opacity: 0;
+            }
+        }
+
+        /* Sayfanın en altındaki görsel */
+        .bottom-image {
+            display: block;
+            margin: 50px auto 0;
+            width: 100%;
+            max-width: 500px;
+            cursor: pointer;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .bottom-image:hover {
+            transform: scale(1.1);
+            opacity: 0.8;
+        }
+
+        /* Sayfa kaydırma için */
+        .spacer {
+            height: 150vh; /* Sayfayı aşağı kaydırmak için boşluk */
+        }
+    </style>
+</head>
+<body>
+    <!-- Yazı Kutusu -->
+    <div class="content">
+        <h1>Sevgilimmm,</h1>
+        <p>
+            Hayatımın en güzel <a href="galeri.html">AŞK</a> hikayesi sensin.  
+            Kalbimin en özel köşesinde hep sen varsın.  
+            Bu sayfa seni mutlu etmek için,
+            çünkü sen her şeyin en iyisini hak ediyorsun! 
+            Seni seviyorum... ❤️
+        </p>
+    </div>
+
+    <!-- Uçan Kalpler -->
+    <div class="hearts"></div>
+
+    <!-- Arka Plan Slayt Gösterisi -->
+    <div class="slideshow">
+        <img src="img/foto1.jpg" alt="Fotoğraf 1">
+        <img src="img/foto2.jpg" alt="Fotoğraf 2">
+        <img src="img/foto3.jpg" alt="Fotoğraf 3">
+    </div>
+
+    <!-- Sayfa Kaydırma Boşluğu -->
+    <div class="spacer"></div>
+
+    <!-- Sayfanın En Altındaki Görsel -->
+    <a href="stars.html">
+        <img src="img/foto31.jpg" alt="Alt Görsel" class="bottom-image">
+    </a>
+
+    <script>
+        // Dinamik olarak kalpler oluştur
+        const heartsContainer = document.querySelector('.hearts');
+
+        // Rastgele bir sayı üretici
+        function random(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        // Küçük kalpler oluşturucu (patlama efekti)
+        function createMiniHearts(x, y) {
+            for (let i = 0; i < 10; i++) { // 10 küçük kalp oluştur
+                const miniHeart = document.createElement('div');
+                miniHeart.classList.add('mini-heart');
+                miniHeart.style.left = `${x}px`;
+                miniHeart.style.top = `${y}px`;
+
+                // Rastgele yönler
+                const randomX = `${random(-100, 100)}px`;
+                const randomY = `${random(-100, 100)}px`;
+
+                // CSS değişkenleriyle animasyon yönlerini belirle
+                miniHeart.style.setProperty('--x', randomX);
+                miniHeart.style.setProperty('--y', randomY);
+
+                // Patlama animasyonu
+                miniHeart.style.animation = `explode 1s ease-out forwards`;
+
+                heartsContainer.appendChild(miniHeart);
+
+                // Küçük kalpleri DOM'dan kaldır
+                setTimeout(() => {
+                    miniHeart.remove();
+                }, 1000);
+            }
+        }
+
+        // Büyük kalpler oluşturucu
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+
+            // Rastgele yatay konum
+            const randomX = Math.random() * window.innerWidth;
+            heart.style.left = `${randomX}px`;
+
+            // Rastgele boyut
+            const randomSize = Math.random() * 1 + 0.5; // 0.5 ile 1.5 arasında
+            heart.style.transform = `scale(${randomSize})`;
+
+            // Yukarı doğru hareket animasyonu
+            heart.style.animation = `floatUp 5s linear forwards`;
+
+            heartsContainer.appendChild(heart);
+
+            // Kalbi DOM'dan kaldır ve patlama efekti başlat
+            setTimeout(() => {
+                const rect = heart.getBoundingClientRect();
+                createMiniHearts(rect.left + rect.width / 2, rect.top + rect.height / 2); // Patlama konumu
+                heart.remove();
+            }, 5000); // 5 saniye sonra patlama
+        }
+
+        // Sürekli büyük kalp oluştur
+        setInterval(createHeart, 500); // Her 500ms'de bir büyük kalp oluştur
+    </script>
+</body>
+</html>
