@@ -1,1 +1,224 @@
-s
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIRICIGIMEE OZELLLLLL GALERIMMMIZZ</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            background: #000;
+            color: #fff;
+        }
+
+        /* Arka Plan Slayt Gösterisi */
+        .slideshow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .slideshow img {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .slideshow img.active {
+            opacity: 1;
+        }
+
+        /* Fotoğraf Galerisi */
+        .photo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            scroll-snap-type: y mandatory;
+            overflow-y: scroll;
+            position: relative;
+            z-index: 2;
+        }
+
+        .photo-container .photo {
+            width: 60%;
+            margin: 20px auto;
+            transition: transform 0.5s ease, box-shadow 0.5s ease, opacity 0.5s ease;
+            scroll-snap-align: center;
+            cursor: pointer;
+            opacity: 0; /* Başlangıçta görünmez */
+            animation: zoomIn 1s ease forwards; /* Küçükten büyüyerek görünme animasyonu */
+            border-radius: 10px;
+            border: 2px solid transparent; /* Parlayan çizgi için başlangıç */
+            box-shadow: 0 0 20px rgba(255, 182, 193, 0); /* Parlama efekti başlangıç */
+        }
+
+        .photo img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        /* Hover Efekti */
+        .photo:hover {
+            transform: scale(1.1) rotate(2deg); /* Hafif döndürme ve büyütme efekti */
+            box-shadow: 0 0 30px rgba(255, 182, 193, 0.8), 0 0 15px rgba(255, 255, 255, 0.5); /* Parlama efekti */
+            border: 2px solid rgba(255, 182, 193, 0.8); /* Beyaz-pembe karışımı parlayan çizgi */
+        }
+
+        /* Küçükten büyüyerek görünme animasyonu */
+        @keyframes zoomIn {
+            from {
+                transform: scale(0.5); /* Küçük boyut */
+                opacity: 0; /* Görünmez */
+            }
+            to {
+                transform: scale(1); /* Normal boyut */
+                opacity: 1; /* Görünür */
+            }
+        }
+
+        /* Sevgi Notu */
+        .note {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 3;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .note.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translate(-50%, -60%);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        /* Çıkış Butonu */
+        .close-note {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .close-note:hover {
+            color: #ff69b4;
+        }
+    </style>
+</head>
+<body>
+    <!-- Arka Plan Slayt Gösterisi -->
+    <div class="slideshow">
+        <!-- 30 Fotoğraf için Arka Plan -->
+        <img src="img/foto1.jpg" alt="Slayt 1" class="active">
+        <img src="img/foto2.jpg" alt="Slayt 2">
+        <img src="img/foto3.jpg" alt="Slayt 3">
+        <img src="img/foto4.jpg" alt="Slayt 4">
+        <img src="img/foto5.jpg" alt="Slayt 5">
+        <img src="img/foto6.jpg" alt="Slayt 6">
+        <img src="img/foto7.jpg" alt="Slayt 7">
+        <img src="img/foto8.jpg" alt="Slayt 8">
+        <img src="img/foto9.jpg" alt="Slayt 9">
+        <img src="img/foto10.jpg" alt="Slayt 10">
+    </div>
+
+    <!-- Fotoğraf Galerisi -->
+    <div class="photo-container">
+          <!-- 30 Fotoğraf için Galeri -->
+        <div class="photo" onclick="showNote('HİÇBİR ŞEY HAKETMİYORSUN')"><img src="img/foto1.jpg" alt="Fotoğraf 1"></div>
+        <div class="photo" onclick="showNote('beni 3 4 tane yeni tanıdığın çocuğa tercih ettin')"><img src="img/foto2.jpg" alt="Fotoğraf 2"></div>
+        <div class="photo" onclick="showNote('Sen benim en güzel şiirim, en derin hayalim, en mutlu gerçeğimsin.')"><img src="img/foto3.jpg" alt="Fotoğraf 3"></div>
+        <div class="photo" onclick="showNote('Dünya üzerindeki milyarlarca insan arasından seni bulduğum için ALLAHA ŞÜKÜRRR.')"><img src="img/foto4.jpg" alt="Fotoğraf 4"></div>
+        <div class="photo" onclick="showNote('Seninle yan yana yürümek, hayatın bana verdiği en güzel hediye, özelliklede yürürken o güzel kokunu içime çekince..')"><img src="img/foto5.jpg" alt="Fotoğraf 5"></div>
+        <div class="photo" onclick="showNote('Her sabah ilk düşüncem, her gece son hayalimsin.')"><img src="img/foto6.jpg" alt="Fotoğraf 6"></div>
+        <div class="photo" onclick="showNote('Elini tuttuğumda zamanın nasıl durduğunu hissediyorum. Seninle sonsuzluk bile kısa geliyor.')"><img src="img/foto7.jpg" alt="Fotoğraf 7"></div>
+        <div class="photo" onclick="showNote('Aşkımız her geçen gün daha da güzelleşiyor,ne kadar kavga etsekte birbirimizi kırsak üzsekte tekrardan toparlanıp küllerimizden doğuyoruz BU AŞK BİTMEZZ...')"><img src="img/foto8.jpg" alt="Fotoğraf 8"></div>
+        <div class="photo" onclick="showNote('Senin bir gülüşün, benim bütün dünyam. İyi ki varsın, iyi ki benimsin ÖMRÜM.')"><img src="img/foto9.jpg" alt="Fotoğraf 9"></div>
+        <div class="photo" onclick="showNote('Bazen çirkinim çekme çirkinim kendimi beğenmedim diyorsun ya, lütfen boş yapmayı kesip güzelliğin için şükür eder misin?!')"><img src="img/foto10.jpg" alt="Fotoğraf 10"></div>
+        <div class="photo" onclick="showNote('Aşk seninle başladı, seninle anlam kazandı. Her günüm seninle güzel.')"><img src="img/foto11.jpg" alt="Fotoğraf 11"></div>
+        <div class="photo" onclick="showNote('Kalbimin en güzel yerinde, sadece sana ait bir dünya kurdum İçinde sen ve ben.')"><img src="img/foto12.jpg" alt="Fotoğraf 12"></div>
+        <div class="photo" onclick="showNote('Hayatımın her anında seni sevmek, benim en büyük mutluluğum.')"><img src="img/foto13.jpg" alt="Fotoğraf 13"></div>
+        <div class="photo" onclick="showNote('Seninle geçirdiğim her dakika, yaşanmış en güzel anılarım oluyor.')"><img src="img/foto14.jpg" alt="Fotoğraf 14"></div>
+        <div class="photo" onclick="showNote('Gözlerinin içine baktığımda, benliğimde kayboluyorum sana daha da aşık oluyorum')"><img src="img/foto15.jpg" alt="Fotoğraf 15"></div>
+        <div class="photo" onclick="showNote('Sen benim en güzel şansım, en tatlı tesadüfüm, en değerli varlığımsın.')"><img src="img/foto16.jpg" alt="Fotoğraf 16"></div>
+        <div class="photo" onclick="showNote('Seninle olan her anım öyle değerli ki, zaman dursa da bu anlar hiç bitmese diyorum.')"><img src="img/foto17.jpg" alt="Fotoğraf 17"></div>
+        <div class="photo" onclick="showNote('Aşkımız bir masal gibi başladı, ama gerçek oldu. Sen benim gerçek olan en güzel hayalimsin.')"><img src="img/foto18.jpg" alt="Fotoğraf 18"></div>
+        <div class="photo" onclick="showNote('Her seni seviyorum deyişimde, kalbim ilk günkü gibi heyecanla çarpıyor birtanem.')"><img src="img/foto19.jpg" alt="Fotoğraf 19"></div>
+        <div class="photo" onclick="showNote('Seninle paylaştığımız her an her gülüş tek bir bakış bile benim için çok değerli.')"><img src="img/foto20.jpg" alt="Fotoğraf 20"></div>
+        <div class="photo" onclick="showNote('Seninle geçen günler, hayatımın en anlamlı zamanları oldu.')"><img src="img/foto21.jpg" alt="Fotoğraf 21"></div>
+        <div class="photo" onclick="showNote('Aşkımız zamana meydan okuyor, her gün biraz daha büyüyor, biraz daha güzelleşiyor, 3 5 10 ay derken yıllarımıza hep beraber girelim hayatım.')"><img src="img/foto22.jpg" alt="Fotoğraf 22"></div>
+        <div class="photo" onclick="showNote('Sen benim en güzel manzaram, en huzurlu limanım, sımsıcakkk yuvamsın.')"><img src="img/foto23.jpg" alt="Fotoğraf 23"></div>
+        <div class="photo" onclick="showNote('Seninle yaşadığımız her an, kalbimde sonsuza dek saklı kalacak.')"><img src="img/foto24.jpg" alt="Fotoğraf 24"></div>
+        <div class="photo" onclick="showNote('Gözlerindeki o tatlı ışık gökyüzünü aydınlatan yıldızlardan bile daha parlak güzel sevgilim.')"><img src="img/foto25.jpg" alt="Fotoğraf 25"></div>
+        <div class="photo" onclick="showNote('Her sabah yanında uyanmak, hayatımın en büyük mutluluğu olurdu umarım o günlere de geleceğiz yavrum.')"><img src="img/foto26.jpg" alt="Fotoğraf 26"></div>
+        <div class="photo" onclick="showNote('Seni sevmek, nefes almak kadar doğal, su içmek kadar vazgeçilmez.')"><img src="img/foto27.jpg" alt="Fotoğraf 27"></div>
+        <div class="photo" onclick="showNote('Seninle olan her anım, seninleyken aldığım her nefes o kadar keyifli ve güzel ki anlatamamm..')"><img src="img/foto28.jpg" alt="Fotoğraf 28"></div>
+        <div class="photo" onclick="showNote('Aşkımız bir şiir gibi, her gün yeni bir mısra ekleniyor mutluluğumuza.')"><img src="img/foto29.jpg" alt="Fotoğraf 29"></div>
+        <div class="photo" onclick="showNote('Sen benim tamamlanmış en güzel cümlem, yaşanmış en güzel hayalimsin.')"><img src="img/foto30.jpg" alt="Fotoğraf 30"></div>
+    </div>
+
+
+    <!-- Sevgi Notu -->
+    <div class="note" id="note">
+        <button class="close-note" onclick="closeNote()">✖</button>
+        <p id="note-text"></p>
+    </div>
+
+    <script>
+        // Sevgi Notu Gösterme Fonksiyonu
+        function showNote(message) {
+            const note = document.getElementById('note');
+            const noteText = document.getElementById('note-text');
+            noteText.textContent = message; // Mesajı notun içine yerleştir
+            note.classList.add('active'); // Notu görünür yap
+        }
+
+        function closeNote() {
+            const note = document.getElementById('note');
+            note.classList.remove('active'); // Notu gizle
+        }
+
+        // Arka Plan Slayt Gösterisi
+        const slides = document.querySelectorAll('.slideshow img');
+        let currentSlide = 0;
+
+        function changeSlide() {
+            slides[currentSlide].classList.remove('active'); // Mevcut resmi gizle
+            currentSlide = (currentSlide + 1) % slides.length; // Sıradaki resmi seç
+            slides[currentSlide].classList.add('active'); // Yeni resmi göster
+        }
+
+        setInterval(changeSlide, 5000); // Her 5 saniyede bir resmi değiştir
+    </script>
+</body>
+</html>
