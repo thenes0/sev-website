@@ -1,146 +1,79 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>8 Eylül Yıldız Haritası</title>
-    <style>
-        /* Genel stil */
-        body {
-            margin: 0;
-            font-family: 'Arial', sans-serif;
-            color: white;
-            overflow-x: hidden;
-            background: black;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YKS 2026 Geri Sayım</title>
 
-        /* Arka plan videosu */
-        .background-video {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-        }
+<style>
 
-        .background-video video {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+body{
+    background:black;
+    color:white;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-family: Arial, sans-serif;
+}
 
-        /* Giriş bölümü */
-        .intro {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
-            background: rgba(0, 0, 0, 0.5);
-        }
+.container{
+    text-align:center;
+}
 
-        .intro h1 {
-            font-size: 3rem;
-            animation: fadeIn 3s ease-in-out;
-            text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
-        }
+.title{
+    font-size:32px;
+    margin-bottom:20px;
+    letter-spacing:2px;
+}
 
-        /* Yıldız haritası bölümü */
-        .star-map {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 120vh; /* Daha fazla boşluk için yüksekliği artırdık */
-            background: black;
-            position: relative;
-            overflow: hidden;
-            transition: background 1s ease-in-out; /* Geçiş efekti */
-        }
+#countdown{
+    font-size:48px;
+    font-weight:bold;
+}
 
-        .star-map .star-image {
-            width: 50%;
-            transition: transform 1s ease, box-shadow 1s ease;
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            border-radius: 50%;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-        }
+.small{
+    font-size:18px;
+    margin-top:10px;
+    opacity:0.7;
+}
 
-        .star-map .star-image:hover {
-            transform: scale(1.2);
-            box-shadow: 0 0 40px rgba(255, 255, 255, 0.8);
-        }
-
-        /* Daha fazla içerik */
-        .content {
-            padding: 20px;
-            background: #111;
-            text-align: center;
-        }
-
-        .content p {
-            font-size: 1.2rem;
-            line-height: 1.8;
-        }
-
-        /* Animasyonlar */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-    </style>
+</style>
 </head>
+
 <body>
-    <!-- Arka plan videosu -->
-    <div class="background-video">
-        <video autoplay muted loop>
-            <source src="img/space.mov" type="video/quicktime">
-            <source src="img/space.mp4" type="video/mp4"> <!-- Yedek olarak mp4 -->
-            Tarayıcınız videoyu desteklemiyor. 
-            <img src="img/space.jpg" alt="Arka Plan Resmi">
-        </video>
-    </div>
 
-    <!-- Sayfanın giriş kısmı -->
-    <section class="intro">
-        <h1>Tanıştığımız Günün Yıldız Haritası</h1>
-    </section>
+<div class="container">
+    <div class="title">YKS 2026'ya Kalan Süre</div>
+    <div id="countdown">Yükleniyor...</div>
+    <div class="small">26 Haziran 2026</div>
+</div>
 
-    <!-- Yıldız haritası bölümü -->
-    <section class="star-map" id="star-map">
-        <img src="img/yildiz_haritasi.jpeg" alt="Yıldız Haritası" class="star-image">
-    </section>
+<script>
+const targetDate = new Date("June 26, 2026 00:00:00").getTime();
 
-    <!-- Daha fazla içerik -->
-    <section class="content">
-        <p>Bu harita eşsiz bir günün gökyüzüne vurmuş hali, iyi ki seni tanıdım güzelim.</p>
-    </section>
+function updateCountdown() {
+    const now = new Date().getTime();
+    const difference = targetDate - now;
 
-    <script>
-        // Scroll ile yıldız haritasını büyütme
-        document.addEventListener('scroll', () => {
-            const scrollPosition = window.scrollY;
-            const starImage = document.querySelector('.star-image');
-            const starMap = document.querySelector('.star-map');
+    if (difference <= 0) {
+        document.getElementById("countdown").innerHTML = 
+        "ZAMAN GELDİ 🚀";
+        return;
+    }
 
-            if (scrollPosition > 100) {
-                starImage.style.transform = `scale(${1 + scrollPosition / 1000})`;
-                starImage.style.boxShadow = `0 0 ${20 + scrollPosition / 10}px rgba(255, 255, 255, 0.8)`;
-            }
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-            // Geçiş efekti: Arka plan videosundan yıldız haritasına geçiş
-            const windowHeight = window.innerHeight;
-            if (scrollPosition >= windowHeight) {
-                starMap.style.background = "radial-gradient(circle, rgba(0,0,0,1) 60%, rgba(255,255,255,0.1) 100%)";
-            } else {
-                starMap.style.background = "black";
-            }
-        });
-    </script>
+    document.getElementById("countdown").innerHTML =
+        `${days} Gün ${hours} Saat ${minutes} Dakika ${seconds} Saniye`;
+}
+
+setInterval(updateCountdown, 1000);
+updateCountdown();
+</script>
+
 </body>
 </html>
